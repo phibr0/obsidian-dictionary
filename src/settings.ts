@@ -1,7 +1,4 @@
 export interface DictionarySettings {
-	mySetting: string;
+	defaultLanguage: string;
 }
 
-export const DEFAULT_SETTINGS: DictionarySettings = {
-	mySetting: 'default'
-}

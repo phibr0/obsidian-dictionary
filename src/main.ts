@@ -1,10 +1,9 @@
 import { Plugin } from 'obsidian';
 import SettingsTab from 'src/ui/settings/settingsTab';
-import { DEFAULT_SETTINGS, DictionarySettings } from 'src/settings'
 import DictionaryView from 'src/ui/dictionary/dictionaryView';
-import { VIEW_TYPE } from 'src/_constants';
+import { DEFAULT_SETTINGS, VIEW_TYPE } from 'src/_constants';
 
-
+import type { DictionarySettings } from 'src/settings'
 
 export default class DictionaryPlugin extends Plugin {
 	settings: DictionarySettings;
@@ -22,8 +21,14 @@ export default class DictionaryPlugin extends Plugin {
 			return this.view
 		})
 
-		this.app.workspace.getRightLeaf(false).setViewState({
-			type: VIEW_TYPE,
+		this.addCommand({
+			id: 'dictionary-open-view',
+			name: 'Open Dictionary View',
+			callback: () => {
+				this.app.workspace.getRightLeaf(false).setViewState({
+					type: VIEW_TYPE,
+				});
+			},
 		});
 	}
 

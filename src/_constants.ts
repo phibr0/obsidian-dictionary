@@ -2,7 +2,7 @@ import type { DictionarySettings } from "src/settings";
 
 export const VIEW_TYPE = 'dictionary-view';
 export const VIEW_DISPLAY_TEXT = 'Dictionary';
-export const VIEW_ICON = 'languages';
+export const VIEW_ICON = 'quote-glyph';
 
 export const DEFAULT_SETTINGS: DictionarySettings = {
 	defaultLanguage: "English (US)"

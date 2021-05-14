@@ -5,15 +5,15 @@
 
 <div class="main">
   {#if audio}
-  <details>
-    <summary>{text.replace("/", "").replace("/", "")}</summary>
-    <!-- svelte-ignore a11y-media-has-caption -->
-    <audio controls>
-      <source src={audio} type="audio/mpeg" />
-    </audio>
-  </details>
+    <details>
+      <summary>{text.replace("/", "").replace("/", "")}</summary>
+      <!-- svelte-ignore a11y-media-has-caption -->
+      <audio controls>
+        <source src={audio} type="audio/mpeg" />
+      </audio>
+    </details>
   {:else}
-  {text.replace("/", "").replace("/", "")}
+    {text.replace("/", "").replace("/", "")}
   {/if}
 </div>
 

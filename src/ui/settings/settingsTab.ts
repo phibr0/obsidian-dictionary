@@ -12,11 +12,11 @@ export default class SettingsTab extends PluginSettingTab {
 	}
 
 	display(): void {
-		let {containerEl} = this;
+		let { containerEl } = this;
 
 		containerEl.empty();
 
-		containerEl.createEl('h2', {text: 'Dictionary Settings'});
+		containerEl.createEl('h2', { text: 'Dictionary Settings' });
 
 		// new Setting(containerEl)
 		// 	.setName('Setting #1')
@@ -33,7 +33,7 @@ export default class SettingsTab extends PluginSettingTab {
 			.setName('Language')
 			.setDesc('The Language the Plugin will use to search for Definitions and Pronunciations.')
 			.addDropdown((dropdown) => {
-				for(const language in LANGUAGES){
+				for (const language in LANGUAGES) {
 					dropdown.addOption(language, language);
 				}
 				dropdown.setValue(this.plugin.settings.defaultLanguage)

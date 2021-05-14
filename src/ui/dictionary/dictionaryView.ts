@@ -31,10 +31,10 @@ export default class DictionaryView extends ItemView {
 
     async onOpen() {
         this._app = new DictionaryComponent({
-          target: this.contentEl,
-          props: {
-              settings: this.plugin.settings,
-          }
+            target: this.contentEl,
+            props: {
+                settings: this.plugin.settings,
+            }
         });
     }
 

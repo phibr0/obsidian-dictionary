@@ -33,7 +33,7 @@ The following Languages are supported:
 3. Click install
 4. Toggle the Plugin on in the **Community Plugins** Tab
 
-## Support me
+## Support
 
 If you find this Plugin helpful, consider supporting me:
 

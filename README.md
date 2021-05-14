@@ -1,5 +1,7 @@
 # Obsidian Dictionary Plugin [![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/phibr0/obsidian-dictionary)](https://github.com/phibr0/obsidian-dictionary/releases) ![GitHub all releases](https://img.shields.io/github/downloads/phibr0/obsidian-dictionary/total) [![](https://img.shields.io/badge/Support%3F-Buy%20me%20a%20Coffee-yellow)](https://www.buymeacoffee.com/phibr0)
 
+<img align="right" height="450" src="https://user-images.githubusercontent.com/59741989/118292715-3250ef80-b4d9-11eb-8bee-32d6b2e25391.png">
+
 This Plugin adds a Dictionary to the [Obsidian](https://obsidian.md) Note-Taking tool.
 
 ## Usage
@@ -31,11 +33,11 @@ The following Languages are supported:
 3. Click install
 4. Toggle the Plugin on in the **Community Plugins** Tab
 
-
 ## Roadmap
 
 - [ ] Mobile Support
-- [ ] 
+- [ ]
+
 ## Support me
 
 If you find this Plugin helpful, consider supporting me:

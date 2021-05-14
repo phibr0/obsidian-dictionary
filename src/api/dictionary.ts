@@ -2,6 +2,7 @@ import { API_END_POINT, LANGUAGES } from "src/_constants";
 import type { DictionaryWord } from "src/api/types";
 import type { DictionarySettings } from "src/settings";
 import { Convert } from "./types"
+import { debounce } from "obsidian";
 
 export default class Dictionary {
 
@@ -11,7 +12,7 @@ export default class Dictionary {
         this.settings = settings;
     }
 
-    async sendRequest(query: string, debounced = true): Promise<DictionaryWord> {
+    async sendRequest(query: string, _ = true): Promise<DictionaryWord> {
         let result;
         try {
             result = await fetch(this.constructRequest(query));

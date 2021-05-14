@@ -53,7 +53,8 @@
           {/each}
         </div>
       {:catch error}
-        <p style="color: red">{error.message}</p>
+        <p class="error">Something went wrong..</p>
+        <p class="errorDescription">I can't find the word you are looking for or the server can't be reached. You can try again in a few minutes.</p>
       {/await}
     {/if}
   </div>
@@ -89,6 +90,19 @@
       margin-bottom: 0.3rem;
       font-weight: normal;
     }
+  }
+
+  .error{
+    text-align: center;
+    width: 100%;
+    color: var(--text-muted);
+  }
+
+  .errorDescription{
+    text-align: center;
+    width: 100%;
+    font-size: 0.9em;
+    color: var(--text-faint);
   }
 
   .gg-search {

@@ -9,11 +9,15 @@
   <details>
     <summary>{partOfSpeech}</summary>
 
-    {#each definitions as definition}
+    {#each definitions as definition, i}
       <div class="definition">
-        <p>Definition:<br />{definition.definition}</p>
-        <p>Example:<br />{definition.example}</p>
-        {#if definition.synonyms}
+        {#if definition.definition}
+          <p>Definition:<br />{definition.definition}</p>
+        {/if}
+        {#if definition.example}
+          <p>Example:<br />{definition.example}</p>
+        {/if}
+        {#if definition.synonyms && definition.synonyms[i]}
           <div class="synonyms">
             Synonyms:
             <ul>

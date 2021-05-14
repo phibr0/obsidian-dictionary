@@ -4,15 +4,17 @@
 </script>
 
 <div class="main">
+  {#if audio}
   <details>
     <summary>{text.replace("/", "").replace("/", "")}</summary>
     <!-- svelte-ignore a11y-media-has-caption -->
-    {#if audio}
     <audio controls>
       <source src={audio} type="audio/mpeg" />
     </audio>
-    {/if}
   </details>
+  {:else}
+  {text.replace("/", "").replace("/", "")}
+  {/if}
 </div>
 
 <style lang="scss">

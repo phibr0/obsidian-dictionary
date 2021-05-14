@@ -30,13 +30,13 @@ export default class SettingsTab extends PluginSettingTab {
 		// 			await this.plugin.saveSettings();
 		// 		}));
 		new Setting(containerEl)
-			.setName('Default Language')
-			.setDesc('The Dictionary tries to infer the proper Language, but you can set an Override here.')
+			.setName('Language')
+			.setDesc('The Language the Plugin will use to search for Definitions and Pronunciations.')
 			.addDropdown((dropdown) => {
-				for(let language in LANGUAGES){
+				for(const language in LANGUAGES){
 					dropdown.addOption(language, language);
 				}
-				dropdown.setValue(String(this.plugin.settings.defaultLanguage))
+				dropdown.setValue(this.plugin.settings.defaultLanguage)
 					.onChange(async (value) => {
 						this.plugin.settings.defaultLanguage = value;
 						await this.plugin.saveSettings();

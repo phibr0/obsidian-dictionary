@@ -20,13 +20,13 @@ export default class Dictionary {
      * @returns The API Response of the API as Promise<DictionaryWord>
      */
     async sendRequest(query: string, _ = true): Promise<DictionaryWord> {
-        let result;
+        let result: Response;
         try {
             result = await fetch(this.constructRequest(query));
         } catch (error) {
             return Promise.reject(error);
         }
-        return await Convert.toDictionaryWord(await result.text()).first();
+        return Convert.toDictionaryWord(await result.text()).first();
     }
 
     /**
@@ -39,7 +39,7 @@ export default class Dictionary {
     }
 
     /**
-     * @returns Returns the right Language Code
+     * @returns Returns the correct Language Code
      */
     private getLanguageCode(): string {
         //TODO Get Language from Word Context first

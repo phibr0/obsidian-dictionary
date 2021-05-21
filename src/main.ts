@@ -1,13 +1,15 @@
+import type { DictionarySettings } from 'src/settings'
+
 import { Plugin } from 'obsidian';
 import SettingsTab from 'src/ui/settings/settingsTab';
 import DictionaryView from 'src/ui/dictionary/dictionaryView';
 import { DEFAULT_SETTINGS, VIEW_TYPE } from 'src/_constants';
-
-import type { DictionarySettings } from 'src/settings'
+import APIManager from 'src/apiManager'
 
 export default class DictionaryPlugin extends Plugin {
 	settings: DictionarySettings;
 	view: DictionaryView;
+	manager: APIManager;
 
 	async onload() {
 		console.log('loading dictionary');
@@ -30,6 +32,8 @@ export default class DictionaryPlugin extends Plugin {
 				});
 			},
 		});
+
+		this.manager = new APIManager(this.settings);
 	}
 
 	onunload() {

@@ -1,26 +1,19 @@
 <script lang="ts">
-  import Dictionary from "../../api/dictionary";
-  import type { DictionarySettings } from "src/settings";
+  import type DictionaryPlugin from "src/main";
   import type { DictionaryWord } from "src/api/types";
+
   import PhoneticComponent from "./phoneticComponent.svelte";
   import MeaningComponent from "./meaningComponent.svelte";
-  import ErrorComponent from "./errorComponent.svelte"
+  import ErrorComponent from "./errorComponent.svelte";
 
-  export let settings: DictionarySettings;
+  export let plugin: DictionaryPlugin;
 
-  let dictionary = new Dictionary(settings);
   let query: string = "";
   let promise: Promise<DictionaryWord>;
 
-  function handleClick() {
-    if (query.trim() != "") {
-      promise = dictionary.sendRequest(query, false);
-    }
-  }
-
   function handleBlur() {
     if (query.trim() != "") {
-      promise = dictionary.sendRequest(query);
+      promise = plugin.manager.requestDefinitions(query);
     }
   }
 </script>
@@ -34,19 +27,21 @@
       bind:value={query}
       on:blur={handleBlur}
     />
-    <button on:click={handleClick}><i class="gg-search" /></button>
+    <button on:click={handleBlur}><i class="gg-search" /></button>
   </div>
   <div class="results">
     {#if query.trim() != "" && promise}
       {#await promise}
         <p>loading..</p>
       {:then data}
-        <div class="container">
-          <h3>Pronunciation</h3>
-          {#each data.phonetics as { text, audio }}
-            <PhoneticComponent {audio} {text} />
-          {/each}
-        </div>
+        {#if data.phonetics.first().text}
+          <div class="container">
+            <h3>Pronunciation</h3>
+            {#each data.phonetics as { text, audio }}
+              <PhoneticComponent {audio} {text} />
+            {/each}
+          </div>
+        {/if}
         <div class="container">
           <h3>Meanings</h3>
           {#each data.meanings as { definitions, partOfSpeech }}
@@ -54,7 +49,7 @@
           {/each}
         </div>
       {:catch error}
-        <ErrorComponent {error}/>
+        <ErrorComponent {error} />
       {/await}
     {/if}
   </div>

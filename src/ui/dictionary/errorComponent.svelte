@@ -1,5 +1,5 @@
 <script lang="ts">
-    export let error: string;
+  export let error: string;
 </script>
 
 <div class="main">
@@ -8,7 +8,7 @@
     I can't find the word you are looking for or the server can't be reached.
     You can try again in a few minutes.
   </p>
-  <details style="display: none">{error??""}</details>
+  <details style="display: none">{error ?? ""}</details>
 </div>
 
 <style>

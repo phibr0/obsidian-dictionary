@@ -5,7 +5,9 @@ export const VIEW_DISPLAY_TEXT = 'Dictionary';
 export const VIEW_ICON = 'quote-glyph';
 
 export const DEFAULT_SETTINGS: DictionarySettings = {
-	defaultLanguage: "English (US)"
+	defaultLanguage: "English (US)",
+	definitionApiName: "Free Dictionary API",
+	synonymApiName: "Free Dictionary API"
 }
 
 export const API_END_POINT = "https://api.dictionaryapi.dev/api/v2/entries/"

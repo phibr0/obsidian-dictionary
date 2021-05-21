@@ -1,7 +1,8 @@
+import type DictionaryPlugin from "src/main";
+
 import { ItemView, WorkspaceLeaf } from "obsidian";
 import { VIEW_TYPE, VIEW_DISPLAY_TEXT, VIEW_ICON } from "src/_constants";
 import DictionaryComponent from "./dictionaryView.svelte"
-import type DictionaryPlugin from "src/main";
 
 export default class DictionaryView extends ItemView {
 
@@ -33,7 +34,7 @@ export default class DictionaryView extends ItemView {
         this._app = new DictionaryComponent({
             target: this.contentEl,
             props: {
-                settings: this.plugin.settings,
+                plugin: this.plugin,
             }
         });
     }

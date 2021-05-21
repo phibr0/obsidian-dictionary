@@ -1,38 +1,35 @@
-// To parse this data:
-//
-//   import { Convert } from "./file";
-//
-//   const dictionaryWord = Convert.toDictionaryWord(json);
+interface Provider {
+    name: string;
+}
+export interface DefinitionProvider extends Provider {
+    requestDefinitions: { (query: string): Promise<DictionaryWord> };
+    supportedLanguagesD: string[];
+}
+
+export interface SynonymProvider extends Provider {
+    name: string;
+    requestSynonyms: { (query: string): Promise<string[]> };
+    supportedLanguagesS: string[];
+}
 
 export interface DictionaryWord {
-    word:      string;
+    word: string;
     phonetics: Phonetic[];
-    meanings:  Meaning[];
+    meanings: Meaning[];
 }
 
 export interface Meaning {
     partOfSpeech: string;
-    definitions:  Definition[];
+    definitions: Definition[];
 }
 
 export interface Definition {
     definition: string;
-    example?:   string;
-    synonyms?:  string[];
+    example?: string;
+    synonyms?: string[];
 }
 
 export interface Phonetic {
-    text:   string;
+    text: string;
     audio?: string;
-}
-
-// Converts JSON strings to/from your types
-export class Convert {
-    public static toDictionaryWord(json: string): DictionaryWord[] {
-        return JSON.parse(json);
-    }
-
-    public static dictionaryWordToJson(value: DictionaryWord[]): string {
-        return JSON.stringify(value);
-    }
 }

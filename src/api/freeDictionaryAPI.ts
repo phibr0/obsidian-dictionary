@@ -1,12 +1,12 @@
 import type { DefinitionProvider, DictionaryWord, Meaning, SynonymProvider } from "src/api/types";
 import type  DictionarySettings  from "src/types";
 
-import { API_END_POINT, LANGUAGES } from "src/_constants";
+import { LANGUAGES } from "src/_constants";
 import { debounce } from "obsidian";
 
 export default class FreeDictionaryAPI implements DefinitionProvider, SynonymProvider {
 
-    settings: DictionarySettings;
+    API_END_POINT: string = "https://api.dictionaryapi.dev/api/v2/entries/";
 
     public name: string = "Free Dictionary API";
     public supportedLanguagesD: string[] = [
@@ -28,14 +28,10 @@ export default class FreeDictionaryAPI implements DefinitionProvider, SynonymPro
         "English (US)",
     ];
 
-    constructor(settings: DictionarySettings) {
-        this.settings = settings;
-    }
-
-    async requestSynonyms(query: string): Promise<string[]> {
+    async requestSynonyms(query: string, lang: string): Promise<string[]> {
         let result: Response;
         try {
-            result = await fetch(this.constructRequest(query));
+            result = await fetch(this.constructRequest(query, lang));
         } catch (error) {
             return Promise.reject(error);
         }
@@ -56,10 +52,10 @@ export default class FreeDictionaryAPI implements DefinitionProvider, SynonymPro
      * @param _ - For now unused parameter, debouncing mechanism planned
      * @returns The API Response of the API as Promise<DictionaryWord>
      */
-    async requestDefinitions(query: string, _ = true): Promise<DictionaryWord> {
+    async requestDefinitions(query: string, lang: string, _ = true): Promise<DictionaryWord> {
         let result: Response;
         try {
-            result = await fetch(this.constructRequest(query));
+            result = await fetch(this.constructRequest(query, lang));
         } catch (error) {
             return Promise.reject(error);
         }
@@ -70,17 +66,17 @@ export default class FreeDictionaryAPI implements DefinitionProvider, SynonymPro
      * @param query - The term you want to look up
      * @returns Returns the URL in REST schema
      */
-    private constructRequest(query: string): string {
-        return API_END_POINT + this.getLanguageCode() + '/' + query;
+    private constructRequest(query: string, lang: string): string {
+        return this.API_END_POINT + this.getLanguageCode(lang) + '/' + query;
         //SCHEMA: https://api.dictionaryapi.dev/api/v2/entries/<language_code>/<word>
     }
 
     /**
      * @returns Returns the correct Language Code
      */
-    private getLanguageCode(): string {
+    private getLanguageCode(lang: string): string {
         //TODO Get Language from Word Context first
-        return LANGUAGES[this.settings.defaultLanguage];
+        return LANGUAGES[lang];
     }
 
 }

@@ -10,8 +10,6 @@ export const DEFAULT_SETTINGS: DictionarySettings = {
 	synonymApiName: "Free Dictionary API"
 }
 
-export const API_END_POINT = "https://api.dictionaryapi.dev/api/v2/entries/"
-
 export const LANGUAGES = {
 	"English (US)": "en_US",
 	"Hindi": "hi",

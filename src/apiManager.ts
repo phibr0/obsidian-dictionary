@@ -25,10 +25,10 @@ export default class APIManager {
     constructor(settings: DictionarySettings) {
         this.settings = settings;
         this.definitionProvider.push(
-            new FreeDictionaryAPI(this.settings),
+            new FreeDictionaryAPI(),
         );
         this.synonymProvider.push(
-            new FreeDictionaryAPI(this.settings),
+            new FreeDictionaryAPI(),
         )
     }
 
@@ -36,20 +36,22 @@ export default class APIManager {
      * Sends a request with the passed query to the chosen API and returns the Result
      *
      * @param query - The term you want to look up
+     * @param lang - The Language the Api will use
      * @returns The API Response of the chosen API as Promise<DictionaryWord>
      */
     async requestDefinitions(query: string): Promise<DictionaryWord> {
-        return await this.getDefinitionAPI().requestDefinitions(query);
+        return await this.getDefinitionAPI().requestDefinitions(query, this.settings.defaultLanguage);
     }
 
     /**
      * Sends a request with the passed query to the chosen API and returns the resulting Synonyms
      *
      * @param query - The term you want to look up
+     * @param lang - The Language the API will use
      * @returns The API Response of the chosen API as Promise<string[]>
      */
     async requestSynonyms(query: string): Promise<string[]> {
-        return await this.getSynonymAPI().requestSynonyms(query);
+        return await this.getSynonymAPI().requestSynonyms(query, this.settings.defaultLanguage);
     }
 
     private getDefinitionAPI() {

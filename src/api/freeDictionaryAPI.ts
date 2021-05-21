@@ -40,7 +40,7 @@ export default class FreeDictionaryAPI implements DefinitionProvider, SynonymPro
             return Promise.reject(error);
         }
         let synonyms: string[] = [];
-        const meanings: Meaning[] = Convert.toDictionaryWord(await result.text()).first().meanings;
+        const meanings: Meaning[] = (await result.json() as DictionaryWord[]).first().meanings;
         for (let i = 0; i < meanings.length; i++) {
             for (let y = 0; y < meanings[i].definitions.length; y++) {
                 synonyms.push(...meanings[i].definitions[y]?.synonyms);
@@ -63,7 +63,7 @@ export default class FreeDictionaryAPI implements DefinitionProvider, SynonymPro
         } catch (error) {
             return Promise.reject(error);
         }
-        return Convert.toDictionaryWord(await result.text()).first();
+        return (await result.json() as DictionaryWord[]).first();
     }
 
     /**
@@ -83,14 +83,4 @@ export default class FreeDictionaryAPI implements DefinitionProvider, SynonymPro
         return LANGUAGES[this.settings.defaultLanguage];
     }
 
-}
-
-class Convert {
-    public static toDictionaryWord(json: string): DictionaryWord[] {
-        return JSON.parse(json);
-    }
-
-    public static dictionaryWordToJson(value: DictionaryWord[]): string {
-        return JSON.stringify(value);
-    }
 }

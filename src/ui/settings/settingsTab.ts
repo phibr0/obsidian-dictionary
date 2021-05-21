@@ -61,6 +61,6 @@ export default class SettingsTab extends PluginSettingTab {
 						this.plugin.settings.synonymApiName = value;
 						await this.plugin.saveSettings();
 					});
-			})
+			});
 	}
 }

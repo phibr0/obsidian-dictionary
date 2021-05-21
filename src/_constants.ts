@@ -1,4 +1,4 @@
-import type { DictionarySettings } from "src/settings";
+import type DictionarySettings from "src/types";
 
 export const VIEW_TYPE = 'dictionary-view';
 export const VIEW_DISPLAY_TEXT = 'Dictionary';

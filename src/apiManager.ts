@@ -1,5 +1,5 @@
 import type { DefinitionProvider, DictionaryWord, SynonymProvider } from "src/api/types";
-import type { DictionarySettings } from "src/settings";
+import type DictionarySettings from "src/types";
 
 import FreeDictionaryAPI from "src/api/freeDictionaryAPI"
 

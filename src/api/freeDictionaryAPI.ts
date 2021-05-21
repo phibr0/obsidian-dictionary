@@ -1,5 +1,5 @@
 import type { DefinitionProvider, DictionaryWord, Meaning, SynonymProvider } from "src/api/types";
-import type { DictionarySettings } from "src/settings";
+import type  DictionarySettings  from "src/types";
 
 import { API_END_POINT, LANGUAGES } from "src/_constants";
 import { debounce } from "obsidian";

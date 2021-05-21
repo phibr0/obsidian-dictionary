@@ -1,4 +1,4 @@
-import type { DictionarySettings } from 'src/settings'
+import type DictionarySettings from 'src/types'
 
 import { Plugin } from 'obsidian';
 import SettingsTab from 'src/ui/settings/settingsTab';
@@ -21,7 +21,7 @@ export default class DictionaryPlugin extends Plugin {
 		this.registerView(VIEW_TYPE, (leaf) => {
 			this.view = new DictionaryView(leaf, this)
 			return this.view
-		})
+		});
 
 		this.addCommand({
 			id: 'dictionary-open-view',

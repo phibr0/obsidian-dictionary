@@ -7,7 +7,6 @@ export interface DefinitionProvider extends Provider {
 }
 
 export interface SynonymProvider extends Provider {
-    name: string;
     requestSynonyms: { (query: string, lang: string): Promise<string[]> };
     supportedLanguagesS: string[];
 }

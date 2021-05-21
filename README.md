@@ -10,7 +10,7 @@ Open the *Command Palette* (default: `ctrl` + `p`), search for *Open Dictionary 
 
 ## Supported Languages
 
-The following Languages are supported:
+The following Languages are currently supported:
 
 - English (US)
 - English (UK)
@@ -36,7 +36,28 @@ The following Languages are supported:
 ## Roadmap
 
 - [ ] Mobile Support
-- [ ]
+
+## How to make this Plugin better
+
+This Plugin is ment to be easily extensible! If you want to add a new API for a new (or already supported) Language see: [API Manager](src/apiManager.ts).
+
+You will need to create a new class for the new API, which implements [DefinitionProvider](src/api/types.ts) or [SynonymProvider](src/api/types.ts) (or both):
+
+```ts
+// src/api/types.ts
+
+export interface DefinitionProvider extends Provider {
+    requestDefinitions: { (query: string, lang: string): Promise<DictionaryWord> };
+    supportedLanguagesD: string[];
+}
+
+export interface SynonymProvider extends Provider {
+    requestSynonyms: { (query: string, lang: string): Promise<string[]> };
+    supportedLanguagesS: string[];
+}
+```
+
+After that add the API to the respective List in the [API Manager](src/apiManager.ts). Finally you can open a new Pull Request here on GitHub.
 
 ## Support me
 

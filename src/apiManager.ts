@@ -24,9 +24,12 @@ export default class APIManager {
 
     constructor(settings: DictionarySettings) {
         this.settings = settings;
+
+        // Adds new API's to the Definition Providers
         this.definitionProvider.push(
             new FreeDictionaryAPI(),
         );
+        // Adds new API's to the Synonym Providers
         this.synonymProvider.push(
             new FreeDictionaryAPI(),
         )
@@ -54,10 +57,16 @@ export default class APIManager {
         return await this.getSynonymAPI().requestSynonyms(query, this.settings.defaultLanguage);
     }
 
+    /**
+     * @returns Returns the currently active Definition API
+     */
     private getDefinitionAPI() {
         return this.definitionProvider.find(api => api.name == this.settings.definitionApiName);
     }
 
+    /**
+     * @returns Returns the currently active Synonym API
+     */
     private getSynonymAPI() {
         return this.synonymProvider.find(api => api.name == this.settings.synonymApiName);
     }

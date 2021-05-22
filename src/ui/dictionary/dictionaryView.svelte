@@ -1,19 +1,19 @@
 <script lang="ts">
-  import type DictionaryPlugin from "src/main";
+  import type APIManager from "src/apiManager";
   import type { DictionaryWord } from "src/api/types";
 
   import PhoneticComponent from "./phoneticComponent.svelte";
   import MeaningComponent from "./meaningComponent.svelte";
   import ErrorComponent from "./errorComponent.svelte";
 
-  export let plugin: DictionaryPlugin;
+  export let manager: APIManager;
 
   let query: string = "";
   let promise: Promise<DictionaryWord>;
 
   function handleBlur() {
     if (query.trim() != "") {
-      promise = plugin.manager.requestDefinitions(query);
+      promise = manager.requestDefinitions(query);
     }
   }
 </script>

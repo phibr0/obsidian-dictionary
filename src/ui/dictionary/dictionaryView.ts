@@ -34,7 +34,7 @@ export default class DictionaryView extends ItemView {
         this._app = new DictionaryComponent({
             target: this.contentEl,
             props: {
-                plugin: this.plugin,
+                manager: this.plugin.manager,
             }
         });
     }

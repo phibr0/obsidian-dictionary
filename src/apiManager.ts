@@ -19,20 +19,17 @@ APIManager, as seen below
 export default class APIManager {
     private settings: DictionarySettings
 
-    definitionProvider: DefinitionProvider[] = [];
-    synonymProvider: SynonymProvider[] = [];
+    // Adds new API's to the Definition Providers
+    definitionProvider: DefinitionProvider[] = [
+        new FreeDictionaryAPI(),
+    ];
+    // Adds new API's to the Synonym Providers
+    synonymProvider: SynonymProvider[] = [
+        new FreeDictionaryAPI(),
+    ];
 
     constructor(settings: DictionarySettings) {
         this.settings = settings;
-
-        // Adds new API's to the Definition Providers
-        this.definitionProvider.push(
-            new FreeDictionaryAPI(),
-        );
-        // Adds new API's to the Synonym Providers
-        this.synonymProvider.push(
-            new FreeDictionaryAPI(),
-        )
     }
 
     /**

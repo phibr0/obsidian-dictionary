@@ -2,12 +2,12 @@ import type DictionaryPlugin from "src/main";
 
 import { ItemView, WorkspaceLeaf } from "obsidian";
 import { VIEW_TYPE, VIEW_DISPLAY_TEXT, VIEW_ICON } from "src/_constants";
-import DictionaryComponent from "./dictionaryView.svelte"
+import DictionaryComponent from "./dictionaryView.svelte";
 
 export default class DictionaryView extends ItemView {
 
     plugin: DictionaryPlugin;
-    private _app: DictionaryComponent;
+    private _view: DictionaryComponent;
 
     constructor(leaf: WorkspaceLeaf, plugin: DictionaryPlugin) {
         super(leaf);
@@ -27,11 +27,11 @@ export default class DictionaryView extends ItemView {
     }
 
     async onClose() {
-        this._app.$destroy();
+        this._view.$destroy();
     }
 
     async onOpen() {
-        this._app = new DictionaryComponent({
+        this._view = new DictionaryComponent({
             target: this.contentEl,
             props: {
                 manager: this.plugin.manager,

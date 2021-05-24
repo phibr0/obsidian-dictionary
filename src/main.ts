@@ -8,7 +8,6 @@ import APIManager from 'src/apiManager'
 
 export default class DictionaryPlugin extends Plugin {
 	settings: DictionarySettings;
-	view: DictionaryView;
 	manager: APIManager;
 
 	async onload() {
@@ -19,8 +18,7 @@ export default class DictionaryPlugin extends Plugin {
 		this.addSettingTab(new SettingsTab(this.app, this));
 
 		this.registerView(VIEW_TYPE, (leaf) => {
-			this.view = new DictionaryView(leaf, this)
-			return this.view
+			return new DictionaryView(leaf, this)
 		});
 
 		this.addCommand({

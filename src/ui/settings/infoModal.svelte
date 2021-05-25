@@ -8,7 +8,6 @@
 <div class="vertical-tab-content">
   <h2>API Information</h2>
   <h3>Definition API's</h3>
-  <hr />
 
   {#each definitionAPIs as definition}
     <div class="setting-item">
@@ -20,7 +19,6 @@
   {/each}
 
   <h3>Synonym API's</h3>
-  <hr />
 
   {#each synonymAPIs as synonym}
     <div class="setting-item">
@@ -36,8 +34,5 @@
   h3 {
     font-weight: 400;
     margin: 0;
-  }
-  hr{
-      margin: 0;
   }
 </style>

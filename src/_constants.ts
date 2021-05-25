@@ -11,17 +11,17 @@ export const DEFAULT_SETTINGS: DictionarySettings = {
 }
 
 export const LANGUAGES = {
-	"English (US)": "en_US",
-	"Hindi": "hi",
-	"Spanish": "es",
-	"French": "fr",
-	"Japanese": "ja",
-	"Russian": "ru",
-	"English (UK)": "en_GB",
-	"German": "de",
-	"Italian": "it",
-	"Korean": "ko",
-	"Brazilian Portuguese": "pt-BR",
-	"Arabic": "ar",
-	"Turkish": "tr"
+	"en_US": "English (US)",
+	"hi": "Hindi",
+	"es": "Spanish",
+	"fr": "French",
+	"ja": "Japanese",
+	"ru": "Russian",
+	"en_GB": "English (UK)",
+	"de": "German",
+	"it": "Italian",
+	"ko": "Korean",
+	"pt-BR": "Brazilian Portuguese",
+	"ar": "Arabic",
+	"tr": "Turkish"
 }

@@ -12,14 +12,16 @@
     {#each definitions as definition, i}
       <div class="definition">
         {#if definition.definition}
-          <p>Definition:<br />{definition.definition}</p>
+          <span>Definition:</span>
+          <p>{definition.definition}</p>
         {/if}
         {#if definition.example}
-          <p>Example:<br />{definition.example}</p>
+          <span>Example:</span>
+          <p>{definition.example}</p>
         {/if}
         {#if definition.synonyms && definition.synonyms[i]}
           <div class="synonyms">
-            Synonyms:
+            <span>Synonyms:</span>
             <ul>
               {#each definition.synonyms as synonym}
                 <li>
@@ -63,5 +65,13 @@
     100% {
       opacity: 1;
     }
+  }
+
+  .definition > p{
+    margin-top: 0;
+  }
+
+  .definition{
+    padding-top: 0.5em;
   }
 </style>

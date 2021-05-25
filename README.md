@@ -58,6 +58,7 @@ export interface SynonymProvider extends Provider {
 ```
 
 After that add the API to the respective List in the [API Manager](src/apiManager.ts). Finally you can open a new Pull Request here on GitHub.
+This will automatically make it selectable in the Settings.
 
 ## Support me
 

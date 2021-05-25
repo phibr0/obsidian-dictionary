@@ -43,6 +43,8 @@ This Plugin is meant to be easily extensible! If you want to add a new API for a
 
 You will need to create a new class for the new API, which implements [DefinitionProvider](src/api/types.ts) or [SynonymProvider](src/api/types.ts) (or both):
 
+If the Language you are working with doesn't exist yet, add it to the `LANGUAGES` in [_constants.ts](src/_constants.ts) 
+
 ```ts
 // src/api/types.ts
 

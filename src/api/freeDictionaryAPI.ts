@@ -10,7 +10,6 @@ export default class FreeDictionaryAPI implements DefinitionProvider, SynonymPro
 
     public name: string = "Free Dictionary API";
     public url: string = "https://dictionaryapi.dev/";
-    public license: string = "GPL-3.0";
     public supportedLanguagesD: string[] = [
         "en_US",
         "hi",

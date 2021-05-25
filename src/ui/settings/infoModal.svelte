@@ -14,9 +14,6 @@
     <div class="setting-item">
       <div class="setting-item-info">
         <div class="setting-item-name">{definition.name}</div>
-        <div class="setting-item-description">
-          License: {definition.license}
-        </div>
       </div>
       <a class="setting-item-control" href={definition.url}>Website</a>
     </div>
@@ -29,7 +26,6 @@
     <div class="setting-item">
       <div class="setting-item-info">
         <div class="setting-item-name">{synonym.name}</div>
-        <div class="setting-item-description">License: {synonym.license}</div>
       </div>
       <a class="setting-item-control" href={synonym.url}>Website</a>
     </div>

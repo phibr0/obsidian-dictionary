@@ -10,22 +10,22 @@ export default class FreeDictionaryAPI implements DefinitionProvider, SynonymPro
 
     public name: string = "Free Dictionary API";
     public supportedLanguagesD: string[] = [
-        "English (US)",
-        "Hindi",
-        "Spanish",
-        "French",
-        "Japanese",
-        "Russian",
-        "English (UK)",
-        "German",
-        "Italian",
-        "Korean",
-        "Brazilian Portuguese",
-        "Arabic",
-        "Turkish",
+        "en_US",
+        "hi",
+        "es",
+        "fr",
+        "ja",
+        "ru",
+        "en_GB",
+        "de",
+        "it",
+        "ko",
+        "pt-BR",
+        "ar",
+        "tr",
     ];
     public supportedLanguagesS: string[] = [
-        "English (US)",
+        "en_US",
     ];
 
     async requestSynonyms(query: string, lang: string): Promise<string[]> {
@@ -67,16 +67,8 @@ export default class FreeDictionaryAPI implements DefinitionProvider, SynonymPro
      * @returns Returns the URL in REST schema
      */
     private constructRequest(query: string, lang: string): string {
-        return this.API_END_POINT + this.getLanguageCode(lang) + '/' + query;
+        return this.API_END_POINT + lang + '/' + query;
         //SCHEMA: https://api.dictionaryapi.dev/api/v2/entries/<language_code>/<word>
-    }
-
-    /**
-     * @returns Returns the correct Language Code
-     */
-    private getLanguageCode(lang: string): string {
-        //TODO Get Language from Word Context first
-        return LANGUAGES[lang];
     }
 
 }

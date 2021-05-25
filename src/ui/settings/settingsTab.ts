@@ -23,7 +23,7 @@ export default class SettingsTab extends PluginSettingTab {
 			.setDesc('The Language the Plugin will use to search for Definitions and Pronunciations.')
 			.addDropdown((dropdown) => {
 				for (const language in LANGUAGES) {
-					dropdown.addOption(language, language);
+					dropdown.addOption(LANGUAGES[language], language);
 				}
 				dropdown.setValue(this.plugin.settings.defaultLanguage)
 					.onChange(async (value) => {

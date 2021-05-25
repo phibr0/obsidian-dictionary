@@ -1,1 +1,7 @@
-/*EMPTY*/
+.setting-item.extra > .setting-item-info {
+    opacity: 0.4;
+}
+
+a[href="https://www.buymeacoffee.com/phibr0"] > img {
+    height: 2.2em;
+}

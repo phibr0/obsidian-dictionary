@@ -1,5 +1,7 @@
 interface Provider {
     name: string;
+    url: string;
+    license: string;
 }
 export interface DefinitionProvider extends Provider {
     requestDefinitions: { (query: string, lang: string): Promise<DictionaryWord> };

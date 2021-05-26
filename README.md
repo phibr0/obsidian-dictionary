@@ -1,6 +1,6 @@
 # Obsidian Dictionary Plugin [![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/phibr0/obsidian-dictionary)](https://github.com/phibr0/obsidian-dictionary/releases) ![GitHub all releases](https://img.shields.io/github/downloads/phibr0/obsidian-dictionary/total) [![](https://img.shields.io/badge/Support%3F-Buy%20me%20a%20Coffee-yellow)](https://www.buymeacoffee.com/phibr0)
 
-<img align="right" width="375" src="https://user-images.githubusercontent.com/2694747/119704104-208e1700-be0c-11eb-89f4-6393731b4444.png">
+<img align="right" width="600" src="https://user-images.githubusercontent.com/2694747/119704104-208e1700-be0c-11eb-89f4-6393731b4444.png">
 
 This Plugin adds a Dictionary to the [Obsidian](https://obsidian.md) Note-Taking tool.
 

@@ -1,20 +1,18 @@
 interface Provider {
     name: string;
     url: string;
+    supportedLanguages: string[];
 }
 export interface DefinitionProvider extends Provider {
     requestDefinitions(query: string, lang: string): Promise<DictionaryWord>;
-    supportedLanguages: string[];
 }
 
 export interface SynonymProvider extends Provider {
     requestSynonyms(query: string, lang: string, pos?: PartOfSpeech): Promise<Synonym[]>;
-    supportedLanguages: string[];
 }
 
 export interface PartOfSpeechProvider extends Provider {
     requestPartOfSpeech(word: string, leftContext: string, rightContext: string, lang: string): Promise<PartOfSpeech>;
-    supportedLanguages: string[];
 }
 
 export enum PartOfSpeech {

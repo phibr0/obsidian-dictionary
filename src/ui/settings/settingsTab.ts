@@ -84,7 +84,7 @@ export default class SettingsTab extends PluginSettingTab {
 			.setClass("extra")
 			.addButton((bt) => {
 				bt.setButtonText("More Info")
-				bt.onClick((callback) => {
+				bt.onClick((_) => {
 					new InfoModal(this.plugin).open();
 				});
 			});

@@ -5,7 +5,6 @@ import { FreeDictionaryDefinitionProvider, FreeDictionarySynonymProvider } from 
 import { SystranPOSProvider } from "src/api/systranAPI";
 
 /*
-
 HOW TO ADD A NEW API:
 
 1. Add a new class that implements DefinitionProvider or
@@ -14,7 +13,6 @@ SynonymProvider (or both) and put the file in /src/api/
 APIManager, as seen below
 3. Test the Solution
 4. Create a new Pull Request on GitHub
-
 */
 
 export default class APIManager {

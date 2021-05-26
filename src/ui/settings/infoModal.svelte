@@ -1,8 +1,9 @@
 <script lang="ts">
-  import type { SynonymProvider, DefinitionProvider } from "src/api/types";
+  import type { SynonymProvider, DefinitionProvider, PartOfSpeechProvider } from "src/api/types";
 
   export let synonymAPIs: SynonymProvider[];
   export let definitionAPIs: DefinitionProvider[];
+  export let partOfSpeechAPIs: PartOfSpeechProvider[];
 </script>
 
 <div class="vertical-tab-content">
@@ -26,6 +27,17 @@
         <div class="setting-item-name">{synonym.name}</div>
       </div>
       <a class="setting-item-control" href={synonym.url}>Website</a>
+    </div>
+  {/each}
+
+  <h3>Part of Speech API's</h3>
+
+  {#each partOfSpeechAPIs as pos}
+    <div class="setting-item">
+      <div class="setting-item-info">
+        <div class="setting-item-name">{pos.name}</div>
+      </div>
+      <a class="setting-item-control" href={pos.url}>Website</a>
     </div>
   {/each}
 </div>

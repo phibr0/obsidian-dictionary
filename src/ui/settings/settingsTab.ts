@@ -114,6 +114,7 @@ class InfoModal extends Modal{
             props: {
                 synonymAPIs: this.plugin.manager.synonymProvider,
 				definitionAPIs: this.plugin.manager.definitionProvider,
+				partOfSpeechAPIs: this.plugin.manager.partOfSpeechProvider,
             }
         });
 	}

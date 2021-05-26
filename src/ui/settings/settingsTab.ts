@@ -38,7 +38,7 @@ export default class SettingsTab extends PluginSettingTab {
 			.setDesc('The API the Plugin will use to search for Definitions.')
 			.addDropdown((dropdown) => {
 				for (const api of this.plugin.manager.definitionProvider) {
-					if (api.supportedLanguagesD.contains(this.plugin.settings.defaultLanguage)) {
+					if (api.supportedLanguages.contains(this.plugin.settings.defaultLanguage)) {
 						dropdown.addOption(api.name, api.name);
 					}
 				}
@@ -53,7 +53,7 @@ export default class SettingsTab extends PluginSettingTab {
 			.setDesc('The API the Plugin will use to search for Synonyms.')
 			.addDropdown((dropdown) => {
 				for (const api of this.plugin.manager.synonymProvider) {
-					if (api.supportedLanguagesS.contains(this.plugin.settings.defaultLanguage)) {
+					if (api.supportedLanguages.contains(this.plugin.settings.defaultLanguage)) {
 						dropdown.addOption(api.name, api.name);
 					}
 				}

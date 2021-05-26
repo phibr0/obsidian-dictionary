@@ -7,7 +7,8 @@ export const VIEW_ICON = 'quote-glyph';
 export const DEFAULT_SETTINGS: DictionarySettings = {
 	defaultLanguage: "en_US",
 	definitionApiName: "Free Dictionary API",
-	synonymApiName: "Free Dictionary API"
+	synonymApiName: "Free Dictionary API",
+	partOfSpeechApiName: "Systran API"
 }
 
 export const LANGUAGES = {

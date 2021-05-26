@@ -11,9 +11,15 @@
   let query: string = "";
   let promise: Promise<DictionaryWord>;
 
-  function handleBlur() {
-    if (query.trim() != "") {
+  function search() {
+    if (query.trim() !== "") {
       promise = manager.requestDefinitions(query);
+    }
+  }
+
+  function handleKeyDown(e: KeyboardEvent) {
+    if (e.key === 'Enter') {
+      search()
     }
   }
 </script>
@@ -25,9 +31,9 @@
       spellcheck="true"
       placeholder="Enter a word"
       bind:value={query}
-      on:blur={handleBlur}
+      on:keydown={handleKeyDown}
     />
-    <button on:click={handleBlur}><i class="gg-search" /></button>
+    <button on:click={search}><i class="gg-search" /></button>
   </div>
   <div class="results">
     {#if query.trim() != "" && promise}
@@ -52,7 +58,7 @@
         <div class="container">
           <h3>Meanings</h3>
           {#each data.meanings as { definitions, partOfSpeech }}
-            <MeaningComponent {partOfSpeech} {definitions} />
+            <MeaningComponent word={data.word} {partOfSpeech} {definitions} />
           {/each}
         </div>
       {:catch error}

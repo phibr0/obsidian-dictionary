@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { Definition } from "src/api/types";
 
+  export let word: string;
   export let definitions: Definition[];
   export let partOfSpeech: string;
 </script>
@@ -12,23 +13,27 @@
     {#each definitions as definition, i}
       <div class="definition">
         {#if definition.definition}
-          <span>Definition:</span>
+          <div class="label">Definition:</div>
           <p>{definition.definition}</p>
         {/if}
         {#if definition.example}
-          <span>Example:</span>
-          <p>{definition.example}</p>
+          <blockquote>
+            {@html 
+              definition.example.replace(
+                new RegExp(`(${word})`, "gi"), 
+                '<i class="mark">$1</i>'
+              )
+            }
+          </blockquote>
         {/if}
         {#if definition.synonyms && definition.synonyms[i]}
           <div class="synonyms">
-            <span>Synonyms:</span>
-            <ul>
-              {#each definition.synonyms as synonym}
-                <li>
-                  {synonym}
-                </li>
+            <div class="label">Synonyms:</div>
+            <p>
+              {#each definition.synonyms as synonym, i}
+                {synonym}{#if i < definition.synonyms.length - 1}{", "}{/if}
               {/each}
-            </ul>
+              </p>
           </div>
         {/if}
       </div>
@@ -49,9 +54,22 @@
     details > summary {
       text-transform: capitalize;
     }
+
+    blockquote {
+      font-style: italic;
+      margin: 0 0 1rem;
+      padding-left: 1rem;
+      border-left: 1px solid var(--background-modifier-border);
+    }
+
+    :global(.mark) {
+      box-shadow: inset 0 -2px var(--text-faint);
+    }
   }
-  .synonyms > ul {
-    padding-left: 1.2rem;
+
+  .label {
+    font-size: 0.875em;
+    font-weight: bold;
   }
 
   details[open] summary ~ * {
@@ -67,11 +85,21 @@
     }
   }
 
-  .definition > p{
+  .synonyms {
+    padding-top: 1rem;
+  }
+
+  .synonyms > p,
+  .definition > p {
     margin-top: 0;
   }
 
-  .definition{
-    padding-top: 0.5em;
+  .definition {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--background-modifier-border);
+  }
+
+  .definition:last-child {
+    border-bottom: none;
   }
 </style>

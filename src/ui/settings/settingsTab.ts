@@ -34,11 +34,26 @@ export default class SettingsTab extends PluginSettingTab {
 					});
 			});
 		new Setting(containerEl)
+			.setName('Synonym Suggestions')
+			.setDesc('Show synonyms for highlighted words')
+			.addToggle(toggle => {
+				if (this.plugin.settings.shouldShowSynonymPopover) {
+					toggle.setValue(true)
+				} else {
+					toggle.setValue(false)
+				}
+
+				toggle.onChange(async (value) => {
+					this.plugin.settings.shouldShowSynonymPopover = value;
+					await this.plugin.saveSettings();
+				})
+			})
+		new Setting(containerEl)
 			.setName('Definition Provider')
 			.setDesc('The API the Plugin will use to search for Definitions.')
 			.addDropdown((dropdown) => {
 				for (const api of this.plugin.manager.definitionProvider) {
-					if (api.supportedLanguagesD.contains(this.plugin.settings.defaultLanguage)) {
+					if (api.supportedLanguages.contains(this.plugin.settings.defaultLanguage)) {
 						dropdown.addOption(api.name, api.name);
 					}
 				}
@@ -53,7 +68,7 @@ export default class SettingsTab extends PluginSettingTab {
 			.setDesc('The API the Plugin will use to search for Synonyms.')
 			.addDropdown((dropdown) => {
 				for (const api of this.plugin.manager.synonymProvider) {
-					if (api.supportedLanguagesS.contains(this.plugin.settings.defaultLanguage)) {
+					if (api.supportedLanguages.contains(this.plugin.settings.defaultLanguage)) {
 						dropdown.addOption(api.name, api.name);
 					}
 				}

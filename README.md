@@ -6,7 +6,7 @@ This Plugin adds a Dictionary to the [Obsidian](https://obsidian.md) Note-Taking
 
 Open the *Command Palette* (default: `ctrl` + `p`), search for *Open Dictionary View* and run the command. You will see that a new View appears in the right Sidebar of Obsidian. You can set your default Language in Obsidian's Settings under *Plugin Options* > *Obsidian Dictionary* > *Default Language*.
 
-<img align="right" width="600" src="https://media.discordapp.net/attachments/796853434397360128/847198380878069771/Screen_Shot_2021-05-26_at_12.43.43_PM.png?width=736&height=676">
+<img align="right" width="550" src="https://media.discordapp.net/attachments/796853434397360128/847198380878069771/Screen_Shot_2021-05-26_at_12.43.43_PM.png?width=736&height=676">
 
 ## Supported Languages
 
@@ -48,6 +48,8 @@ If the Language you are working with doesn't exist yet, add it to the `LANGUAGES
 
 After that, add the API to the respective List in the [API Manager](src/apiManager.ts) and finally open a Pull Request here on GitHub.
 This will automatically make it selectable in the Settings.
+
+> Special Thanks to [@mgmeyers](https://github.com/mgmeyers) for already making this Plugin a lot better!
 
 ## Support me
 

@@ -17,6 +17,10 @@ export default class DictionaryPlugin extends Plugin {
 	// This is debounced to handle double clicks
 	handlePointerUp = debounce(
 		() => {
+			if (!this.settings.shouldShowSynonymPopover) {
+				return;
+			}
+			
 			const activeLeaf = this.app.workspace.activeLeaf;
 
 			if (activeLeaf?.view instanceof MarkdownView) {

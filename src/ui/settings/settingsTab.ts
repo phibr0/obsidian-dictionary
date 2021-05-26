@@ -34,6 +34,21 @@ export default class SettingsTab extends PluginSettingTab {
 					});
 			});
 		new Setting(containerEl)
+			.setName('Synonym Suggestions')
+			.setDesc('Show synonyms for highlighted words')
+			.addToggle(toggle => {
+				if (this.plugin.settings.shouldShowSynonymPopover) {
+					toggle.setValue(true)
+				} else {
+					toggle.setValue(false)
+				}
+
+				toggle.onChange(async (value) => {
+					this.plugin.settings.shouldShowSynonymPopover = value;
+					await this.plugin.saveSettings();
+				})
+			})
+		new Setting(containerEl)
 			.setName('Definition Provider')
 			.setDesc('The API the Plugin will use to search for Definitions.')
 			.addDropdown((dropdown) => {

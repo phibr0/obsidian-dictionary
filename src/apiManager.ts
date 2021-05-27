@@ -12,7 +12,7 @@ import {
   FreeDictionaryDefinitionProvider,
   FreeDictionarySynonymProvider,
 } from "src/api/freeDictionaryAPI";
-import { openThesaurusAPIProvider } from "src/api/openThesaurusAPI";
+import { OpenThesaurusSynonymAPI } from "src/api/openThesaurusAPI";
 import { SystranPOSProvider } from "src/api/systranAPI";
 
 /*
@@ -36,7 +36,7 @@ export default class APIManager {
   // Adds new API's to the Synonym Providers
   synonymProvider: SynonymProvider[] = [
     new FreeDictionarySynonymProvider(),
-    new openThesaurusAPIProvider(),
+    new OpenThesaurusSynonymAPI(),
   ];
   // Adds new API's to the Part Of Speech Providers
   partOfSpeechProvider: PartOfSpeechProvider[] = [new SystranPOSProvider()];

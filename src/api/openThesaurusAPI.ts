@@ -1,11 +1,11 @@
-import { log } from "console";
 import type { PartOfSpeech, Synonym, SynonymProvider } from "src/api/types";
 
-class Base {
+export class OpenThesaurusSynonymAPI implements SynonymProvider {
   API_END_POINT: string = "https://www.openthesaurus.de/synonyme/search?q=";
 
   public name: string = "OpenThesaurus";
   public url: string = "https://www.openthesaurus.de/";
+  public supportedLanguages: string[] = ["de"];
 
   /**
    * @param query - The term you want to look up
@@ -15,10 +15,6 @@ class Base {
     return this.API_END_POINT + query + "&format=application/json";
     //SCHEMA: https://www.openthesaurus.de/synonyme/search?q=<QUERY>&format=application/json
   }
-}
-
-export class openThesaurusAPIProvider extends Base implements SynonymProvider {
-  public supportedLanguages: string[] = ["de"];
 
   async requestSynonyms(
     query: string,
@@ -42,7 +38,6 @@ export class openThesaurusAPIProvider extends Base implements SynonymProvider {
     const synonymList: Array<Object> = response.synsets[0].terms;
 
     const synonyms: Synonym[] = [];
-    log(response);
     synonymList.forEach((synonym) => {
       synonyms.push({ word: synonym["term"] });
     });

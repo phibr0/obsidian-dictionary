@@ -48,6 +48,9 @@ export class FreeDictionaryDefinitionProvider extends Base implements Definition
         } catch (error) {
             return Promise.reject(error);
         }
+        if(result.status!=200){
+            return Promise.reject();
+        }
         return (await result.json() as DictionaryWord[]).first();
     }
 }
@@ -90,6 +93,9 @@ export class FreeDictionarySynonymProvider extends Base implements SynonymProvid
             result = await fetch(this.constructRequest(query, lang));
         } catch (error) {
             return Promise.reject(error);
+        }
+        if(result.status!=200){
+            return Promise.reject();
         }
 
         const meanings: Meaning[] = (await result.json() as DictionaryWord[]).first().meanings;

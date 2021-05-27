@@ -32,14 +32,18 @@ export class OpenThesaurusSynonymAPI implements SynonymProvider {
     }
 
     const response = await result.json();
+    console.log(response);
     if (response.synsets.length <= 0) {
-      return Promise.reject();
+      return Promise.reject("No Synonym found");
     }
     const synonymList: Array<Object> = response.synsets[0].terms;
 
     const synonyms: Synonym[] = [];
     synonymList.forEach((synonym) => {
-      synonyms.push({ word: synonym["term"] });
+      const word: string = synonym["term"];
+      if (query != word) {
+        synonyms.push({ word: word });
+      }
     });
     return synonyms;
   }

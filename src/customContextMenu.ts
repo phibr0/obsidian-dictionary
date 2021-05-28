@@ -1,4 +1,4 @@
-import { Menu } from "obsidian";
+import { Menu, WorkspaceLeaf } from "obsidian";
 import type DictionaryView from "src/ui/dictionary/dictionaryView";
 import type DictionaryPlugin from "src/main";
 import { VIEW_TYPE } from "src/_constants";
@@ -53,16 +53,22 @@ export default function handleContextMenu(instance: CodeMirror.Editor, e: MouseE
         fileMenu.addItem((item) => {
             item.setTitle(`Look up`)
                 .setIcon('quote-glyph')
-                .onClick((_) => {
-                    const view = plugin.app.workspace.getLeavesOfType(VIEW_TYPE).first().view as DictionaryView;
-                    view.query(instance.getSelection());
-                    plugin.app.workspace.revealLeaf(view.leaf);
+                .onClick(async (_) => {
+                    let leaf: WorkspaceLeaf = plugin.app.workspace.getLeavesOfType(VIEW_TYPE).first();
+                    if(!leaf){
+                        leaf = plugin.app.workspace.getRightLeaf(false);
+                        await leaf.setViewState({
+                            type: VIEW_TYPE,
+                        });
+                    }
+                    //@ts-ignore
+                    leaf.view.query(instance.getSelection());
+                    plugin.app.workspace.revealLeaf(leaf);
                 });
         });
     }
 
     fileMenu.showAtPosition({ x: e.clientX, y: e.clientY });
-    return;
 }
 
 function copy(string: string) {

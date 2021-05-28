@@ -47,7 +47,22 @@ export default class SettingsTab extends PluginSettingTab {
 					this.plugin.settings.shouldShowSynonymPopover = value;
 					await this.plugin.saveSettings();
 				})
-			})
+			});
+		new Setting(containerEl)
+			.setName('Show Options in Context Menu')
+			.setDesc('Enable custom Context Menu with options to search for synonyms (only if the auto suggestions are disabled) and to look up a full definition in the Sidebar. Warning: This will override Obsidian\'s default Context Menu.')
+			.addToggle(toggle => {
+				if (this.plugin.settings.shouldShowCustomContextMenu) {
+					toggle.setValue(true)
+				} else {
+					toggle.setValue(false)
+				}
+
+				toggle.onChange(async (value) => {
+					this.plugin.settings.shouldShowCustomContextMenu = value;
+					await this.plugin.saveSettings();
+				})
+			});
 		new Setting(containerEl)
 			.setName('Definition Provider')
 			.setDesc('The API the Plugin will use to search for Definitions.')
@@ -80,7 +95,7 @@ export default class SettingsTab extends PluginSettingTab {
 			});
 		new Setting(containerEl)
 			.setName("More Information")
-			.setDesc("View Information about the API's")
+			.setDesc("View Information about the API's and the Plugin itself.")
 			.setClass("extra")
 			.addButton((bt) => {
 				bt.setButtonText("More Info")
@@ -98,7 +113,7 @@ export default class SettingsTab extends PluginSettingTab {
 	}
 }
 
-class InfoModal extends Modal{
+class InfoModal extends Modal {
 	plugin: DictionaryPlugin;
 	private _view: InfoModalComponent;
 
@@ -110,18 +125,18 @@ class InfoModal extends Modal{
 	onOpen() {
 		this.contentEl.parentElement.style.padding = "10px 12px";
 		this._view = new InfoModalComponent({
-            target: this.contentEl,
-            props: {
-                synonymAPIs: this.plugin.manager.synonymProvider,
+			target: this.contentEl,
+			props: {
+				synonymAPIs: this.plugin.manager.synonymProvider,
 				definitionAPIs: this.plugin.manager.definitionProvider,
 				partOfSpeechAPIs: this.plugin.manager.partOfSpeechProvider,
-            }
-        });
+			}
+		});
 	}
 
 	onClose() {
 		this._view.$destroy();
-		let {contentEl} = this;
+		let { contentEl } = this;
 		contentEl.empty();
 	}
 }

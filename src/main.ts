@@ -1,12 +1,14 @@
 import type DictionarySettings from 'src/types';
 
-import { debounce, MarkdownView, Plugin } from 'obsidian';
+import { debounce, Debouncer, MarkdownView, Menu, Plugin } from 'obsidian';
 import { matchCasing } from "match-casing";
 import SettingsTab from 'src/ui/settings/settingsTab';
 import DictionaryView from 'src/ui/dictionary/dictionaryView';
 import { DEFAULT_SETTINGS, VIEW_TYPE } from 'src/_constants';
 import APIManager from 'src/apiManager';
 import { Coords, SynonymPopover } from 'src/ui/synonyms/synonymPopover';
+import handleContextMenu from 'src/customContextMenu';
+import { addIcons } from 'src/ui/icons';
 
 export default class DictionaryPlugin extends Plugin {
 	settings: DictionarySettings;
@@ -17,10 +19,7 @@ export default class DictionaryPlugin extends Plugin {
 	// This is debounced to handle double clicks
 	handlePointerUp = debounce(
 		() => {
-			if (!this.settings.shouldShowSynonymPopover) {
-				return;
-			}
-			
+
 			const activeLeaf = this.app.workspace.activeLeaf;
 
 			if (activeLeaf?.view instanceof MarkdownView) {
@@ -69,6 +68,8 @@ export default class DictionaryPlugin extends Plugin {
 	async onload() {
 		console.log('loading dictionary');
 
+		addIcons();
+
 		await this.loadSettings();
 
 		this.addSettingTab(new SettingsTab(this.app, this));
@@ -82,23 +83,36 @@ export default class DictionaryPlugin extends Plugin {
 			id: 'dictionary-open-view',
 			name: 'Open Dictionary View',
 			callback: async () => {
-				if(this.app.workspace.getLeavesOfType(VIEW_TYPE).length == 0){
+				if (this.app.workspace.getLeavesOfType(VIEW_TYPE).length == 0) {
 					await this.app.workspace.getRightLeaf(false).setViewState({
 						type: VIEW_TYPE,
 					});
-				} 
+				}
 				this.app.workspace.revealLeaf(this.app.workspace.getLeavesOfType(VIEW_TYPE).first());
 			},
 		});
 
-		this.registerDomEvent(document.body, "pointerup", this.handlePointerUp)
+		this.registerDomEvent(document.body, "pointerup", () => {
+			if (!this.settings.shouldShowSynonymPopover) {
+				return;
+			}
+			this.handlePointerUp();
+		})
 		this.registerDomEvent(window, "keydown", () => {
 			// Destroy the popover if it's open
 			if (this.synonymPopover) {
 				this.synonymPopover.destroy();
 				this.synonymPopover = null;
 			}
-		})
+		});
+
+		//Create a new Custom Context Menu on right click inside the Editor
+		this.registerCodeMirror(cm => {
+			cm.on('contextmenu', (instance, e) => {
+				this.handlePointerUp.cancel();
+				handleContextMenu(instance, e, this);
+			});
+		});
 	}
 
 	onunload() {

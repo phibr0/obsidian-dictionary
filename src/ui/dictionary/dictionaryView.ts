@@ -14,6 +14,13 @@ export default class DictionaryView extends ItemView {
         this.plugin = plugin;
     }
 
+    query(query: string) {
+        this._view.$set({
+            query: query
+        });
+        dispatchEvent(new Event("obsidian-dictionary-plugin-search"));
+    }
+
     getViewType(): string {
         return VIEW_TYPE;
     }

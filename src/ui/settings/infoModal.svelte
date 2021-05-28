@@ -42,9 +42,17 @@
   {/each}
 </div>
 
+<p class="feather">This Plugin is using <a href="https://feathericons.com/">Feather Icons</a></p>
+
 <style lang="scss">
   h3 {
     font-weight: 400;
     margin: 0;
+  }
+
+  .feather{
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.9rem;
   }
 </style>

@@ -39,7 +39,9 @@ export default class APIManager {
         new OpenThesaurusSynonymAPI(),
     ];
     // Adds new API's to the Part Of Speech Providers
-    partOfSpeechProvider: PartOfSpeechProvider[] = [new SystranPOSProvider()];
+    partOfSpeechProvider: PartOfSpeechProvider[] = [
+        new SystranPOSProvider(),
+    ];
 
     constructor(settings: DictionarySettings) {
         this.settings = settings;

@@ -1,6 +1,6 @@
 import { DefinitionProvider, DictionaryWord, Meaning, PartOfSpeech, Synonym, SynonymProvider } from "src/api/types";
 
-class Base {
+abstract class Base {
     API_END_POINT: string = "https://api.dictionaryapi.dev/api/v2/entries/";
 
     public name: string = "Free Dictionary API";
@@ -49,7 +49,7 @@ export class FreeDictionaryDefinitionProvider extends Base implements Definition
             return Promise.reject(error);
         }
         if(result.status!=200){
-            return Promise.reject();
+            return Promise.reject("Couldn't find word");
         }
         return (await result.json() as DictionaryWord[]).first();
     }
@@ -95,7 +95,7 @@ export class FreeDictionarySynonymProvider extends Base implements SynonymProvid
             return Promise.reject(error);
         }
         if(result.status!=200){
-            return Promise.reject();
+            return Promise.reject("Couldn't find Word");
         }
 
         const meanings: Meaning[] = (await result.json() as DictionaryWord[]).first().meanings;

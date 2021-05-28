@@ -8,7 +8,7 @@
 
   export let manager: APIManager;
 
-  let query: string = "";
+  export let query: string = "";
   let promise: Promise<DictionaryWord>;
 
   function search() {
@@ -17,9 +17,13 @@
     }
   }
 
+  addEventListener("obsidian-dictionary-plugin-search", () => {
+    search();
+  });
+
   function handleKeyDown(e: KeyboardEvent) {
     if (e.key === 'Enter') {
-      search()
+      search();
     }
   }
 </script>

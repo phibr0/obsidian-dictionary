@@ -10,7 +10,8 @@ export const DEFAULT_SETTINGS: DictionarySettings = {
 	shouldShowCustomContextMenu: true,
 	definitionApiName: "Free Dictionary API",
 	synonymApiName: "Free Dictionary API",
-	partOfSpeechApiName: "Systran API"
+	partOfSpeechApiName: "Systran API",
+	advancedSynonymAnalysis: false
 }
 
 export const LANGUAGES = {

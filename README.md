@@ -34,9 +34,13 @@ The following Languages are currently supported:
 3. Click install
 4. Toggle the Plugin on in the **Community Plugins** Tab
 
-## Roadmap
+## Privacy
 
-- [ ] Mobile Support
+This Plugin relies on third-party [API's](https://en.wikipedia.org/wiki/API) to find Definitions, Synonyms, etc. You can select from a Range of API’s and choose which one to trust, the Plugin will not make requests to API’s you didn’t allow it to. To find more Information about the different API’s click the “More Info“ Button in the Settings.
+
+If you explicitly activate the **Advanced Synonym Search**, there will be one additional API Call to analyze the *whole* Sentence the selected Word appears in. This will make the suggested Synonyms more accurate based on the context.
+
+Even though this Plugin is fully Open-Source and thus can be looked over by anyone, the third-party API’s might not be.
 
 ## How to make this Plugin better
 
@@ -50,6 +54,10 @@ After that, add the API to the respective List in the [API Manager](src/apiManag
 This will automatically make it selectable in the Settings.
 
 > Special Thanks to [@mgmeyers](https://github.com/mgmeyers) for already making this Plugin a lot better!
+
+## Roadmap
+
+- [ ] Mobile Support
 
 ## Support me
 

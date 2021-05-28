@@ -89,7 +89,7 @@ export default class APIManager {
         leftContext: string,
         rightContext: string
     ): Promise<PartOfSpeech> {
-        return await this.getPartOfSpeechAPI().requestPartOfSpeech(
+        return await this.getPartOfSpeechAPI()?.requestPartOfSpeech(
             word,
             leftContext,
             rightContext,
@@ -120,7 +120,7 @@ export default class APIManager {
      */
     private getPartOfSpeechAPI() {
         return this.partOfSpeechProvider.find(
-            (api) => api.name == this.settings.partOfSpeechApiName
+            this.settings.advancedSynonymAnalysis ? (api) => api.name == this.settings.partOfSpeechApiName : null
         );
     }
 }

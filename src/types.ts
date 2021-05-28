@@ -5,4 +5,5 @@ export default interface DictionarySettings {
 	partOfSpeechApiName: string;
 	shouldShowSynonymPopover: boolean;
 	shouldShowCustomContextMenu: boolean;
+	advancedSynonymAnalysis: boolean;
 }

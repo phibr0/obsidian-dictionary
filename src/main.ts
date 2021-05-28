@@ -50,6 +50,7 @@ export default class DictionaryPlugin extends Plugin {
 
 					this.synonymPopover = new SynonymPopover({
 						apiManager: this.manager,
+						advancedPoS: this.settings.advancedSynonymAnalysis,
 						coords,
 						cursor,
 						line,

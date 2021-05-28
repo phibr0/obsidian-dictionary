@@ -11,6 +11,7 @@ export interface Coords {
 
 export interface SynonymProviderSettings {
     apiManager: APIManager;
+    advancedPoS: boolean;
     coords: Coords;
     cursor: EditorPosition;
     line: string;
@@ -55,10 +56,12 @@ export class SynonymPopover {
 
                 let pos: PartOfSpeech;
 
-                try {
-                    pos = await apiManager.requestPartOfSpeech(selection, before, after);
-                } catch (e) {
-                    console.error(`Error determining part of speech for word ${selection}`, e);
+                if(this.settings.advancedPoS){
+                    try {
+                        pos = await apiManager.requestPartOfSpeech(selection, before, after);
+                    } catch (e) {
+                        console.error(`Error determining part of speech for word ${selection}`, e);
+                    }
                 }
 
                 let synonyms: Synonym[];

@@ -48,6 +48,32 @@ export default class SettingsTab extends PluginSettingTab {
 					await this.plugin.saveSettings();
 				})
 			});
+		const desc = document.createDocumentFragment();
+		desc.append(
+			'Enabling this will allow the Plugin to analyze full sentences to better suggest synonyms based on the context.',
+			desc.createEl("br"),
+			"Click ",
+			desc.createEl("a", {
+				href: "https://github.com/phibr0/obsidian-dictionary#privacy",
+				text: "here"
+			}),
+			" for Privacy Concerns.",
+		);
+		new Setting(containerEl)
+			.setName('Advanced Synonym Search')
+			.setDesc(desc)
+			.addToggle(toggle => {
+				if (this.plugin.settings.advancedSynonymAnalysis) {
+					toggle.setValue(true)
+				} else {
+					toggle.setValue(false)
+				}
+
+				toggle.onChange(async (value) => {
+					this.plugin.settings.advancedSynonymAnalysis = value;
+					await this.plugin.saveSettings();
+				})
+			});
 		new Setting(containerEl)
 			.setName('Show Options in Context Menu')
 			.setDesc('Enable custom Context Menu with options to search for synonyms (only if the auto suggestions are disabled) and to look up a full definition in the Sidebar. Warning: This will override Obsidian\'s default Context Menu.')

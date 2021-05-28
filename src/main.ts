@@ -7,7 +7,7 @@ import DictionaryView from 'src/ui/dictionary/dictionaryView';
 import { DEFAULT_SETTINGS, VIEW_TYPE } from 'src/_constants';
 import APIManager from 'src/apiManager';
 import { Coords, SynonymPopover } from 'src/ui/synonyms/synonymPopover';
-import handleContextMenu from 'src/customContextMenu';
+import handleContextMenu from 'src/ui/customContextMenu';
 import { addIcons } from 'src/ui/icons';
 
 export default class DictionaryPlugin extends Plugin {

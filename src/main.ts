@@ -81,10 +81,13 @@ export default class DictionaryPlugin extends Plugin {
 		this.addCommand({
 			id: 'dictionary-open-view',
 			name: 'Open Dictionary View',
-			callback: () => {
-				this.app.workspace.getRightLeaf(false).setViewState({
-					type: VIEW_TYPE,
-				});
+			callback: async () => {
+				if(this.app.workspace.getLeavesOfType(VIEW_TYPE).length == 0){
+					await this.app.workspace.getRightLeaf(false).setViewState({
+						type: VIEW_TYPE,
+					});
+				} 
+				this.app.workspace.revealLeaf(this.app.workspace.getLeavesOfType(VIEW_TYPE).first());
 			},
 		});
 

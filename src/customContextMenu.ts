@@ -1,5 +1,4 @@
 import { Menu, WorkspaceLeaf } from "obsidian";
-import type DictionaryView from "src/ui/dictionary/dictionaryView";
 import type DictionaryPlugin from "src/main";
 import { VIEW_TYPE } from "src/_constants";
 

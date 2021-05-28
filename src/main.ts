@@ -1,6 +1,6 @@
 import type DictionarySettings from 'src/types';
 
-import { debounce, Debouncer, MarkdownView, Menu, Plugin } from 'obsidian';
+import { debounce, MarkdownView, Plugin } from 'obsidian';
 import { matchCasing } from "match-casing";
 import SettingsTab from 'src/ui/settings/settingsTab';
 import DictionaryView from 'src/ui/dictionary/dictionaryView';

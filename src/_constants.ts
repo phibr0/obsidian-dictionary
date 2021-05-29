@@ -27,5 +27,7 @@ export const LANGUAGES = {
 	"ko": "Korean",
 	"pt-BR": "Brazilian Portuguese",
 	"ar": "Arabic",
-	"tr": "Turkish"
+	"tr": "Turkish",
+	"ch": "Chinese"
+	
 }

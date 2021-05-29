@@ -1,10 +1,10 @@
 import { DefinitionProvider, DictionaryWord, Meaning, PartOfSpeech, Synonym, SynonymProvider } from "src/api/types";
 
 abstract class Base {
-    API_END_POINT: string = "https://api.dictionaryapi.dev/api/v2/entries/";
+    API_END_POINT = "https://api.dictionaryapi.dev/api/v2/entries/";
 
-    public name: string = "Free Dictionary API";
-    public url: string = "https://dictionaryapi.dev/";
+    public name = "Free Dictionary API";
+    public url = "https://dictionaryapi.dev/";
 
     /**
      * @param query - The term you want to look up
@@ -67,14 +67,14 @@ export class FreeDictionarySynonymProvider extends Base implements SynonymProvid
      */
     getDoesPosMatch(meaning: Meaning, pos: PartOfSpeech): boolean {
         switch (pos) {
-            case PartOfSpeech.Noun:
-                return meaning.partOfSpeech.toLowerCase().contains('noun');
-            case PartOfSpeech.Verb:
-                return meaning.partOfSpeech.toLowerCase().contains('verb');
-            case PartOfSpeech.Adjective:
-                return meaning.partOfSpeech.toLowerCase().contains('adjective');
-            case PartOfSpeech.Adverb:
-                return meaning.partOfSpeech.toLowerCase().contains('adverb');
+        case PartOfSpeech.Noun:
+            return meaning.partOfSpeech.toLowerCase().contains('noun');
+        case PartOfSpeech.Verb:
+            return meaning.partOfSpeech.toLowerCase().contains('verb');
+        case PartOfSpeech.Adjective:
+            return meaning.partOfSpeech.toLowerCase().contains('adjective');
+        case PartOfSpeech.Adverb:
+            return meaning.partOfSpeech.toLowerCase().contains('adverb');
         }
 
         return false;

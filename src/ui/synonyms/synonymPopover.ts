@@ -22,19 +22,19 @@ export interface SynonymProviderSettings {
 export class SynonymPopover {
     private settings: SynonymProviderSettings;
     private _view: SynonymPopoverComponent;
-    private isDestroyed: boolean = false;
+    private isDestroyed = false;
 
     constructor(settings: SynonymProviderSettings) {
         this.settings = settings;
         this.openSynonymPopover();
     }
 
-    destroy() {
+    destroy(): void {
         this._view?.$destroy();
         this.isDestroyed = true;
     }
 
-    async openSynonymPopover() {
+    async openSynonymPopover(): Promise<void> {
         const {
             cursor,
             coords,
@@ -48,7 +48,7 @@ export class SynonymPopover {
         let seen = 0;
 
         // Loop through each sentence until we find our target word
-        for (let sentence of sentences) {
+        for (const sentence of sentences) {
             if (seen <= cursor.ch && cursor.ch <= seen + sentence.length) {
                 // Split the sentence to get the left and right contexts
                 const before = sentence.substr(0, cursor.ch - seen)

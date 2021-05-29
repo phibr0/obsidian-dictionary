@@ -2,7 +2,7 @@ import { Menu, WorkspaceLeaf } from "obsidian";
 import type DictionaryPlugin from "src/main";
 import { VIEW_TYPE } from "src/_constants";
 
-export default function handleContextMenu(instance: CodeMirror.Editor, e: MouseEvent, plugin: DictionaryPlugin) {
+export default function handleContextMenu(instance: CodeMirror.Editor, e: MouseEvent, plugin: DictionaryPlugin): void {
     if (!plugin.settings.shouldShowCustomContextMenu) {
         return;
     }
@@ -60,6 +60,7 @@ export default function handleContextMenu(instance: CodeMirror.Editor, e: MouseE
                             type: VIEW_TYPE,
                         });
                     }
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                     //@ts-ignore
                     leaf.view.query(instance.getSelection());
                     plugin.app.workspace.revealLeaf(leaf);

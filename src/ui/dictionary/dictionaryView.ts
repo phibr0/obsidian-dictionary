@@ -14,7 +14,7 @@ export default class DictionaryView extends ItemView {
         this.plugin = plugin;
     }
 
-    query(query: string) {
+    query(query: string): void {
         this._view.$set({
             query: query
         });
@@ -33,11 +33,11 @@ export default class DictionaryView extends ItemView {
         return VIEW_ICON;
     }
 
-    async onClose() {
+    async onClose(): Promise<void> {
         this._view.$destroy();
     }
 
-    async onOpen() {
+    async onOpen(): Promise<void> {
         this._view = new DictionaryComponent({
             target: this.contentEl,
             props: {

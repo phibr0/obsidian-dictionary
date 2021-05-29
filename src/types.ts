@@ -1,5 +1,5 @@
 export default interface DictionarySettings {
-	defaultLanguage: string;
+    defaultLanguage: string;
 	definitionApiName: string;
 	synonymApiName: string;
 	partOfSpeechApiName: string;

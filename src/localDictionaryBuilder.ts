@@ -68,9 +68,6 @@ ${meanings}
 `
         );
         const leaf = new WorkspaceLeaf();
-        await leaf.setViewState({
-            type: "markdown"
-        });
         await leaf.openFile(file);
         this.plugin.app.workspace.createLeafBySplit(leaf);
     }

@@ -44,6 +44,12 @@ Even though this Plugin is fully Open-Source and thus can be looked over by anyo
 
 ## How to make this Plugin better
 
+### Translations
+
+If you want to help and translate this Plugin to new languages, see [locales](https://github.com/phibr0/obsidian-dictionary/tree/master/src/lang/locale).
+
+### New API's
+
 This Plugin is meant to be easily extensible! If you want to add a new API for a new (or already supported) Language see: [API Manager](src/apiManager.ts).
 
 You will need to create a new class for the new API, which implements [DefinitionProvider](src/api/types.ts) or [SynonymProvider](src/api/types.ts) (or both).

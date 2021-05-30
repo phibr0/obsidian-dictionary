@@ -53,7 +53,7 @@ jobs:
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: ./${{ github.event.repository.name }}.zip
-        asset_name: ${{ github.event.repository.name }}-${{ steps.version.outputs.tag }}.zip
+        asset_name: ${{ github.event.repository.name }}.zip
         asset_content_type: application/zip
     # Upload the main.js
     - name: Upload main.js

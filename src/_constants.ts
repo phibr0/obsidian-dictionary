@@ -16,16 +16,16 @@ export const DEFAULT_SETTINGS: DictionarySettings = {
 
 export const LANGUAGES = {
     "en_US": "English (US)",
-    "hi": "Hindi",
-    "es": "Spanish",
-    "fr": "French",
-    "ja": "Japanese",
-    "ru": "Russian",
+    "hi"   : "Hindi",
+    "es"   : "Spanish",
+    "fr"   : "French",
+    "ja"   : "Japanese",
+    "ru"   : "Russian",
     "en_GB": "English (UK)",
-    "de": "German",
-    "it": "Italian",
-    "ko": "Korean",
+    "de"   : "German",
+    "it"   : "Italian",
+    "ko"   : "Korean",
     "pt-BR": "Brazilian Portuguese",
-    "ar": "Arabic",
-    "tr": "Turkish"
+    "ar"   : "Arabic",
+    "tr"   : "Turkish"
 }

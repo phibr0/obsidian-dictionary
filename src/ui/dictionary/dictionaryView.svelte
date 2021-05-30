@@ -1,12 +1,14 @@
 <script lang="ts">
   import type APIManager from "src/apiManager";
   import type { DictionaryWord } from "src/api/types";
+  import type LocalDictionaryBuilder from "src/localDictionaryBuilder";
 
   import PhoneticComponent from "./phoneticComponent.svelte";
   import MeaningComponent from "./meaningComponent.svelte";
   import ErrorComponent from "./errorComponent.svelte";
 
   export let manager: APIManager;
+  export let localDictionary: LocalDictionaryBuilder;
 
   export let query: string = "";
   let promise: Promise<DictionaryWord>;
@@ -22,7 +24,7 @@
   });
 
   function handleKeyDown(e: KeyboardEvent) {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       search();
     }
   }
@@ -42,14 +44,9 @@
   <div class="results">
     {#if query.trim() != "" && promise}
       {#await promise}
-          <div class="center">
-            <div class="lds-ellipsis">
-              <div />
-              <div />
-              <div />
-              <div />
-            </div>
-          </div>
+        <div class="center">
+          <div class="spinner" />
+        </div>
       {:then data}
         {#if data.phonetics.first().text}
           <div class="container">
@@ -65,6 +62,11 @@
             <MeaningComponent word={data.word} {partOfSpeech} {definitions} />
           {/each}
         </div>
+        <span
+          class="nn"
+          on:click={async () => await localDictionary.newNote(data)}
+          >New Note</span
+        >
       {:catch error}
         <ErrorComponent {error} />
       {/await}
@@ -73,6 +75,18 @@
 </div>
 
 <style lang="scss">
+  .nn {
+    color: var(--text-faint);
+    transition: 0.2s;
+    width: 100%;
+    text-align: center;
+    margin-top: 0.8rem;
+    font-size: 1.1em;
+    &:hover{
+      color: var(--text);
+    }
+  }
+
   .searchbox {
     margin-top: 0.1rem;
     display: flex;
@@ -131,63 +145,41 @@
     }
   }
 
-  .center{
+  .center {
     margin: auto;
     width: 100%;
+    margin-top: 2rem;
   }
-  .lds-ellipsis {
-    display: inline-block;
+
+  @keyframes spinner {
+    0% {
+      transform: translate3d(-50%, -50%, 0) rotate(0deg);
+    }
+    100% {
+      transform: translate3d(-50%, -50%, 0) rotate(360deg);
+    }
+  }
+  .spinner {
+    // The height here is just for demo purposes
+    height: 3rem;
+    opacity: 1;
     position: relative;
-    width: 80px;
-    height: 80px;
-  }
-  .lds-ellipsis div {
-    position: absolute;
-    top: 33px;
-    width: 13px;
-    height: 13px;
-    border-radius: 50%;
-    background: var(--text-muted);
-    animation-timing-function: cubic-bezier(0, 1, 1, 0);
-  }
-  .lds-ellipsis div:nth-child(1) {
-    left: 8px;
-    animation: lds-ellipsis1 0.6s infinite;
-  }
-  .lds-ellipsis div:nth-child(2) {
-    left: 8px;
-    animation: lds-ellipsis2 0.6s infinite;
-  }
-  .lds-ellipsis div:nth-child(3) {
-    left: 32px;
-    animation: lds-ellipsis2 0.6s infinite;
-  }
-  .lds-ellipsis div:nth-child(4) {
-    left: 56px;
-    animation: lds-ellipsis3 0.6s infinite;
-  }
-  @keyframes lds-ellipsis1 {
-    0% {
-      transform: scale(0);
-    }
-    100% {
-      transform: scale(1);
-    }
-  }
-  @keyframes lds-ellipsis3 {
-    0% {
-      transform: scale(1);
-    }
-    100% {
-      transform: scale(0);
-    }
-  }
-  @keyframes lds-ellipsis2 {
-    0% {
-      transform: translate(0, 0);
-    }
-    100% {
-      transform: translate(24px, 0);
+    transition: opacity linear 0.1s;
+    &::before {
+      animation: 2s linear infinite spinner;
+      border: solid 3px var(--background-modifier-border);
+      border-bottom-color: var(--interactive-accent);
+      border-radius: 50%;
+      content: "";
+      height: 40px;
+      left: 50%;
+      opacity: inherit;
+      position: absolute;
+      top: 50%;
+      transform: translate3d(-50%, -50%, 0);
+      transform-origin: center;
+      width: 40px;
+      will-change: transform;
     }
   }
 </style>

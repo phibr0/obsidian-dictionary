@@ -11,10 +11,12 @@ import { Coords, SynonymPopover } from 'src/ui/synonyms/synonymPopover';
 import handleContextMenu from 'src/ui/customContextMenu';
 import { addIcons } from 'src/ui/icons';
 import t from 'src/lang/helpers';
+import LocalDictionaryBuilder from 'src/localDictionaryBuilder';
 
 export default class DictionaryPlugin extends Plugin {
     settings: DictionarySettings;
     manager: APIManager;
+    localDictionary: LocalDictionaryBuilder;
     synonymPopover: SynonymPopover | null = null;
 
     // Open the synonym popover if a word is selected
@@ -71,11 +73,12 @@ export default class DictionaryPlugin extends Plugin {
     async onload(): Promise<void> {
         console.log('loading dictionary');
 
-        addIcons();
-
         await this.loadSettings();
 
+        addIcons();
+
         this.addSettingTab(new SettingsTab(this.app, this));
+
         this.manager = new APIManager(this.settings);
 
         this.registerView(VIEW_TYPE, (leaf) => {
@@ -116,6 +119,8 @@ export default class DictionaryPlugin extends Plugin {
                 handleContextMenu(instance, e, this);
             });
         });
+
+        this.localDictionary = new LocalDictionaryBuilder(this);
     }
 
     onunload():void {

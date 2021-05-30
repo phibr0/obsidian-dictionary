@@ -6,4 +6,5 @@ export default interface DictionarySettings {
 	shouldShowSynonymPopover: boolean;
 	shouldShowCustomContextMenu: boolean;
 	advancedSynonymAnalysis: boolean;
+	folder: string;
 }

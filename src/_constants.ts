@@ -7,18 +7,18 @@ export const VIEW_ICON = 'quote-glyph';
 
 export const LANGUAGES = {
     "en_US": "English (US)",
-    "hi": "Hindi",
-    "es": "Spanish",
-    "fr": "French",
-    "ja": "Japanese",
-    "ru": "Russian",
+    "hi"   : "Hindi",
+    "es"   : "Spanish",
+    "fr"   : "French",
+    "ja"   : "Japanese",
+    "ru"   : "Russian",
     "en_GB": "English (UK)",
-    "de": "German",
-    "it": "Italian",
-    "ko": "Korean",
+    "de"   : "German",
+    "it"   : "Italian",
+    "ko"   : "Korean",
     "pt-BR": "Brazilian Portuguese",
-    "ar": "Arabic",
-    "tr": "Turkish"
+    "ar"   : "Arabic",
+    "tr"   : "Turkish"
 }
 
 export const DEFAULT_SETTINGS: DictionarySettings = {
@@ -28,6 +28,7 @@ export const DEFAULT_SETTINGS: DictionarySettings = {
     definitionApiName: "Free Dictionary API",
     synonymApiName: "Free Dictionary API",
     partOfSpeechApiName: "Systran API",
-    advancedSynonymAnalysis: false
+    advancedSynonymAnalysis: false,
+    folder: ''
 }
 

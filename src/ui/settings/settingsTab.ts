@@ -120,6 +120,20 @@ export default class SettingsTab extends PluginSettingTab {
                         await this.plugin.saveSettings();
                     });
             });
+
+
+        new Setting(containerEl)
+            .setName(t('Local Dictionary Folder'))
+            .setDesc(t('Specify a Folder, where all new Notes created by the Dictionary are placed. Please note that this Folder needs to already exist.'))
+            .addText(text => text
+                .setPlaceholder(t('Dictionary'))
+                .setValue(this.plugin.settings.folder)
+                .onChange(async (value) => {
+                    this.plugin.settings.folder = value;
+                    await this.plugin.saveSettings();
+                }));
+            
+        
         new Setting(containerEl)
             .setName(t('More Information'))
             .setDesc(t('View Information about the API\'s and the Plugin itself.'))

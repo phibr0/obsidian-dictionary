@@ -55,6 +55,7 @@ export default {
     'Enter a word': 'Enter a word',
     'Pronunciation': 'Pronunciation',
     'Meanings': 'Meanings',
+    'New Note': 'New Note',
 
     //errorComponent.ts
     'I can\'t find the word you are looking for or the server can\'t be reached. You can try again in a few minutes.': 'I can\'t find the word you are looking for or the server can\'t be reached. You can try again in a few minutes.',

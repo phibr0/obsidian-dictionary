@@ -66,7 +66,7 @@
         <span
           class="nn"
           on:click={async () => await localDictionary.newNote(data)}
-          >New Note</span
+          >{t('New Note')}</span
         >
       {:catch error}
         <ErrorComponent {error} />

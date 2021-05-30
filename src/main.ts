@@ -10,6 +10,7 @@ import APIManager from 'src/apiManager';
 import { Coords, SynonymPopover } from 'src/ui/synonyms/synonymPopover';
 import handleContextMenu from 'src/ui/customContextMenu';
 import { addIcons } from 'src/ui/icons';
+import t from 'src/lang/helpers';
 
 export default class DictionaryPlugin extends Plugin {
     settings: DictionarySettings;
@@ -83,7 +84,7 @@ export default class DictionaryPlugin extends Plugin {
 
         this.addCommand({
             id: 'dictionary-open-view',
-            name: 'Open Dictionary View',
+            name: t('Open Dictionary View'),
             callback: async () => {
                 if (this.app.workspace.getLeavesOfType(VIEW_TYPE).length == 0) {
                     await this.app.workspace.getRightLeaf(false).setViewState({

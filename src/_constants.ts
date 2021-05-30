@@ -1,18 +1,9 @@
 import type DictionarySettings from "src/types";
+import t from 'src/lang/helpers';
 
 export const VIEW_TYPE = 'dictionary-view';
-export const VIEW_DISPLAY_TEXT = 'Dictionary';
+export const VIEW_DISPLAY_TEXT = t('Dictionary');
 export const VIEW_ICON = 'quote-glyph';
-
-export const DEFAULT_SETTINGS: DictionarySettings = {
-    defaultLanguage: "en_US",
-    shouldShowSynonymPopover: true,
-    shouldShowCustomContextMenu: false,
-    definitionApiName: "Free Dictionary API",
-    synonymApiName: "Free Dictionary API",
-    partOfSpeechApiName: "Systran API",
-    advancedSynonymAnalysis: false
-}
 
 export const LANGUAGES = {
     "en_US": "English (US)",
@@ -29,3 +20,14 @@ export const LANGUAGES = {
     "ar": "Arabic",
     "tr": "Turkish"
 }
+
+export const DEFAULT_SETTINGS: DictionarySettings = {
+    defaultLanguage: "en_US",
+    shouldShowSynonymPopover: true,
+    shouldShowCustomContextMenu: false,
+    definitionApiName: "Free Dictionary API",
+    synonymApiName: "Free Dictionary API",
+    partOfSpeechApiName: "Systran API",
+    advancedSynonymAnalysis: false
+}
+

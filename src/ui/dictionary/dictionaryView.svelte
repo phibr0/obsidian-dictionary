@@ -5,6 +5,7 @@
   import PhoneticComponent from "./phoneticComponent.svelte";
   import MeaningComponent from "./meaningComponent.svelte";
   import ErrorComponent from "./errorComponent.svelte";
+import t from "src/lang/helpers";
 
   export let manager: APIManager;
 
@@ -33,7 +34,7 @@
     <input
       type="text"
       spellcheck="true"
-      placeholder="Enter a word"
+      placeholder={t('Enter a word')}
       bind:value={query}
       on:keydown={handleKeyDown}
     />
@@ -53,14 +54,14 @@
       {:then data}
         {#if data.phonetics.first().text}
           <div class="container">
-            <h3>Pronunciation</h3>
+            <h3>{t('Pronunciation')}</h3>
             {#each data.phonetics as { text, audio }}
               <PhoneticComponent {audio} {text} />
             {/each}
           </div>
         {/if}
         <div class="container">
-          <h3>Meanings</h3>
+          <h3>{t('Meanings')}</h3>
           {#each data.meanings as { definitions, partOfSpeech }}
             <MeaningComponent word={data.word} {partOfSpeech} {definitions} />
           {/each}

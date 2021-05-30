@@ -1,4 +1,5 @@
 <script lang="ts">
+  import t from "src/lang/helpers";
   import type { Definition } from "src/api/types";
 
   export let word: string;
@@ -13,7 +14,7 @@
     {#each definitions as definition, i}
       <div class="definition">
         {#if definition.definition}
-          <div class="label">Definition:</div>
+          <div class="label">{t('Definition:')}</div>
           <p>{definition.definition}</p>
         {/if}
         {#if definition.example}
@@ -28,7 +29,7 @@
         {/if}
         {#if definition.synonyms && definition.synonyms[i]}
           <div class="synonyms">
-            <div class="label">Synonyms:</div>
+            <div class="label">{t('Synonyms:')}</div>
             <p>
               {#each definition.synonyms as synonym, i}
                 {synonym}{#if i < definition.synonyms.length - 1}{", "}{/if}

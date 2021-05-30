@@ -1,6 +1,8 @@
 import { Menu, WorkspaceLeaf } from "obsidian";
+import t from "src/lang/helpers";
 import type DictionaryPlugin from "src/main";
 import { VIEW_TYPE } from "src/_constants";
+
 
 export default function handleContextMenu(instance: CodeMirror.Editor, e: MouseEvent, plugin: DictionaryPlugin): void {
     if (!plugin.settings.shouldShowCustomContextMenu) {
@@ -14,7 +16,7 @@ export default function handleContextMenu(instance: CodeMirror.Editor, e: MouseE
 
     if (instance.getSelection()) {
         fileMenu.addItem((item) => {
-            item.setTitle(`Cut`)
+            item.setTitle(t('Cut'))
                 .setIcon('cut')
                 .onClick((_) => {
                     copy(instance.getSelection());
@@ -22,7 +24,7 @@ export default function handleContextMenu(instance: CodeMirror.Editor, e: MouseE
                 });
         });
         fileMenu.addItem((item) => {
-            item.setTitle(`Copy`)
+            item.setTitle(t('Copy'))
                 .setIcon('copy')
                 .onClick((_) => {
                     copy(instance.getSelection());
@@ -30,7 +32,7 @@ export default function handleContextMenu(instance: CodeMirror.Editor, e: MouseE
         });
     }
     fileMenu.addItem((item) => {
-        item.setTitle(`Paste`)
+        item.setTitle(t('Paste'))
             .setIcon('paste')
             .onClick(async (_) => {
                 instance.replaceSelection(await navigator.clipboard.readText());
@@ -42,7 +44,7 @@ export default function handleContextMenu(instance: CodeMirror.Editor, e: MouseE
         fileMenu.addSeparator();
         if (!plugin.settings.shouldShowSynonymPopover) {
             fileMenu.addItem((item) => {
-                item.setTitle(`Show Synonyms`)
+                item.setTitle(t('Show Synonyms'))
                     .setIcon('synonyms')
                     .onClick(async (_) => {
                         plugin.handlePointerUp();
@@ -50,7 +52,7 @@ export default function handleContextMenu(instance: CodeMirror.Editor, e: MouseE
             });
         }
         fileMenu.addItem((item) => {
-            item.setTitle(`Look up`)
+            item.setTitle(t('Look up'))
                 .setIcon('quote-glyph')
                 .onClick(async (_) => {
                     let leaf: WorkspaceLeaf = plugin.app.workspace.getLeavesOfType(VIEW_TYPE).first();

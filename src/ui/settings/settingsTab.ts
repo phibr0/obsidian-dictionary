@@ -3,7 +3,7 @@ import type DictionaryPlugin from "src/main";
 import { App, Modal, PluginSettingTab, Setting } from "obsidian";
 import { LANGUAGES } from "src/_constants";
 import InfoModalComponent from './infoModal.svelte'
-import t from "src/lang/helpers";
+import t from "src/l10n/helpers";
 
 export default class SettingsTab extends PluginSettingTab {
     plugin: DictionaryPlugin;

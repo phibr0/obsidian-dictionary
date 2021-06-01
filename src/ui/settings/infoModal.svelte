@@ -1,5 +1,5 @@
 <script lang="ts">
-import t from "src/lang/helpers";
+import t from "src/l10n/helpers";
 
   import type { SynonymProvider, DefinitionProvider, PartOfSpeechProvider } from "src/api/types";
 

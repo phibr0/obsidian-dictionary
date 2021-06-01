@@ -1,5 +1,5 @@
 import type DictionarySettings from "src/types";
-import t from 'src/lang/helpers';
+import t from 'src/l10n/helpers';
 
 export const VIEW_TYPE = 'dictionary-view';
 export const VIEW_DISPLAY_TEXT = t('Dictionary');

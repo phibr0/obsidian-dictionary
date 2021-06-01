@@ -1,4 +1,4 @@
-import { DefinitionProvider, DictionaryWord, Meaning, PartOfSpeech, Synonym, SynonymProvider } from "src/api/types";
+import { DefinitionProvider, DictionaryWord, Meaning, PartOfSpeech, Synonym, SynonymProvider } from "src/integrations/types";
 
 abstract class Base {
     API_END_POINT = "https://api.dictionaryapi.dev/api/v2/entries/";
@@ -10,7 +10,7 @@ abstract class Base {
      * @param query - The term you want to look up
      * @returns Returns the URL in REST schema
      */
-    constructRequest(query: string, lang: string): string {
+    protected constructRequest(query: string, lang: string): string {
         return this.API_END_POINT + lang + '/' + query;
         //SCHEMA: https://api.dictionaryapi.dev/api/v2/entries/<language_code>/<word>
     }

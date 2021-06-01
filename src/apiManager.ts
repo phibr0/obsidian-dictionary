@@ -5,15 +5,15 @@ import type {
     PartOfSpeechProvider,
     Synonym,
     SynonymProvider,
-} from "src/api/types";
+} from "src/integrations/types";
 import type DictionarySettings from "src/types";
 
 import {
     FreeDictionaryDefinitionProvider,
     FreeDictionarySynonymProvider,
-} from "src/api/freeDictionaryAPI";
-import { OpenThesaurusSynonymAPI } from "src/api/openThesaurusAPI";
-import { SystranPOSProvider } from "src/api/systranAPI";
+} from "src/integrations/freeDictionaryAPI";
+import { OpenThesaurusSynonymAPI } from "src/integrations/openThesaurusAPI";
+import { SystranPOSProvider } from "src/integrations/systranAPI";
 
 /*
 HOW TO ADD A NEW API:

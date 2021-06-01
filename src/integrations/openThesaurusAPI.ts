@@ -1,4 +1,4 @@
-import type { Synonym, SynonymProvider } from "src/api/types";
+import type { Synonym, SynonymProvider } from "src/integrations/types";
 
 export class OpenThesaurusSynonymAPI implements SynonymProvider {
   API_END_POINT = "https://www.openthesaurus.de/synonyme/search?q=";

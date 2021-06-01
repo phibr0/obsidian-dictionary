@@ -10,7 +10,7 @@ import APIManager from 'src/apiManager';
 import { Coords, SynonymPopover } from 'src/ui/synonyms/synonymPopover';
 import handleContextMenu from 'src/ui/customContextMenu';
 import { addIcons } from 'src/ui/icons';
-import t from 'src/lang/helpers';
+import t from 'src/l10n/helpers';
 import LocalDictionaryBuilder from 'src/localDictionaryBuilder';
 
 export default class DictionaryPlugin extends Plugin {

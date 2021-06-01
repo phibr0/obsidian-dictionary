@@ -1,5 +1,5 @@
 import { Menu, WorkspaceLeaf } from "obsidian";
-import t from "src/lang/helpers";
+import t from "src/l10n/helpers";
 import type DictionaryPlugin from "src/main";
 import { VIEW_TYPE } from "src/_constants";
 

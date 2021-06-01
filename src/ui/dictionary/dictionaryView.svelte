@@ -6,7 +6,7 @@
   import PhoneticComponent from "./phoneticComponent.svelte";
   import MeaningComponent from "./meaningComponent.svelte";
   import ErrorComponent from "./errorComponent.svelte";
-  import t from "src/lang/helpers";
+  import t from "src/l10n/helpers";
 
   export let manager: APIManager;
   export let localDictionary: LocalDictionaryBuilder;

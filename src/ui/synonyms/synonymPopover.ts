@@ -1,5 +1,5 @@
 import type APIManager from "src/apiManager";
-import type { PartOfSpeech, Synonym } from 'src/api/types';
+import type { PartOfSpeech, Synonym } from 'src/integrations/types';
 import type { EditorPosition } from "obsidian";
 import SynonymPopoverComponent from './synonymPopover.svelte'
 

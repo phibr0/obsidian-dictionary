@@ -1,5 +1,5 @@
 <script lang="ts">
-  import t from "src/lang/helpers";
+  import t from "src/l10n/helpers";
 
   export let error: string;
 </script>

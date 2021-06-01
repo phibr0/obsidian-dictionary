@@ -54,7 +54,7 @@ export default class APIManager {
      * @param lang - The Language the Api will use
      * @returns The API Response of the chosen API as Promise<DictionaryWord>
      */
-    async requestDefinitions(query: string): Promise<DictionaryWord> {
+    public async requestDefinitions(query: string): Promise<DictionaryWord> {
         return await this.getDefinitionAPI().requestDefinitions(
             query,
             this.settings.defaultLanguage
@@ -68,7 +68,7 @@ export default class APIManager {
      * @param pos - The part of speech of the target word
      * @returns The API Response of the chosen API as Promise<Synonym[]>
      */
-    async requestSynonyms(query: string, pos?: PartOfSpeech): Promise<Synonym[]> {
+    public async requestSynonyms(query: string, pos?: PartOfSpeech): Promise<Synonym[]> {
         return await this.getSynonymAPI().requestSynonyms(
             query,
             this.settings.defaultLanguage,
@@ -84,7 +84,7 @@ export default class APIManager {
      * @param rightContext - The sentence content after the word
      * @returns The API Response of the chosen API as Promise<PartOfSpeech>
      */
-    async requestPartOfSpeech(
+    public async requestPartOfSpeech(
         word: string,
         leftContext: string,
         rightContext: string

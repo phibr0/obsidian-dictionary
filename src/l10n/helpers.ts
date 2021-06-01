@@ -53,7 +53,7 @@ const locale = localeMap[moment.locale()];
 
 export default function t(str: keyof typeof en): string {
     if (!locale) {
-        console.error("Error: kanban locale not found", moment.locale());
+        console.error("Error: dictionary locale not found", moment.locale());
     }
 
     return (locale && locale[str]) || en[str];

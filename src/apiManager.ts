@@ -14,6 +14,7 @@ import {
 } from "src/integrations/freeDictionaryAPI";
 import { OpenThesaurusSynonymAPI } from "src/integrations/openThesaurusAPI";
 import { SystranPOSProvider } from "src/integrations/systranAPI";
+import { SynonymoSynonymAPI } from "src/integrations/synonymoAPI";
 
 /*
 HOW TO ADD A NEW API:
@@ -37,6 +38,7 @@ export default class APIManager {
     synonymProvider: SynonymProvider[] = [
         new FreeDictionarySynonymProvider(),
         new OpenThesaurusSynonymAPI(),
+        new SynonymoSynonymAPI()
     ];
     // Adds new API's to the Part Of Speech Providers
     partOfSpeechProvider: PartOfSpeechProvider[] = [

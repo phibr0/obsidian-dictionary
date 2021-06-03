@@ -46,7 +46,7 @@ Even though this Plugin is fully Open-Source and thus can be looked over by anyo
 
 ### Translations
 
-If you want to help and translate this Plugin to new languages, see [locales](https://github.com/phibr0/obsidian-dictionary/tree/master/src/lang/locale).
+If you want to help and translate this Plugin to new languages, see [locales](https://github.com/phibr0/obsidian-dictionary/tree/master/src/l10n/locale).
 
 ### New API's
 

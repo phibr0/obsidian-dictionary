@@ -1,4 +1,4 @@
-# Obsidian Dictionary Plugin [![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/phibr0/obsidian-dictionary)](https://github.com/phibr0/obsidian-dictionary/releases) ![GitHub all releases](https://img.shields.io/github/downloads/phibr0/obsidian-dictionary/total)
+# Obsidian Dictionary Plugin [![GitHub tag (Latest by date)](https://img.shields.io/github/v/tag/phibr0/obsidian-dictionary)](https://github.com/phibr0/obsidian-dictionary/releases) ![GitHub all releases](https://img.shields.io/github/downloads/phibr0/obsidian-dictionary/total)
 
 This Plugin adds a Dictionary to the [Obsidian](https://obsidian.md) Note-Taking tool.
 
@@ -9,7 +9,6 @@ Open the *Command Palette* (default: `ctrl` + `p`), search for *Open Dictionary 
 <img align="right" width="550" src="https://media.discordapp.net/attachments/796853434397360128/847198380878069771/Screen_Shot_2021-05-26_at_12.43.43_PM.png?width=736&height=676">
 
 ## Supported Languages
-
 
 The following Languages are currently supported:
 
@@ -60,10 +59,6 @@ After that, add the API to the respective List in the [API Manager](src/apiManag
 This will automatically make it selectable in the Settings.
 
 > Special Thanks to [@mgmeyers](https://github.com/mgmeyers) for already making this Plugin a lot better!
-
-## Roadmap
-
-- [ ] Mobile Support
 
 ## Support me
 

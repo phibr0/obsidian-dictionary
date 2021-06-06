@@ -21,7 +21,6 @@ export enum PartOfSpeech {
     Adjective,
     Adverb,
 }
-
 export interface DictionaryWord {
     word: string;
     phonetics: Phonetic[];

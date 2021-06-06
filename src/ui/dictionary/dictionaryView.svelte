@@ -1,6 +1,6 @@
 <script lang="ts">
   import type APIManager from "src/apiManager";
-  import type { DictionaryWord } from "src/api/types";
+  import type { DictionaryWord } from "src/integrations/types";
   import type LocalDictionaryBuilder from "src/localDictionaryBuilder";
 
   import PhoneticComponent from "./phoneticComponent.svelte";
@@ -36,75 +36,68 @@
     <input
       type="text"
       spellcheck="true"
-      placeholder={t('Enter a word')}
+      placeholder={t("Enter a word")}
       bind:value={query}
       on:keydown={handleKeyDown}
     />
     <button on:click={search}><i class="gg-search" /></button>
   </div>
-  <div class="results">
-    {#if query.trim() != "" && promise}
-      {#await promise}
-        <div class="center">
-          <div class="spinner" />
-        </div>
-      {:then data}
+  {#if query.trim() != "" && promise}
+    {#await promise}
+      <div class="center">
+        <div class="spinner" />
+      </div>
+    {:then data}
+      <div class="results">
         {#if data.phonetics.first().text}
           <div class="container">
-            <h3>{t('Pronunciation')}</h3>
+            <h3>{t("Pronunciation")}</h3>
             {#each data.phonetics as { text, audio }}
               <PhoneticComponent {audio} {text} />
             {/each}
           </div>
         {/if}
         <div class="container">
-          <h3>{t('Meanings')}</h3>
+          <h3>{t("Meanings")}</h3>
           {#each data.meanings as { definitions, partOfSpeech }}
             <MeaningComponent word={data.word} {partOfSpeech} {definitions} />
           {/each}
         </div>
-        <span
-          class="nn"
-          on:click={async () => await localDictionary.newNote(data)}
-          >{t('New Note')}</span
-        >
-      {:catch error}
-        <ErrorComponent {error} />
-      {/await}
-    {/if}
-  </div>
+      </div>
+      <span
+        class="nn"
+        on:click={async () => await localDictionary.newNote(data)}
+        >{t("New Note")}</span
+      >
+    {:catch error}
+      <ErrorComponent {error} />
+    {/await}
+  {/if}
 </div>
 
 <style lang="scss">
-  .nn {
-    color: var(--text-faint);
-    transition: 0.2s;
-    width: 100%;
-    text-align: center;
-    margin-top: 0.8rem;
-    font-size: 1.1em;
-    &:hover{
-      color: var(--text);
-    }
-  }
-
-  .searchbox {
-    margin-top: 0.1rem;
-    display: flex;
-
-    > input {
-      width: 100%;
-      margin-right: 1rem;
-      margin-left: 12px; //So its the same as the Button
-    }
-  }
-
   .results {
     display: flex;
     flex-wrap: wrap;
   }
-  .container {
+
+  .nn {
+    color: var(--text-faint);
+    transition: 0.2s;
     width: 100%;
+    display: inline-block;
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 1em;
+    &:hover {
+      color: var(--text);
+    }
+  }
+
+  .container {
+    max-width: 30vw;
+    width: 100%;
+    margin: auto;
     background-color: var(--background-primary-alt);
     padding-left: 0.5rem;
     padding-right: 0.5rem;
@@ -116,6 +109,17 @@
       margin-top: 0.3rem;
       margin-bottom: 0.3rem;
       font-weight: normal;
+    }
+  }
+
+  .searchbox {
+    margin-top: 0.1rem;
+    display: flex;
+
+    > input {
+      width: 100%;
+      margin-right: 1rem;
+      margin-left: 12px; //So its the same as the Button
     }
   }
 

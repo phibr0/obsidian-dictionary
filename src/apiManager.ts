@@ -53,7 +53,6 @@ export default class APIManager {
      * Sends a request with the passed query to the chosen API and returns the Result
      *
      * @param query - The term you want to look up
-     * @param lang - The Language the Api will use
      * @returns The API Response of the chosen API as Promise<DictionaryWord>
      */
     public async requestDefinitions(query: string): Promise<DictionaryWord> {

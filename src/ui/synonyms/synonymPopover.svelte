@@ -1,6 +1,6 @@
 <script lang="ts">
   import { fade } from 'svelte/transition';
-  import type { Synonym } from "src/api/types";
+  import type { Synonym } from "src/integrations/types";
   import type { Coords } from "./synonymPopover";
 
   export let coords: Coords;

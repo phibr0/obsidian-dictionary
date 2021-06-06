@@ -1,7 +1,7 @@
 <script lang="ts">
 import t from "src/l10n/helpers";
 
-  import type { SynonymProvider, DefinitionProvider, PartOfSpeechProvider } from "src/api/types";
+  import type { SynonymProvider, DefinitionProvider, PartOfSpeechProvider } from "src/integrations/types";
 
   export let synonymAPIs: SynonymProvider[];
   export let definitionAPIs: DefinitionProvider[];

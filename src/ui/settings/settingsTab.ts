@@ -14,7 +14,7 @@ export default class SettingsTab extends PluginSettingTab {
     }
 
     display(): void {
-        const { containerEl } = this;
+        const { containerEl, plugin } = this;
 
         containerEl.empty();
 
@@ -27,26 +27,56 @@ export default class SettingsTab extends PluginSettingTab {
                 for (const language in LANGUAGES) {
                     dropdown.addOption(language, LANGUAGES[language]);
                 }
-                dropdown.setValue(this.plugin.settings.defaultLanguage)
+                dropdown.setValue(plugin.settings.defaultLanguage)
                     .onChange(async (value) => {
-                        this.plugin.settings.defaultLanguage = value;
-                        await this.plugin.saveSettings();
+                        plugin.settings.defaultLanguage = value;
+                        await this.save();
                         this.display();
+                    });
+            });
+        new Setting(containerEl)
+            .setName(t('Definition Provider'))
+            .setDesc(t('The API the Plugin will use to search for Definitions.'))
+            .addDropdown((dropdown) => {
+                for (const api of plugin.manager.definitionProvider) {
+                    if (api.supportedLanguages.contains(plugin.settings.defaultLanguage)) {
+                        dropdown.addOption(api.name, api.name);
+                    }
+                }
+                dropdown.setValue(plugin.settings.definitionApiName)
+                    .onChange(async (value) => {
+                        plugin.settings.definitionApiName = value;
+                        await this.save();
+                    });
+            });
+        new Setting(containerEl)
+            .setName(t('Synonym Provider'))
+            .setDesc(t('The API the Plugin will use to search for Synonyms.'))
+            .addDropdown((dropdown) => {
+                for (const api of plugin.manager.synonymProvider) {
+                    if (api.supportedLanguages.contains(plugin.settings.defaultLanguage)) {
+                        dropdown.addOption(api.name, api.name);
+                    }
+                }
+                dropdown.setValue(plugin.settings.synonymApiName)
+                    .onChange(async (value) => {
+                        plugin.settings.synonymApiName = value;
+                        await this.save();
                     });
             });
         new Setting(containerEl)
             .setName(t('Synonym Suggestions'))
             .setDesc(t('Show synonyms for highlighted words'))
             .addToggle(toggle => {
-                if (this.plugin.settings.shouldShowSynonymPopover) {
+                if (plugin.settings.shouldShowSynonymPopover) {
                     toggle.setValue(true)
                 } else {
                     toggle.setValue(false)
                 }
 
                 toggle.onChange(async (value) => {
-                    this.plugin.settings.shouldShowSynonymPopover = value;
-                    await this.plugin.saveSettings();
+                    plugin.settings.shouldShowSynonymPopover = value;
+                    await this.save();
                 })
             });
         const desc = document.createDocumentFragment();
@@ -64,76 +94,42 @@ export default class SettingsTab extends PluginSettingTab {
             .setName(t('Advanced Synonym Search'))
             .setDesc(desc)
             .addToggle(toggle => {
-                if (this.plugin.settings.advancedSynonymAnalysis) {
+                if (plugin.settings.advancedSynonymAnalysis) {
                     toggle.setValue(true)
                 } else {
                     toggle.setValue(false)
                 }
 
                 toggle.onChange(async (value) => {
-                    this.plugin.settings.advancedSynonymAnalysis = value;
-                    await this.plugin.saveSettings();
+                    plugin.settings.advancedSynonymAnalysis = value;
+                    await this.save();
                 })
             });
         new Setting(containerEl)
             .setName(t('Show Options in Context Menu'))
             .setDesc(t('Enable custom Context Menu with options to search for synonyms (only if the auto suggestions are disabled) and to look up a full definition in the Sidebar. Warning: This will override Obsidian\'s default Context Menu.'))
             .addToggle(toggle => {
-                if (this.plugin.settings.shouldShowCustomContextMenu) {
+                if (plugin.settings.shouldShowCustomContextMenu) {
                     toggle.setValue(true)
                 } else {
                     toggle.setValue(false)
                 }
 
                 toggle.onChange(async (value) => {
-                    this.plugin.settings.shouldShowCustomContextMenu = value;
-                    await this.plugin.saveSettings();
+                    plugin.settings.shouldShowCustomContextMenu = value;
+                    await this.save();
                 })
             });
-        new Setting(containerEl)
-            .setName(t('Definition Provider'))
-            .setDesc(t('The API the Plugin will use to search for Definitions.'))
-            .addDropdown((dropdown) => {
-                for (const api of this.plugin.manager.definitionProvider) {
-                    if (api.supportedLanguages.contains(this.plugin.settings.defaultLanguage)) {
-                        dropdown.addOption(api.name, api.name);
-                    }
-                }
-                dropdown.setValue(this.plugin.settings.definitionApiName)
-                    .onChange(async (value) => {
-                        this.plugin.settings.definitionApiName = value;
-                        await this.plugin.saveSettings();
-                    });
-            });
-        new Setting(containerEl)
-            .setName(t('Synonym Provider'))
-            .setDesc(t('The API the Plugin will use to search for Synonyms.'))
-            .addDropdown((dropdown) => {
-                for (const api of this.plugin.manager.synonymProvider) {
-                    if (api.supportedLanguages.contains(this.plugin.settings.defaultLanguage)) {
-                        dropdown.addOption(api.name, api.name);
-                    }
-                }
-                dropdown.setValue(this.plugin.settings.synonymApiName)
-                    .onChange(async (value) => {
-                        this.plugin.settings.synonymApiName = value;
-                        await this.plugin.saveSettings();
-                    });
-            });
-
-
         new Setting(containerEl)
             .setName(t('Local Dictionary Folder'))
             .setDesc(t('Specify a Folder, where all new Notes created by the Dictionary are placed. Please note that this Folder needs to already exist.'))
             .addText(text => text
                 .setPlaceholder(t('Dictionary'))
-                .setValue(this.plugin.settings.folder)
+                .setValue(plugin.settings.folder)
                 .onChange(async (value) => {
-                    this.plugin.settings.folder = value;
-                    await this.plugin.saveSettings();
+                    plugin.settings.folder = value;
+                    await this.save();
                 }));
-            
-        
         new Setting(containerEl)
             .setName(t('More Information'))
             .setDesc(t('View Information about the API\'s and the Plugin itself.'))
@@ -141,7 +137,7 @@ export default class SettingsTab extends PluginSettingTab {
             .addButton((bt) => {
                 bt.setButtonText(t('More Info'))
                 bt.onClick((_) => {
-                    new InfoModal(this.plugin).open();
+                    new InfoModal(plugin).open();
                 });
             });
         new Setting(containerEl)
@@ -151,6 +147,10 @@ export default class SettingsTab extends PluginSettingTab {
             .addButton((bt) => {
                 bt.buttonEl.outerHTML = `<a href="https://www.buymeacoffee.com/phibr0"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=phibr0&button_colour=5F7FFF&font_colour=ffffff&font_family=Inter&outline_colour=000000&coffee_colour=FFDD00"></a>`;
             })
+    }
+
+    private async save() {
+        await this.plugin.saveSettings();
     }
 }
 

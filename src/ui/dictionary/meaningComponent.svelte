@@ -1,6 +1,6 @@
 <script lang="ts">
   import t from "src/l10n/helpers";
-  import type { Definition } from "src/api/types";
+  import type { Definition } from "src/integrations/types";
 
   export let word: string;
   export let definitions: Definition[];

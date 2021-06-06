@@ -116,7 +116,7 @@ export default class SettingsTab extends PluginSettingTab {
                     await this.save();
                 })
             });
-        containerEl.createEl('h3', {text: "Local-Dictionary-Builder Settings"});
+        containerEl.createEl('h3', {text: t("Local-Dictionary-Builder Settings")});
         new Setting(containerEl)
             .setName(t('Local Dictionary Folder'))
             .setDesc(t('Specify a Folder, where all new Notes created by the Dictionary are placed. Please note that this Folder needs to already exist.'))
@@ -176,7 +176,7 @@ export default class SettingsTab extends PluginSettingTab {
                     plugin.settings.template = value;
                     await this.save();
                 }))
-        containerEl.createEl('h3', {text: "Miscellaneous"});
+        containerEl.createEl('h3', {text: t("Miscellaneous")});
         new Setting(containerEl)
             .setName(t('More Information'))
             .setDesc(t('View Information about the API\'s and the Plugin itself.'))

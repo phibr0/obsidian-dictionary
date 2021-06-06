@@ -47,6 +47,8 @@ export default {
     'Here you can edit the Template for newly created Files.': 'Here you can edit the Template for newly created Files.',
     'Click for a List of Variables': 'Click for a List of Variables',
     'Template': 'Template',
+    "Local-Dictionary-Builder Settings": "Local-Dictionary-Builder Settings",
+    "Miscellaneous": "Miscellaneous",
     
 
     //localDictionaryBuilder.ts

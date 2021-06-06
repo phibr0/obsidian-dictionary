@@ -94,11 +94,7 @@ export default class SettingsTab extends PluginSettingTab {
             .setName(t('Advanced Synonym Search'))
             .setDesc(desc)
             .addToggle(toggle => {
-                if (plugin.settings.advancedSynonymAnalysis) {
-                    toggle.setValue(true)
-                } else {
-                    toggle.setValue(false)
-                }
+                toggle.setValue(plugin.settings.advancedSynonymAnalysis)
 
                 toggle.onChange(async (value) => {
                     plugin.settings.advancedSynonymAnalysis = value;
@@ -120,6 +116,7 @@ export default class SettingsTab extends PluginSettingTab {
                     await this.save();
                 })
             });
+        containerEl.createEl('h3', {text: "Local-Dictionary-Builder Settings"});
         new Setting(containerEl)
             .setName(t('Local Dictionary Folder'))
             .setDesc(t('Specify a Folder, where all new Notes created by the Dictionary are placed. Please note that this Folder needs to already exist.'))
@@ -130,6 +127,36 @@ export default class SettingsTab extends PluginSettingTab {
                     plugin.settings.folder = value;
                     await this.save();
                 }));
+        new Setting(containerEl)
+            .setName('Capitalize File Name')
+            .setDesc('If you disable this, the names of newly created files will be all lowercase.')
+            .addToggle(toggle => {
+                toggle.setValue(plugin.settings.capitalizedFileName)
+    
+                toggle.onChange(async (value) => {
+                    plugin.settings.capitalizedFileName = value;
+                    await this.save();
+                })
+            });
+        new Setting(containerEl)
+            .setName('Filename Prefix and Suffix')
+            .setDesc('Here you can add a Prefix and Suffix for your newly created Files.')
+            .setClass("dictionaryprefixsuffix")
+            .addText(text => text
+                .setPlaceholder("Prefix")
+                .setValue(plugin.settings.prefix)
+                .onChange(async (value) => {
+                    plugin.settings.prefix = value;
+                    await this.save();
+                }))
+            .addText(text => text
+                .setPlaceholder("Suffix")
+                .setValue(plugin.settings.suffix)
+                .onChange(async (value) => {
+                    plugin.settings.suffix = value;
+                    await this.save();
+                }));
+        containerEl.createEl('h3', {text: "Miscellaneous"});
         new Setting(containerEl)
             .setName(t('More Information'))
             .setDesc(t('View Information about the API\'s and the Plugin itself.'))

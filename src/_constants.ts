@@ -29,6 +29,9 @@ export const DEFAULT_SETTINGS: DictionarySettings = {
     synonymApiName: "Free Dictionary API",
     partOfSpeechApiName: "Systran API",
     advancedSynonymAnalysis: false,
-    folder: ''
+    folder: '',
+    capitalizedFileName: true,
+    prefix: "",
+    suffix: "",
 }
 

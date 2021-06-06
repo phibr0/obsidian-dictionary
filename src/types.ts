@@ -7,4 +7,7 @@ export default interface DictionarySettings {
 	shouldShowCustomContextMenu: boolean;
 	advancedSynonymAnalysis: boolean;
 	folder: string;
+	capitalizedFileName: boolean;
+	suffix: string;
+	prefix: string;
 }

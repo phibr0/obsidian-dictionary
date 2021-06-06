@@ -13,3 +13,8 @@ a[href="https://www.buymeacoffee.com/phibr0"]{
 .dictionaryprefixsuffix .setting-item-control input{
     margin-left: 0.5rem;
 }
+
+.dictionarytextarea .setting-item-control textarea{
+    height: 15em;
+    width: 100%;
+}

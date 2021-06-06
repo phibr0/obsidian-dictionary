@@ -33,5 +33,20 @@ export const DEFAULT_SETTINGS: DictionarySettings = {
     capitalizedFileName: true,
     prefix: "",
     suffix: "",
+    template: `---
+# {{notice}}
+---
+
+# {{word}}
+
+## {{pronunciationHeader}}
+
+{{phoneticList}}
+
+## {{meaningHeader}}
+
+{{meanings}}
+`,
+
 }
 

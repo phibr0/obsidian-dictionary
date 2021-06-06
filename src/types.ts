@@ -10,4 +10,5 @@ export default interface DictionarySettings {
 	capitalizedFileName: boolean;
 	suffix: string;
 	prefix: string;
+	template: string;
 }

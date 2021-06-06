@@ -1,7 +1,7 @@
 import type DictionaryPlugin from "src/main";
 
 import { App, Modal, PluginSettingTab, Setting } from "obsidian";
-import { LANGUAGES } from "src/_constants";
+import { DEFAULT_SETTINGS, LANGUAGES } from "src/_constants";
 import InfoModalComponent from './infoModal.svelte'
 import t from "src/l10n/helpers";
 
@@ -128,8 +128,8 @@ export default class SettingsTab extends PluginSettingTab {
                     await this.save();
                 }));
         new Setting(containerEl)
-            .setName('Capitalize File Name')
-            .setDesc('If you disable this, the names of newly created files will be all lowercase.')
+            .setName(t('Capitalize File Name'))
+            .setDesc(t('If you disable this, the names of newly created files will be all lowercase.'))
             .addToggle(toggle => {
                 toggle.setValue(plugin.settings.capitalizedFileName)
     
@@ -139,23 +139,43 @@ export default class SettingsTab extends PluginSettingTab {
                 })
             });
         new Setting(containerEl)
-            .setName('Filename Prefix and Suffix')
-            .setDesc('Here you can add a Prefix and Suffix for your newly created Files.')
+            .setName(t('Filename Prefix and Suffix'))
+            .setDesc(t('Here you can add a Prefix and Suffix for your newly created Files.'))
             .setClass("dictionaryprefixsuffix")
             .addText(text => text
-                .setPlaceholder("Prefix")
+                .setPlaceholder(t("Prefix"))
                 .setValue(plugin.settings.prefix)
                 .onChange(async (value) => {
                     plugin.settings.prefix = value;
                     await this.save();
                 }))
             .addText(text => text
-                .setPlaceholder("Suffix")
+                .setPlaceholder(t("Suffix"))
                 .setValue(plugin.settings.suffix)
                 .onChange(async (value) => {
                     plugin.settings.suffix = value;
                     await this.save();
                 }));
+        const templateDescription = document.createDocumentFragment();
+        templateDescription.append(
+            t('Here you can edit the Template for newly created Files.'),
+            templateDescription.createEl("br"),
+            templateDescription.createEl("a", {
+                href: "https://github.com/phibr0/obsidian-dictionary#variables",
+                text: t('Click for a List of Variables'),
+            }),
+        );
+        new Setting(containerEl)
+            .setName(t('Template'))
+            .setDesc(templateDescription)
+            .setClass("dictionarytextarea")
+            .addTextArea(text => text
+                .setPlaceholder(DEFAULT_SETTINGS.template)
+                .setValue(plugin.settings.template)
+                .onChange(async (value) => {
+                    plugin.settings.template = value;
+                    await this.save();
+                }))
         containerEl.createEl('h3', {text: "Miscellaneous"});
         new Setting(containerEl)
             .setName(t('More Information'))

@@ -3,6 +3,7 @@
 export default {
     //main.ts
     'Open Dictionary View': 'Öffne Wörterbuch',
+    'Open Language Switcher': 'Sprache wechseln',
 
     //_constants.ts
     'Dictionary': 'Wörterbuch',

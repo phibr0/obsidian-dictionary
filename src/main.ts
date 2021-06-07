@@ -12,6 +12,7 @@ import handleContextMenu from 'src/ui/customContextMenu';
 import { addIcons } from 'src/ui/icons';
 import t from 'src/l10n/helpers';
 import LocalDictionaryBuilder from 'src/localDictionaryBuilder';
+import LanguageChooser from 'src/ui/modals/languageChooser';
 
 export default class DictionaryPlugin extends Plugin {
     settings: DictionarySettings;
@@ -19,6 +20,72 @@ export default class DictionaryPlugin extends Plugin {
     localDictionary: LocalDictionaryBuilder;
     synonymPopover: SynonymPopover | null = null;
 
+    async onload(): Promise<void> {
+        console.log('loading dictionary');
+
+        await this.loadSettings();
+
+        addIcons();
+
+        this.addSettingTab(new SettingsTab(this.app, this));
+
+        this.manager = new APIManager(this.settings);
+
+        this.registerView(VIEW_TYPE, (leaf) => {
+            return new DictionaryView(leaf, this);
+        });
+
+        this.addCommand({
+            id: 'dictionary-open-view',
+            name: t('Open Dictionary View'),
+            callback: async () => {
+                if (this.app.workspace.getLeavesOfType(VIEW_TYPE).length == 0) {
+                    await this.app.workspace.getRightLeaf(false).setViewState({
+                        type: VIEW_TYPE,
+                    });
+                }
+                this.app.workspace.revealLeaf(this.app.workspace.getLeavesOfType(VIEW_TYPE).first());
+            },
+        });
+
+        this.addCommand({
+            id: 'dictionary-open-language-switcher',
+            name: t('Open Language Switcher'),
+            callback: () => {
+                new LanguageChooser(this.app, this).open();
+            },
+        });
+
+        this.registerDomEvent(document.body, "pointerup", () => {
+            if (!this.settings.shouldShowSynonymPopover) {
+                return;
+            }
+            this.handlePointerUp();
+        });
+        this.registerDomEvent(window, "keydown", () => {
+            // Destroy the popover if it's open
+            if (this.synonymPopover) {
+                this.synonymPopover.destroy();
+                this.synonymPopover = null;
+            }
+        });
+
+        //Create a new Custom Context Menu on right click inside the Editor
+        this.registerCodeMirror(cm => {
+            cm.on('contextmenu', (instance, e) => {
+                this.handlePointerUp.cancel();
+                handleContextMenu(instance, e, this);
+            });
+        });
+
+        this.localDictionary = new LocalDictionaryBuilder(this);
+    }
+
+    onunload():void {
+        console.log('unloading dictionary');
+    }
+
+    
     // Open the synonym popover if a word is selected
     // This is debounced to handle double clicks
     handlePointerUp = debounce(
@@ -69,63 +136,6 @@ export default class DictionaryPlugin extends Plugin {
         300,
         true
     );
-
-    async onload(): Promise<void> {
-        console.log('loading dictionary');
-
-        await this.loadSettings();
-
-        addIcons();
-
-        this.addSettingTab(new SettingsTab(this.app, this));
-
-        this.manager = new APIManager(this.settings);
-
-        this.registerView(VIEW_TYPE, (leaf) => {
-            return new DictionaryView(leaf, this);
-        });
-
-        this.addCommand({
-            id: 'dictionary-open-view',
-            name: t('Open Dictionary View'),
-            callback: async () => {
-                if (this.app.workspace.getLeavesOfType(VIEW_TYPE).length == 0) {
-                    await this.app.workspace.getRightLeaf(false).setViewState({
-                        type: VIEW_TYPE,
-                    });
-                }
-                this.app.workspace.revealLeaf(this.app.workspace.getLeavesOfType(VIEW_TYPE).first());
-            },
-        });
-
-        this.registerDomEvent(document.body, "pointerup", () => {
-            if (!this.settings.shouldShowSynonymPopover) {
-                return;
-            }
-            this.handlePointerUp();
-        })
-        this.registerDomEvent(window, "keydown", () => {
-            // Destroy the popover if it's open
-            if (this.synonymPopover) {
-                this.synonymPopover.destroy();
-                this.synonymPopover = null;
-            }
-        });
-
-        //Create a new Custom Context Menu on right click inside the Editor
-        this.registerCodeMirror(cm => {
-            cm.on('contextmenu', (instance, e) => {
-                this.handlePointerUp.cancel();
-                handleContextMenu(instance, e, this);
-            });
-        });
-
-        this.localDictionary = new LocalDictionaryBuilder(this);
-    }
-
-    onunload():void {
-        console.log('unloading dictionary');
-    }
 
     async loadSettings(): Promise<void> {
         this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());

@@ -17,4 +17,5 @@ a[href="https://www.buymeacoffee.com/phibr0"]{
 .dictionarytextarea .setting-item-control textarea{
     height: 15em;
     width: 100%;
+    resize: vertical;
 }

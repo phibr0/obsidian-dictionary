@@ -8,6 +8,7 @@
   import ErrorComponent from "./errorComponent.svelte";
   import t from "src/l10n/helpers";
 
+
   export let manager: APIManager;
   export let localDictionary: LocalDictionaryBuilder;
 
@@ -18,6 +19,10 @@
     if (query.trim() !== "") {
       promise = manager.requestDefinitions(query);
     }
+  }
+
+  function languageModal(){
+    dispatchEvent(new Event('dictionary-open-language-switcher'));
   }
 
   addEventListener("obsidian-dictionary-plugin-search", () => {
@@ -33,6 +38,7 @@
 
 <div class="main">
   <div class="searchbox">
+    <button class="dictionary-button" on:click={languageModal}><i class="languageIcon" alt="Language"/></button>
     <input
       type="text"
       spellcheck="true"
@@ -40,7 +46,7 @@
       bind:value={query}
       on:keydown={handleKeyDown}
     />
-    <button on:click={search}><i class="gg-search" /></button>
+    <button class="dictionary-button" on:click={search}><i class="searchIcon" alt="Search"/></button>
   </div>
   {#if query.trim() != "" && promise}
     {#await promise}
@@ -118,37 +124,72 @@
 
     > input {
       width: 100%;
-      margin-right: 1rem;
-      margin-left: 12px; //So its the same as the Button
+      margin-right: 0.8rem;
+      margin-left: 0.8rem;
     }
   }
 
-  .gg-search {
+  .dictionary-button{
+    margin-right: 0px;
+  }
+
+  .searchIcon {
     box-sizing: border-box;
     position: relative;
     display: block;
-    transform: scale(var(--ggs, 0.8));
+    transform: scale(var(--ggs,1));
     width: 16px;
     height: 16px;
     border: 2px solid;
     border-radius: 100%;
     margin-left: -4px;
-    margin-top: -4px;
+    margin-top: -4px
+}
+.searchIcon::after {
+    content: "";
+    display: block;
+    box-sizing: border-box;
+    position: absolute;
+    border-radius: 3px;
+    width: 2px;
+    height: 8px;
+    background: currentColor;
+    transform: rotate(-45deg);
+    top: 10px;
+    left: 12px
+}
 
-    &:after {
-      content: "";
-      display: block;
-      box-sizing: border-box;
-      position: absolute;
-      border-radius: 3px;
-      width: 2px;
-      height: 8px;
-      background: currentColor;
-      transform: rotate(-45deg);
-      top: 10px;
-      left: 12px;
-    }
-  }
+.languageIcon,
+.languageIcon::after,
+.languageIcon::before {
+    display: block;
+    box-sizing: border-box;
+    height: 18px;
+    border: 2px solid
+}
+.languageIcon {
+    position: relative;
+    transform: scale(var(--ggs,1));
+    width: 18px;
+    border-radius: 22px
+}
+.languageIcon::after,
+.languageIcon::before {
+    content: "";
+    position: absolute;
+    width: 8px;
+    border-radius: 100%;
+    top: -2px;
+    left: 3px
+}
+.languageIcon::after {
+    width: 24px;
+    height: 20px;
+    border: 2px solid transparent;
+    border-bottom: 2px solid;
+    top: -11px;
+    left: -5px
+}
 
   .center {
     margin: auto;
@@ -164,6 +205,7 @@
       transform: translate3d(-50%, -50%, 0) rotate(360deg);
     }
   }
+
   .spinner {
     // The height here is just for demo purposes
     height: 3rem;

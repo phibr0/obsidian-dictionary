@@ -74,4 +74,9 @@ export default {
     //meaningComponent.ts
     'Definition:': 'Definition:',
     'Synonyms:': 'Synonyme:',
+
+    //modals
+    "Choose a Definition Provider Service": "API für Definitionen auswählen",
+    "Choose a Language": "Sprache auswählen",
+    "Choose a Synonym Provider Service": "API für Synonyme auswählen",
 };

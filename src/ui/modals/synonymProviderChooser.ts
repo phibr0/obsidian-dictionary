@@ -1,5 +1,6 @@
 import { FuzzySuggestModal, App } from "obsidian";
 import type DictionaryPlugin from "src/main";
+import t from "src/l10n/helpers";
 
 export default class SynonymProviderChooser extends FuzzySuggestModal<string>{
     plugin: DictionaryPlugin;
@@ -13,6 +14,7 @@ export default class SynonymProviderChooser extends FuzzySuggestModal<string>{
                 this.available.push(api.name);
             }
         });
+        this.setPlaceholder(t("Choose a Synonym Provider Service"));
     }
 
     async onOpen(): Promise<void> {

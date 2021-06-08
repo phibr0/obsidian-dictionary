@@ -5,6 +5,8 @@ import type DictionarySettings from "src/types";
 import t from "src/l10n/helpers";
 import { Notice } from "obsidian";
 
+//This really needs a refactor
+
 export default class LocalDictionaryBuilder {
     plugin: DictionaryPlugin;
     settings: DictionarySettings;

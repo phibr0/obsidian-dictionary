@@ -32,8 +32,8 @@ interface POSResponse {
 export class SystranPOSProvider implements PartOfSpeechProvider {
     API_END_POINT =
         "https://systran-systran-platform-for-language-processing-v1.p.rapidapi.com/nlp/morphology/extract/pos";
-    // This is a free endpoint but still requires a key. 
-    // The key is encoded to thwart bots, not humans. 
+    // This is a free endpoint but still requires a key.
+    // The key is encoded to thwart bots, not humans.
     key = "NWUxYWZmNGE4ZG1zaDI5ZTZlZmJkMGE2NmUwZXAxYzliNTVqc24zMWI3ODRlMTVhMTc";
 
     public name = "Systran API";

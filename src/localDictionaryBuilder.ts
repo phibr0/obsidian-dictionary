@@ -19,8 +19,8 @@ export default class LocalDictionaryBuilder {
     private cap(string: string): string{
         const words = string.split(" ");
 
-        return words.map((word) => { 
-            return word[0].toUpperCase() + word.substring(1); 
+        return words.map((word) => {
+            return word[0].toUpperCase() + word.substring(1);
         }).join(" ");
     }
 

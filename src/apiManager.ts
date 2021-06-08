@@ -56,7 +56,7 @@ export default class APIManager {
      * @returns The API Response of the chosen API as Promise<DictionaryWord>
      */
     public async requestDefinitions(query: string): Promise<DictionaryWord> {
-        return await this.getDefinitionAPI().requestDefinitions(
+        return this.getDefinitionAPI().requestDefinitions(
             query,
             this.settings.defaultLanguage
         );
@@ -70,7 +70,7 @@ export default class APIManager {
      * @returns The API Response of the chosen API as Promise<Synonym[]>
      */
     public async requestSynonyms(query: string, pos?: PartOfSpeech): Promise<Synonym[]> {
-        return await this.getSynonymAPI().requestSynonyms(
+        return this.getSynonymAPI().requestSynonyms(
             query,
             this.settings.defaultLanguage,
             pos
@@ -90,7 +90,7 @@ export default class APIManager {
         leftContext: string,
         rightContext: string
     ): Promise<PartOfSpeech> {
-        return await this.getPartOfSpeechAPI()?.requestPartOfSpeech(
+        return this.getPartOfSpeechAPI()?.requestPartOfSpeech(
             word,
             leftContext,
             rightContext,

@@ -81,7 +81,7 @@ export class FreeDictionarySynonymProvider extends Base implements SynonymProvid
     }
 
     /**
-     * 
+     *
      * @param query - The word to look up synonyms for
      * @param lang - The host language
      * @param pos - The part of speech of the target word

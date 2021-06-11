@@ -1,3 +1,5 @@
+<img align="right" width="550" src="https://media.discordapp.net/attachments/796853434397360128/847198380878069771/Screen_Shot_2021-05-26_at_12.43.43_PM.png?width=736&height=676">
+
 # Obsidian Dictionary Plugin [![GitHub tag (Latest by date)](https://img.shields.io/github/v/tag/phibr0/obsidian-dictionary)](https://github.com/phibr0/obsidian-dictionary/releases) ![GitHub all releases](https://img.shields.io/github/downloads/phibr0/obsidian-dictionary/total)
 
 This Plugin adds a Dictionary to the [Obsidian](https://obsidian.md) Note-Taking tool.
@@ -5,8 +7,6 @@ This Plugin adds a Dictionary to the [Obsidian](https://obsidian.md) Note-Taking
 ## Usage
 
 Open the *Command Palette* (default: `ctrl` + `p`), search for *Open Dictionary View* and run the command. You will see that a new View appears in the right Sidebar of Obsidian. You can set your default Language in Obsidian's Settings under *Plugin Options* > *Obsidian Dictionary* > *Default Language*.
-
-<img align="right" width="550" src="https://media.discordapp.net/attachments/796853434397360128/847198380878069771/Screen_Shot_2021-05-26_at_12.43.43_PM.png?width=736&height=676">
 
 ## Supported Languages
 

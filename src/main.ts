@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type DictionarySettings from 'src/types';
 
-import { debounce, MarkdownView, Plugin} from 'obsidian';
+import { debounce, MarkdownView, Plugin, WorkspaceLeaf} from 'obsidian';
 import { matchCasing } from "match-casing";
 import SettingsTab from 'src/ui/settings/settingsTab';
 import DictionaryView from 'src/ui/dictionary/dictionaryView';
@@ -70,15 +71,55 @@ export default class DictionaryPlugin extends Plugin {
             }
         });
 
-        //Create a new Custom Context Menu on right click inside the Editor
-        this.registerCodeMirror(cm => {
-            cm.on('contextmenu', (instance, e) => {
-                this.handlePointerUp.cancel();
-                handleContextMenu(instance, e, this);
-            });
-        });
-
         this.localDictionary = new LocalDictionaryBuilder(this);
+
+        this.app.workspace.onLayoutReady(() => {
+            //@ts-ignore
+            const extendedContextMenu = this.app.plugins.getPlugin("extended-context-menu");
+            if(extendedContextMenu){
+                const menus = [
+                    {
+                        pluginName: this.manifest.id,
+                        name: t('Show Synonyms'),
+                        icon: 'synonyms',
+                        onClick: this.handlePointerUp,
+                        enabled: true,
+                    },
+                    {
+                        pluginName: this.manifest.id,
+                        name: t('Look up'),
+                        icon: 'quote-glyph',
+                        onClick: async (instance: CodeMirror.Editor) => {
+                            let leaf: WorkspaceLeaf = this.app.workspace.getLeavesOfType(VIEW_TYPE).first();
+                            if(!leaf){
+                                leaf = this.app.workspace.getRightLeaf(false);
+                                await leaf.setViewState({
+                                    type: VIEW_TYPE,
+                                });
+                            }
+                            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                            //@ts-ignore
+                            leaf.view.query(instance.getSelection());
+                            this.app.workspace.revealLeaf(leaf);
+                        },
+                        enabled: true,
+                    },
+                ];
+
+                menus.forEach((menu) => {
+                    extendedContextMenu.registerCommand(menu);
+                });
+                
+            } else {
+                //Create a new Custom Context Menu on right click inside the Editor
+                this.registerCodeMirror(cm => {
+                    cm.on('contextmenu', (instance, e) => {
+                        this.handlePointerUp.cancel();
+                        handleContextMenu(instance, e, this);
+                    });
+                });
+            }
+        });
     }
 
     onunload():void {

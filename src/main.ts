@@ -82,7 +82,11 @@ export default class DictionaryPlugin extends Plugin {
                         pluginName: this.manifest.id,
                         name: t('Show Synonyms'),
                         icon: 'synonyms',
-                        onClick: this.handlePointerUp,
+                        onClick: (instance: CodeMirror.Editor) => {
+                            if(instance.getSelection()){
+                                this.handlePointerUp();
+                            }
+                        },
                         enabled: true,
                     },
                     {
@@ -90,17 +94,19 @@ export default class DictionaryPlugin extends Plugin {
                         name: t('Look up'),
                         icon: 'quote-glyph',
                         onClick: async (instance: CodeMirror.Editor) => {
-                            let leaf: WorkspaceLeaf = this.app.workspace.getLeavesOfType(VIEW_TYPE).first();
-                            if(!leaf){
-                                leaf = this.app.workspace.getRightLeaf(false);
-                                await leaf.setViewState({
-                                    type: VIEW_TYPE,
-                                });
+                            if(instance.getSelection()){
+                                let leaf: WorkspaceLeaf = this.app.workspace.getLeavesOfType(VIEW_TYPE).first();
+                                if(!leaf){
+                                    leaf = this.app.workspace.getRightLeaf(false);
+                                    await leaf.setViewState({
+                                        type: VIEW_TYPE,
+                                    });
+                                }
+                                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                                //@ts-ignore
+                                leaf.view.query(instance.getSelection());
+                                this.app.workspace.revealLeaf(leaf);
                             }
-                            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                            //@ts-ignore
-                            leaf.view.query(instance.getSelection());
-                            this.app.workspace.revealLeaf(leaf);
                         },
                         enabled: true,
                     },

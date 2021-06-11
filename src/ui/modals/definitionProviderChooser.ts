@@ -18,7 +18,7 @@ export default class DefinitionProviderChooser extends FuzzySuggestModal<string>
         this.setPlaceholder(t("Choose a Definition Provider Service"));
     }
 
-    async onOpen(): Promise<void> {
+    onOpen(): void{
         if (this.available.length <= 1) {
             this.onChooseItem(this.available.first()??"");
         }

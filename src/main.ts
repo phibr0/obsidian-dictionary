@@ -26,7 +26,7 @@ export default class DictionaryPlugin extends Plugin {
             pluginName: this.manifest.id,
             name: t('Show Synonyms'),
             icon: 'synonyms',
-            onClick: (instance: CodeMirror.Editor) => {
+            onClick: (instance: CodeMirror.Editor): void => {
                 if(instance.getSelection()){
                     this.handlePointerUp();
                 }
@@ -37,7 +37,7 @@ export default class DictionaryPlugin extends Plugin {
             pluginName: this.manifest.id,
             name: t('Look up'),
             icon: 'quote-glyph',
-            onClick: async (instance: CodeMirror.Editor) => {
+            onClick: async (instance: CodeMirror.Editor): Promise<void> => {
                 if(instance.getSelection()){
                     let leaf: WorkspaceLeaf = this.app.workspace.getLeavesOfType(VIEW_TYPE).first();
                     if(!leaf){

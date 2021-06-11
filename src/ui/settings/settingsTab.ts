@@ -101,9 +101,18 @@ export default class SettingsTab extends PluginSettingTab {
                     await this.save();
                 })
             });
+        
+        const d = document.createDocumentFragment();
+        d.append(
+            t('Enable custom Context Menu with options to search for synonyms (only if the auto suggestions are disabled) and to look up a full definition in the Sidebar. Warning: This will override Obsidian\'s default Context Menu.'),
+            d.createEl("br"),
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            //@ts-ignore
+            d.createEl("a", {text: t("Click Here"), href: this.app.plugins.getPlugin("hotkey-helper") ? "obsidian://goto-plugin?id=extended-context-menu" : "https://github.com/phibr0/obsidian-extended-context-menu"}),
+        );
         new Setting(containerEl)
             .setName(t('Show Options in Context Menu'))
-            .setDesc(t('Enable custom Context Menu with options to search for synonyms (only if the auto suggestions are disabled) and to look up a full definition in the Sidebar. Warning: This will override Obsidian\'s default Context Menu.'))
+            .setDesc(d)
             .addToggle(toggle => {
                 if (plugin.settings.shouldShowCustomContextMenu) {
                     toggle.setValue(true)

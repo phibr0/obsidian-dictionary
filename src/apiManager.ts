@@ -15,6 +15,7 @@ import {
 import { OpenThesaurusSynonymAPI } from "src/integrations/openThesaurusAPI";
 import { SystranPOSProvider } from "src/integrations/systranAPI";
 import { SynonymoSynonymAPI } from "src/integrations/synonymoAPI";
+import { AltervistaSynonymProvider } from "src/integrations/altervistaAPI";
 
 /*
 HOW TO ADD A NEW API:
@@ -38,7 +39,8 @@ export default class APIManager {
     synonymProvider: SynonymProvider[] = [
         new FreeDictionarySynonymProvider(),
         new OpenThesaurusSynonymAPI(),
-        new SynonymoSynonymAPI()
+        new SynonymoSynonymAPI(),
+        new AltervistaSynonymProvider(),
     ];
     // Adds new API's to the Part Of Speech Providers
     partOfSpeechProvider: PartOfSpeechProvider[] = [
@@ -55,7 +57,7 @@ export default class APIManager {
      * @param query - The term you want to look up
      * @returns The API Response of the chosen API as Promise<DictionaryWord>
      */
-    public async requestDefinitions(query: string): Promise<DictionaryWord> {
+    public requestDefinitions(query: string): Promise<DictionaryWord> {
         return this.getDefinitionAPI().requestDefinitions(
             query,
             this.settings.defaultLanguage
@@ -69,7 +71,7 @@ export default class APIManager {
      * @param pos - The part of speech of the target word
      * @returns The API Response of the chosen API as Promise<Synonym[]>
      */
-    public async requestSynonyms(query: string, pos?: PartOfSpeech): Promise<Synonym[]> {
+    public requestSynonyms(query: string, pos?: PartOfSpeech): Promise<Synonym[]> {
         return this.getSynonymAPI().requestSynonyms(
             query,
             this.settings.defaultLanguage,
@@ -85,7 +87,7 @@ export default class APIManager {
      * @param rightContext - The sentence content after the word
      * @returns The API Response of the chosen API as Promise<PartOfSpeech>
      */
-    public async requestPartOfSpeech(
+    public requestPartOfSpeech(
         word: string,
         leftContext: string,
         rightContext: string

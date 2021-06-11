@@ -21,6 +21,41 @@ export default class DictionaryPlugin extends Plugin {
     localDictionary: LocalDictionaryBuilder;
     synonymPopover: SynonymPopover | null = null;
 
+    menus = [
+        {
+            pluginName: this.manifest.id,
+            name: t('Show Synonyms'),
+            icon: 'synonyms',
+            onClick: (instance: CodeMirror.Editor) => {
+                if(instance.getSelection()){
+                    this.handlePointerUp();
+                }
+            },
+            enabled: true,
+        },
+        {
+            pluginName: this.manifest.id,
+            name: t('Look up'),
+            icon: 'quote-glyph',
+            onClick: async (instance: CodeMirror.Editor) => {
+                if(instance.getSelection()){
+                    let leaf: WorkspaceLeaf = this.app.workspace.getLeavesOfType(VIEW_TYPE).first();
+                    if(!leaf){
+                        leaf = this.app.workspace.getRightLeaf(false);
+                        await leaf.setViewState({
+                            type: VIEW_TYPE,
+                        });
+                    }
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                    //@ts-ignore
+                    leaf.view.query(instance.getSelection());
+                    this.app.workspace.revealLeaf(leaf);
+                }
+            },
+            enabled: true,
+        },
+    ];
+
     async onload(): Promise<void> {
         console.log('loading dictionary');
 
@@ -77,42 +112,7 @@ export default class DictionaryPlugin extends Plugin {
             //@ts-ignore
             const extendedContextMenu = this.app.plugins.getPlugin("extended-context-menu");
             if(extendedContextMenu){
-                const menus = [
-                    {
-                        pluginName: this.manifest.id,
-                        name: t('Show Synonyms'),
-                        icon: 'synonyms',
-                        onClick: (instance: CodeMirror.Editor) => {
-                            if(instance.getSelection()){
-                                this.handlePointerUp();
-                            }
-                        },
-                        enabled: true,
-                    },
-                    {
-                        pluginName: this.manifest.id,
-                        name: t('Look up'),
-                        icon: 'quote-glyph',
-                        onClick: async (instance: CodeMirror.Editor) => {
-                            if(instance.getSelection()){
-                                let leaf: WorkspaceLeaf = this.app.workspace.getLeavesOfType(VIEW_TYPE).first();
-                                if(!leaf){
-                                    leaf = this.app.workspace.getRightLeaf(false);
-                                    await leaf.setViewState({
-                                        type: VIEW_TYPE,
-                                    });
-                                }
-                                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                                //@ts-ignore
-                                leaf.view.query(instance.getSelection());
-                                this.app.workspace.revealLeaf(leaf);
-                            }
-                        },
-                        enabled: true,
-                    },
-                ];
-
-                menus.forEach((menu) => {
+                this.menus.forEach((menu) => {
                     extendedContextMenu.registerCommand(menu);
                 });
                 
@@ -130,6 +130,20 @@ export default class DictionaryPlugin extends Plugin {
 
     onunload():void {
         console.log('unloading dictionary');
+        //@ts-ignore
+        const extendedContextMenu = this.app.plugins.getPlugin("extended-context-menu");
+        if(extendedContextMenu){
+            this.menus.forEach((menu) => {
+                extendedContextMenu.unregisterCommand(menu);
+            });
+        } else {
+            this.app.workspace.iterateCodeMirrors((cm) => {
+                cm.off("contextmenu", (instance, e) => {
+                    this.handlePointerUp.cancel();
+                    handleContextMenu(instance, e, this);
+                });
+            });
+        }
     }
 
     

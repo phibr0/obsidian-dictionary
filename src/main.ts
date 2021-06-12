@@ -14,6 +14,7 @@ import { addIcons } from 'src/ui/icons';
 import t from 'src/l10n/helpers';
 import LocalDictionaryBuilder from 'src/localDictionaryBuilder';
 import LanguageChooser from 'src/ui/modals/languageChooser';
+import type CodeMirror from 'codemirror';
 
 export default class DictionaryPlugin extends Plugin {
     settings: DictionarySettings;
@@ -119,10 +120,7 @@ export default class DictionaryPlugin extends Plugin {
             } else {
                 //Create a new Custom Context Menu on right click inside the Editor
                 this.registerCodeMirror(cm => {
-                    cm.on('contextmenu', (instance, e) => {
-                        this.handlePointerUp.cancel();
-                        handleContextMenu(instance, e, this);
-                    });
+                    cm.on('contextmenu', this.contextMenuLoader);
                 });
             }
         });
@@ -138,12 +136,14 @@ export default class DictionaryPlugin extends Plugin {
             });
         } else {
             this.app.workspace.iterateCodeMirrors((cm) => {
-                cm.off("contextmenu", (instance, e) => {
-                    this.handlePointerUp.cancel();
-                    handleContextMenu(instance, e, this);
-                });
+                cm.off("contextmenu", this.contextMenuLoader);
             });
         }
+    }
+
+    private contextMenuLoader = (instance: CodeMirror.Editor, e: MouseEvent): void => {
+        this.handlePointerUp.cancel();
+        handleContextMenu(instance, e, this);
     }
 
     

@@ -12,21 +12,22 @@ Open the *Command Palette* (default: `ctrl` + `p`), search for *Open Dictionary 
 
 The following Languages are currently supported:
 
-| Language             | Synonym Popover | Sidebar Lookup |
-|:-------------------- |:---------------:|:--------------:|
-| English (US)         |        🗸        |       🗸        |
-| English (UK)         |                 |       🗸        |
-| Hindi                |                 |       🗸        |
-| Spanish              |        🗸        |       🗸        |
-| French               |        🗸        |       🗸        |
-| Japanese             |                 |       🗸        |
-| Russian              |                 |       🗸        |
-| German               |        🗸        |       🗸        |
-| Italian              |        🗸        |       🗸        |
-| Korean               |                 |       🗸        |
-| Brazilian Portuguese |                 |       🗸        |
-| Arabic               |                 |       🗸        |
-| Turkish              |                 |       🗸        | 
+| Language             | Synonym Popover | Sidebar Lookup | UI Translated? |
+|:-------------------- |:---------------:|:--------------:|:-----------:|
+| English (US)         |        🗸        |       🗸        |🗸|
+| English (UK)         |                 |       🗸        ||
+| Hindi                |                 |       🗸        ||
+| Spanish              |        🗸        |       🗸        ||
+| French               |        🗸        |       🗸        ||
+| Japanese             |                 |       🗸        ||
+| Russian              |                 |       🗸        ||
+| German               |        🗸        |       🗸        |🗸|
+| Italian              |        🗸        |       🗸        ||
+| Korean               |                 |       🗸        ||
+| Brazilian Portuguese |                 |       🗸        ||
+| Arabic               |                 |       🗸        ||
+| Turkish              |                 |       🗸        | |
+| Chinese | | | 🗸 |
 
 ## How to install
 

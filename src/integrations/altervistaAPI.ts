@@ -20,6 +20,9 @@ export class AltervistaSynonymProvider implements SynonymProvider {
 
     //This is limited to 5000 queries/day
     TOKEN = "P4QAmqYIN1DY6XjlQJht"
+
+    //Yes this doesnt use https
+    //We need a Proxy to add cors headers
     API_END_POINT = "https://api.allorigins.win/get?url=" + encodeURIComponent('http://thesaurus.altervista.org/thesaurus/v1');
 
     async requestSynonyms(query: string, lang: string, _?: PartOfSpeech): Promise<Synonym[]> {
@@ -47,7 +50,7 @@ export class AltervistaSynonymProvider implements SynonymProvider {
     }
 
     constructRequest(query: string, lang: string): string {
-        return this.API_END_POINT + encodeURIComponent("?word=" + query + "&key=" + this.TOKEN + "&language=" + this.languageCodes[lang] + "&output=json");
+        return this.API_END_POINT + encodeURIComponent(`?word=${query}&key=${this.TOKEN}&language=${this.languageCodes[lang]}&output=json`);
     }
 
 }

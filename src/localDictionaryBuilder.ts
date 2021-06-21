@@ -3,7 +3,7 @@ import type DictionaryPlugin from "src/main";
 import type DictionarySettings from "src/types";
 
 import t from "src/l10n/helpers";
-import { Notice } from "obsidian";
+import { Notice, TFile } from "obsidian";
 
 //This really needs a refactor
 
@@ -59,7 +59,7 @@ export default class LocalDictionaryBuilder {
             });
         });
         
-        let file;
+        let file: TFile;
 
         try {
             file = await plugin.app.vault.create(`${settings.folder ? settings.folder + '/': ''}${settings.prefix}${settings.capitalizedFileName ? this.cap(content.word) : content.word}${settings.suffix}.md`,

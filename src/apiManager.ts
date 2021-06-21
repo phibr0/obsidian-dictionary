@@ -12,9 +12,9 @@ import {
     FreeDictionaryDefinitionProvider,
     FreeDictionarySynonymProvider,
 } from "src/integrations/freeDictionaryAPI";
-import { OpenThesaurusSynonymAPI } from "src/integrations/openThesaurusAPI";
+import { OpenThesaurusSynonymAPI as OpenThesaurusSynonymProvider } from "src/integrations/openThesaurusAPI";
 import { SystranPOSProvider } from "src/integrations/systranAPI";
-import { SynonymoSynonymAPI } from "src/integrations/synonymoAPI";
+import { SynonymoSynonymAPI as SynonymoSynonymProvider } from "src/integrations/synonymoAPI";
 import { AltervistaSynonymProvider } from "src/integrations/altervistaAPI";
 
 /*
@@ -38,8 +38,8 @@ export default class APIManager {
     // Adds new API's to the Synonym Providers
     synonymProvider: SynonymProvider[] = [
         new FreeDictionarySynonymProvider(),
-        new OpenThesaurusSynonymAPI(),
-        new SynonymoSynonymAPI(),
+        new OpenThesaurusSynonymProvider(),
+        new SynonymoSynonymProvider(),
         new AltervistaSynonymProvider(),
     ];
     // Adds new API's to the Part Of Speech Providers
@@ -101,29 +101,31 @@ export default class APIManager {
     }
 
     /**
-     * @returns Returns the currently active Definition API
+     * @returns Returns the currently selected Definition API
      */
-    private getDefinitionAPI() {
+    private getDefinitionAPI(): DefinitionProvider {
         return this.definitionProvider.find(
             (api) => api.name == this.settings.definitionApiName
         );
     }
 
     /**
-     * @returns Returns the currently active Synonym API
+     * @returns Returns the currently selected Synonym API
      */
-    private getSynonymAPI() {
+    private getSynonymAPI(): SynonymProvider {
         return this.synonymProvider.find(
             (api) => api.name == this.settings.synonymApiName
         );
     }
 
     /**
-     * @returns Returns the currently active part of speech API
+     * @returns Returns the currently selected part of speech API
      */
-    private getPartOfSpeechAPI() {
+    private getPartOfSpeechAPI(): PartOfSpeechProvider {
         return this.partOfSpeechProvider.find(
-            this.settings.advancedSynonymAnalysis ? (api) => api.name == this.settings.partOfSpeechApiName : null
+            this.settings.advancedSynonymAnalysis
+            ? (api) => api.name == this.settings.partOfSpeechApiName
+            : null
         );
     }
 }

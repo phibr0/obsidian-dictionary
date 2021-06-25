@@ -8,8 +8,6 @@ export default function handleContextMenu(menu: Menu, instance: Editor, plugin: 
         return;
     }
 
-    console.log("test")
-
     if (instance.getSelection()) {
         if (!plugin.settings.shouldShowSynonymPopover) {
             menu.addItem((item) => {

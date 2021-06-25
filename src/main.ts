@@ -14,7 +14,6 @@ import { addIcons } from 'src/ui/icons';
 import t from 'src/l10n/helpers';
 import LocalDictionaryBuilder from 'src/localDictionaryBuilder';
 import LanguageChooser from 'src/ui/modals/languageChooser';
-import type CodeMirror from 'codemirror';
 
 export default class DictionaryPlugin extends Plugin {
     settings: DictionarySettings;
@@ -112,15 +111,17 @@ export default class DictionaryPlugin extends Plugin {
         // Remove this ignore when the obsidian package is updated on npm
         // Editor mode
         // @ts-ignore
-        this.registerEvent(this.app.workspace.on('editor-menu',
-            (menu: Menu, editor: Editor, _: MarkdownView) => {
-                handleContextMenu(menu, editor, this);
-            }));
+        this.registerEvent(this.app.workspace.on('editor-menu', this.handleContextMenuHelper));
     }
 
     onunload(): void {
         console.log('unloading dictionary');
+        this.app.workspace.off('editor-menu', this.handleContextMenuHelper)
     }
+
+    handleContextMenuHelper = (menu: Menu, editor: Editor, _: MarkdownView) => {
+        handleContextMenu(menu, editor, this);
+    };
 
     // Open the synonym popover if a word is selected
     // This is debounced to handle double clicks

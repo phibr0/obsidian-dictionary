@@ -27,7 +27,7 @@ export default {
     ' for Privacy Concerns.': ' for Privacy Concerns.',
     'Advanced Synonym Search': 'Advanced Synonym Search',
     'Show Options in Context Menu': 'Show Options in Context Menu',
-    'Enable custom Context Menu with options to search for synonyms (only if the auto suggestions are disabled) and to look up a full definition in the Sidebar. Warning: This will override Obsidian\'s default Context Menu.': 'Enable custom Context Menu with options to search for synonyms (only if the auto suggestions are disabled) and to look up a full definition in the Sidebar. Warning: This will override Obsidian\'s default Context Menu. To ensure compatibility with other Plugins please install the "Extended Context Menu" Plugin.',
+    'Enable custom Context Menu with options to search for synonyms (only if the auto suggestions are disabled) and to look up a full definition in the Sidebar. Warning: This will override Obsidian\'s default Context Menu.': 'Enable custom Context Menu with options to search for synonyms (only if the auto suggestions are disabled) and to look up a full definition in the Sidebar.',
     'Click Here': 'Click Here',
     'Definition Provider': 'Definition Provider',
     'The API the Plugin will use to search for Definitions.': 'The API the Plugin will use to search for Definitions.',

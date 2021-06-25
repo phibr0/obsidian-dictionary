@@ -19,7 +19,7 @@
     "@typescript-eslint/eslint-plugin": "^4.25.0",
     "@typescript-eslint/parser": "^4.25.0",
     "eslint": "^7.27.0",
-    "obsidian": "^0.12.0",
+    "extended-context-menu": "https://github.com/phibr0/obsidian-extended-context-menu/tarball/master",
     "rollup": "^2.32.1",
     "rollup-plugin-svelte": "^7.1.0",
     "sass": "^1.34.0",
@@ -29,8 +29,7 @@
     "svelte-preprocess": "^4.7.0",
     "tslib": "^2.2.0",
     "typescript": "^4.3.2",
-    "typescript-eslint": "^0.0.1-alpha.0",
-    "extended-context-menu": "https://github.com/phibr0/obsidian-extended-context-menu/tarball/master"
+    "typescript-eslint": "^0.0.1-alpha.0"
   },
   "moduleFileExtensions": [
     "js",
@@ -38,6 +37,7 @@
     "svelte"
   ],
   "dependencies": {
-    "match-casing": "^2.0.0"
+    "match-casing": "^2.0.0",
+    "obsidian": "^0.12.5"
   }
 }

@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type DictionarySettings from 'src/types';
 
-import { debounce, MarkdownView, Plugin, WorkspaceLeaf} from 'obsidian';
+import { debounce, Editor, MarkdownView, Menu, Plugin, WorkspaceLeaf } from 'obsidian';
 import { matchCasing } from "match-casing";
 import SettingsTab from 'src/ui/settings/settingsTab';
 import DictionaryView from 'src/ui/dictionary/dictionaryView';
@@ -28,7 +28,7 @@ export default class DictionaryPlugin extends Plugin {
             name: t('Show Synonyms'),
             icon: 'synonyms',
             onClick: (instance: CodeMirror.Editor): void => {
-                if(instance.getSelection()){
+                if (instance.getSelection()) {
                     this.handlePointerUp();
                 }
             },
@@ -39,9 +39,9 @@ export default class DictionaryPlugin extends Plugin {
             name: t('Look up'),
             icon: 'quote-glyph',
             onClick: async (instance: CodeMirror.Editor): Promise<void> => {
-                if(instance.getSelection()){
+                if (instance.getSelection()) {
                     let leaf: WorkspaceLeaf = this.app.workspace.getLeavesOfType(VIEW_TYPE).first();
-                    if(!leaf){
+                    if (!leaf) {
                         leaf = this.app.workspace.getRightLeaf(false);
                         await leaf.setViewState({
                             type: VIEW_TYPE,
@@ -109,44 +109,19 @@ export default class DictionaryPlugin extends Plugin {
 
         this.localDictionary = new LocalDictionaryBuilder(this);
 
-        this.app.workspace.onLayoutReady(() => {
-            //@ts-ignore
-            const extendedContextMenu = this.app.plugins.getPlugin("extended-context-menu");
-            if(extendedContextMenu){
-                this.menus.forEach((menu) => {
-                    extendedContextMenu.registerCommand(menu);
-                });
-                
-            } else {
-                //Create a new Custom Context Menu on right click inside the Editor
-                this.registerCodeMirror(cm => {
-                    cm.on('contextmenu', this.contextMenuLoader);
-                });
-            }
-        });
+        // Remove this ignore when the obsidian package is updated on npm
+        // Editor mode
+        // @ts-ignore
+        this.registerEvent(this.app.workspace.on('editor-menu',
+            (menu: Menu, editor: Editor, _: MarkdownView) => {
+                handleContextMenu(menu, editor, this);
+            }));
     }
 
-    onunload():void {
+    onunload(): void {
         console.log('unloading dictionary');
-        //@ts-ignore
-        const extendedContextMenu = this.app.plugins.getPlugin("extended-context-menu");
-        if(extendedContextMenu){
-            this.menus.forEach((menu) => {
-                extendedContextMenu.unregisterCommand(menu);
-            });
-        } else {
-            this.app.workspace.iterateCodeMirrors((cm) => {
-                cm.off("contextmenu", this.contextMenuLoader);
-            });
-        }
     }
 
-    private contextMenuLoader = (instance: CodeMirror.Editor, e: MouseEvent): void => {
-        this.handlePointerUp.cancel();
-        handleContextMenu(instance, e, this);
-    }
-
-    
     // Open the synonym popover if a word is selected
     // This is debounced to handle double clicks
     handlePointerUp = debounce(

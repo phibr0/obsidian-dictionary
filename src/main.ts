@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type DictionarySettings from 'src/types';
+import type { DictionarySettings } from 'src/types';
 
 import { debounce, Editor, MarkdownView, Menu, Plugin, WorkspaceLeaf } from 'obsidian';
 import { matchCasing } from "match-casing";
@@ -65,7 +65,7 @@ export default class DictionaryPlugin extends Plugin {
 
         this.addSettingTab(new SettingsTab(this.app, this));
 
-        this.manager = new APIManager(this.settings);
+        this.manager = new APIManager(this);
 
         this.registerView(VIEW_TYPE, (leaf) => {
             return new DictionaryView(leaf, this);

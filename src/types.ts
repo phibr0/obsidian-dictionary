@@ -20,11 +20,13 @@ export interface DictionarySettings {
 
 export interface CachedDictionaryWord{
 	content: DictionaryWord;
+	lang: string;
 	api: string;
 }
 
 export interface CachedSynonymCollection{
-	word: string;
 	content: Synonym[];
+	word: string;
+	lang: string;	
 	api: string;
 }

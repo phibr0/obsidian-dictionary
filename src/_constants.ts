@@ -29,7 +29,7 @@ export const DEFAULT_SETTINGS: DictionarySettings = {
     synonymApiName: "Free Dictionary API",
     partOfSpeechApiName: "Systran API",
     advancedSynonymAnalysis: false,
-    useCaching: true,
+    useCaching: false,
     cachedDefinitions: [],
     cachedSynonyms: [],
     folder: '',

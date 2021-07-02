@@ -61,21 +61,22 @@ export default class APIManager {
     public async requestDefinitions(query: string): Promise<DictionaryWord> {
         //Get the currently enabled API
         const api = this.getDefinitionAPI();
+        const { settings } = this.plugin;
 
-        if (this.plugin.settings.useCaching) {
+        if (settings.useCaching) {
             //Get any cached Definitions
-            const cachedDefintion = this.plugin.settings.cachedDefinitions.find((c) => c.content.word == query && c.api == api.name);
+            const cachedDefintion = settings.cachedDefinitions.find((c) => c.content.word == query && c.lang == settings.defaultLanguage && c.api == api.name);
             //If cachedDefiniton exists return it as a Promise
             if (cachedDefintion) {
                 return new Promise((resolve) => resolve(cachedDefintion.content));
             } else {
                 //If it doesnt exist request a new Definition
-                const result = api.requestDefinitions(query, this.plugin.settings.defaultLanguage);
+                const result = api.requestDefinitions(query, settings.defaultLanguage);
 
                 //If the word gets found by the API cache it for later use
                 const awaitedResult = await result;
                 if (awaitedResult) {
-                    this.plugin.settings.cachedDefinitions.push({ content: awaitedResult, api: api.name });
+                    settings.cachedDefinitions.push({ content: awaitedResult, api: api.name, lang: settings.defaultLanguage });
                     this.plugin.saveSettings();
                 }
 
@@ -89,6 +90,7 @@ export default class APIManager {
 
     //TODO: Settings page with useCaching toggle, list of how many synonyms and definitions are cached, let the user delete them
     //Test with multiple different apis and check if it still saves them correctly
+    //Different languages with same api doesnt work yet, add to cachedInterface thingos
 
     /**
      * Sends a request with the passed query to the chosen API and returns the resulting Synonyms
@@ -99,21 +101,22 @@ export default class APIManager {
      */
     public async requestSynonyms(query: string, pos?: PartOfSpeech): Promise<Synonym[]> {
         const api = this.getSynonymAPI();
-        if (this.plugin.settings.useCaching) {
-            const cachedSynonymCollection = this.plugin.settings.cachedSynonyms.find((s) => s.word == query && s.api == api.name);
+        const { settings } = this.plugin;
+        if (settings.useCaching) {
+            const cachedSynonymCollection = settings.cachedSynonyms.find((s) => s.word == query && s.lang == settings.defaultLanguage && s.api == api.name);
             if (cachedSynonymCollection) {
                 return new Promise((resolve) => resolve(cachedSynonymCollection.content));
             } else {
-                const result = api.requestSynonyms(query, this.plugin.settings.defaultLanguage);
+                const result = api.requestSynonyms(query, settings.defaultLanguage);
                 const awaitedResult = await result;
                 if (awaitedResult) {
-                    this.plugin.settings.cachedSynonyms.push({ content: awaitedResult, api: api.name, word: query });
+                    settings.cachedSynonyms.push({ content: awaitedResult, api: api.name, word: query, lang: settings.defaultLanguage });
                     this.plugin.saveSettings();
                 }
                 return result;
             }
         } else {
-            return api.requestSynonyms(query, this.plugin.settings.defaultLanguage);
+            return api.requestSynonyms(query, this.plugin.settings.defaultLanguage, pos);
         }
     }
 

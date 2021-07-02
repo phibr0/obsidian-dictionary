@@ -1,6 +1,6 @@
 import type DictionaryPlugin from "src/main";
 
-import { App, Modal, PluginSettingTab, Setting } from "obsidian";
+import { App, Modal, Notice, PluginSettingTab, Setting } from "obsidian";
 import { DEFAULT_SETTINGS, LANGUAGES } from "src/_constants";
 import InfoModalComponent from './infoModal.svelte'
 import t from "src/l10n/helpers";
@@ -101,7 +101,7 @@ export default class SettingsTab extends PluginSettingTab {
                     await this.save();
                 })
             });
-        
+
         new Setting(containerEl)
             .setName(t('Show Options in Context Menu'))
             .setDesc(t('Enable custom Context Menu with options to search for synonyms (only if the auto suggestions are disabled) and to look up a full definition in the Sidebar. Warning: This will override Obsidian\'s default Context Menu.'))
@@ -117,7 +117,7 @@ export default class SettingsTab extends PluginSettingTab {
                     await this.save();
                 })
             });
-        containerEl.createEl('h3', {text: t("Local-Dictionary-Builder Settings")});
+        containerEl.createEl('h3', { text: t("Local-Dictionary-Builder Settings") });
         new Setting(containerEl)
             .setName(t('Local Dictionary Folder'))
             .setDesc(t('Specify a Folder, where all new Notes created by the Dictionary are placed. Please note that this Folder needs to already exist.'))
@@ -133,7 +133,6 @@ export default class SettingsTab extends PluginSettingTab {
             .setDesc(t('If you disable this, the names of newly created files will be all lowercase.'))
             .addToggle(toggle => {
                 toggle.setValue(plugin.settings.capitalizedFileName)
-    
                 toggle.onChange(async (value) => {
                     plugin.settings.capitalizedFileName = value;
                     await this.save();
@@ -177,7 +176,42 @@ export default class SettingsTab extends PluginSettingTab {
                     plugin.settings.template = value;
                     await this.save();
                 }))
-        containerEl.createEl('h3', {text: t("Miscellaneous")});
+
+        containerEl.createEl('h3', { text: t("Caching Settings") });
+        new Setting(containerEl)
+            .setName(t("Use Caching"))
+            .setDesc(t("Enable or disable caching. Caching provides a semi-offline experience by saving every result for later use."))
+            .addToggle(toggle => {
+                toggle.setValue(plugin.settings.useCaching)
+                toggle.onChange(async (value) => {
+                    plugin.settings.useCaching = value;
+                    await this.save();
+                })
+            });
+        const cachingInfo = document.createDocumentFragment();
+        cachingInfo.append(
+            t('Here you can delete all cached Data.'),
+            templateDescription.createEl("br"),
+            t("You currently have "),
+            plugin.settings.cachedDefinitions.length.toString(),
+            t(" cached Definitions and "),
+            plugin.settings.cachedSynonyms.length.toString(),
+            t(" cached Synonyms.")
+        );
+        new Setting(containerEl)
+            .setName(t("Delete Cache"))
+            .setDesc(cachingInfo)
+            .addButton(button => {
+                button.setDisabled(!plugin.settings.useCaching);
+                button.setButtonText(t("Delete"));
+                button.onClick(async (value) => {
+                    plugin.settings.cachedSynonyms = [];
+                    plugin.settings.cachedDefinitions = [];
+                    new Notice(t("Success"));
+                });
+            });
+
+        containerEl.createEl('h3', { text: t("Miscellaneous") });
         new Setting(containerEl)
             .setName(t('More Information'))
             .setDesc(t('View Information about the API\'s and the Plugin itself.'))

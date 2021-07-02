@@ -1,4 +1,6 @@
-export default interface DictionarySettings {
+import type { DictionaryWord, Synonym } from "src/integrations/types";
+
+export interface DictionarySettings {
     defaultLanguage: string;
 	definitionApiName: string;
 	synonymApiName: string;
@@ -6,9 +8,25 @@ export default interface DictionarySettings {
 	shouldShowSynonymPopover: boolean;
 	shouldShowCustomContextMenu: boolean;
 	advancedSynonymAnalysis: boolean;
+	useCaching: boolean;
+	cachedDefinitions: CachedDictionaryWord[];
+	cachedSynonyms: CachedSynonymCollection[];
 	folder: string;
 	capitalizedFileName: boolean;
 	suffix: string;
 	prefix: string;
 	template: string;
+}
+
+export interface CachedDictionaryWord{
+	content: DictionaryWord;
+	lang: string;
+	api: string;
+}
+
+export interface CachedSynonymCollection{
+	content: Synonym[];
+	word: string;
+	lang: string;	
+	api: string;
 }

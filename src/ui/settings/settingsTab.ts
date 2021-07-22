@@ -207,7 +207,9 @@ export default class SettingsTab extends PluginSettingTab {
                 button.onClick(async (value) => {
                     plugin.settings.cachedSynonyms = [];
                     plugin.settings.cachedDefinitions = [];
+                    await this.plugin.saveSettings();
                     new Notice(t("Success"));
+                    this.display();
                 });
             });
 

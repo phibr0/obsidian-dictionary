@@ -16,7 +16,7 @@ export const LANGUAGES = {
     "de": "Deutsch (German)",
     "it": "Italiano (Italian)",
     "ko": "한국어 (Korean)",
-    "pt-BR": "Português do Brasil (Brazilian Portuguese)",
+    "pt_BR": "Português do Brasil (Brazilian Portuguese)",
     "ar": "اَلْعَرَبِيَّةُ‎ (Arabic)",
     "tr": "Türkçe (Turkish)"
 }

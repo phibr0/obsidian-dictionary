@@ -11,7 +11,7 @@ const langMap = {
     it: "it",
     ko: "ko",
     pt: "pt",
-    "pt-BR": "pt",
+    pt_BR: "pt",
     hi: "hi",
 };
 

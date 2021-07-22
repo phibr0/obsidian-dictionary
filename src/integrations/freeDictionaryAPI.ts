@@ -6,6 +6,22 @@ abstract class Base {
     public name = "Free Dictionary API";
     public url = "https://dictionaryapi.dev/";
 
+    languageCodes = {
+        "en_US": "en_US",
+        "hi": "hi",
+        "es": "es",
+        "fr": "fr",
+        "ja": "ja",
+        "ru": "ru",
+        "en_GB": "en_GB",
+        "de": "de",
+        "it": "it",
+        "ko": "ko",
+        "pt_BR": "pt-BR",
+        "ar": "ar",
+        "tr": "tr",
+    }
+
     /**
      * @param query - The term you want to look up
      * @returns Returns the URL in REST schema
@@ -28,7 +44,7 @@ export class FreeDictionaryDefinitionProvider extends Base implements Definition
         "de",
         "it",
         "ko",
-        "pt-BR",
+        "pt_BR",
         "ar",
         "tr",
     ];
@@ -44,7 +60,7 @@ export class FreeDictionaryDefinitionProvider extends Base implements Definition
     async requestDefinitions(query: string, lang: string, _ = true): Promise<DictionaryWord> {
         let result: Response;
         try {
-            result = await fetch(this.constructRequest(query, lang));
+            result = await fetch(this.constructRequest(query, this.languageCodes[lang]));
         } catch (error) {
             return Promise.reject(error);
         }
@@ -90,7 +106,7 @@ export class FreeDictionarySynonymProvider extends Base implements SynonymProvid
     async requestSynonyms(query: string, lang: string, pos?: PartOfSpeech): Promise<Synonym[]> {
         let result: Response;
         try {
-            result = await fetch(this.constructRequest(query, lang));
+            result = await fetch(this.constructRequest(query, this.languageCodes[lang]));
         } catch (error) {
             return Promise.reject(error);
         }

@@ -30,9 +30,11 @@ export default class LocalDictionaryBuilder {
 
         let phonetics = '';
         content.phonetics.forEach((value, i, a) => {
-            phonetics += '- ' + value.text;
-            if (i != a.length - 1) {
-                phonetics += '\n';
+            if(value){ //Should fix weird behaviour of Issue #16
+                phonetics += '- ' + value.text;
+                if (i != a.length - 1) {
+                    phonetics += '\n';
+                }
             }
         });
 

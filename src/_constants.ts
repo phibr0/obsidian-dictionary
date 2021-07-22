@@ -7,18 +7,18 @@ export const VIEW_ICON = 'quote-glyph';
 
 export const LANGUAGES = {
     "en_US": "English (US)",
-    "hi": "Hindi",
-    "es": "Spanish",
-    "fr": "French",
-    "ja": "Japanese",
-    "ru": "Russian",
+    "hi": "हिन्दी (Hindi)",
+    "es": "Español (Spanish)",
+    "fr": "Français (French)",
+    "ja": "日本語 (Japanese)",
+    "ru": "Русский (Russian)",
     "en_GB": "English (UK)",
-    "de": "German",
-    "it": "Italian",
-    "ko": "Korean",
-    "pt-BR": "Brazilian Portuguese",
-    "ar": "Arabic",
-    "tr": "Turkish"
+    "de": "Deutsch (German)",
+    "it": "Italiano (Italian)",
+    "ko": "한국어 (Korean)",
+    "pt-BR": "Português do Brasil (Brazilian Portuguese)",
+    "ar": "اَلْعَرَبِيَّةُ‎ (Arabic)",
+    "tr": "Türkçe (Turkish)"
 }
 
 export const DEFAULT_SETTINGS: DictionarySettings = {

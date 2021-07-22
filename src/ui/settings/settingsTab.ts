@@ -176,6 +176,15 @@ export default class SettingsTab extends PluginSettingTab {
                     plugin.settings.template = value;
                     await this.save();
                 }))
+                .addExtraButton(cb => {
+                    cb.setIcon("reset")
+                        .setTooltip(t("Reset to default"))
+                        .setDisabled(this.plugin.settings.template === DEFAULT_SETTINGS.template)
+                        .onClick(async () => {
+                            this.plugin.settings.template = DEFAULT_SETTINGS.template;
+                            await this.plugin.saveSettings();
+                        });
+                });
 
         containerEl.createEl('h3', { text: t("Caching Settings") });
         new Setting(containerEl)

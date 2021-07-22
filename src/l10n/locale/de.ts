@@ -16,6 +16,7 @@ export default {
     'Look up': 'Nachschlagen',
 
     //settingsTab.ts
+    "Reset to default": "Zurücksetzen",
     'Dictionary Settings': 'Wörterbuch Einstellungen',
     'Language': 'Sprache',
     'The Language the Plugin will use to search for Definitions and Pronunciations.': 'Die Sprache, welche von dieser Erweiterung verwendet wird, um nach Definitionen zu suchen.',

@@ -16,6 +16,7 @@ export default {
     'Look up': 'Look up',
 
     //settingsTab.ts
+    "Reset to default": "Reset to default",
     'Dictionary Settings': 'Dictionary Settings',
     'Language': 'Language',
     'The Language the Plugin will use to search for Definitions and Pronunciations.': 'The Language the Plugin will use to search for Definitions and Pronunciations.',

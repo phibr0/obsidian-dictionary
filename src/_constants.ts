@@ -38,6 +38,7 @@ export const DEFAULT_SETTINGS: DictionarySettings = {
     suffix: "",
     template: `---
 # {{notice}}
+word: "{{word}}"
 ---
 
 # {{word}}

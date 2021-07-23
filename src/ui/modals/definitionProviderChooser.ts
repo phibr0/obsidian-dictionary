@@ -22,8 +22,7 @@ export default class DefinitionProviderChooser extends FuzzySuggestModal<string>
         if (this.available.length <= 1) {
             this.onChooseItem(this.available.first() ?? "");
         }
-        //@ts-ignore
-        this.onInput();
+        super.onOpen();
     }
 
     getItems(): string[] {

@@ -10,7 +10,7 @@ export default class SynonymProviderChooser extends FuzzySuggestModal<string>{
         super(app);
         this.plugin = plugin;
         this.plugin.manager.synonymProvider.forEach((api) => {
-            if(api.supportedLanguages.contains(this.plugin.settings.defaultLanguage)){
+            if (api.supportedLanguages.contains(this.plugin.settings.defaultLanguage)) {
                 this.available.push(api.name);
             }
         });
@@ -19,8 +19,10 @@ export default class SynonymProviderChooser extends FuzzySuggestModal<string>{
 
     onOpen(): void {
         if (this.available.length <= 1) {
-            this.onChooseItem(this.available.first()??"");
+            this.onChooseItem(this.available.first() ?? "");
         }
+        //@ts-ignore
+        this.onInput();
     }
 
     getItems(): string[] {

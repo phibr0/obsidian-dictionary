@@ -19,8 +19,10 @@ export default {
         format: "cjs",
         file: "main.js",
         sourcemap: isProd ? "none" : "inline",
+        sourcemapExcludeSources: isProd,
         exports: "default",
         banner
+        
     },
     external: ["obsidian"],
     plugins: [
@@ -31,7 +33,6 @@ export default {
         typescript(),
         resolve({
             browser: true,
-            dedupe: ["svelte"],
         }),
         commonjs(),
     ],

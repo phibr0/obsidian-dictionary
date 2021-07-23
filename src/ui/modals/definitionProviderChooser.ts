@@ -11,17 +11,19 @@ export default class DefinitionProviderChooser extends FuzzySuggestModal<string>
         super(app);
         this.plugin = plugin;
         this.plugin.manager.definitionProvider.forEach((api) => {
-            if(api.supportedLanguages.contains(this.plugin.settings.defaultLanguage)){
+            if (api.supportedLanguages.contains(this.plugin.settings.defaultLanguage)) {
                 this.available.push(api.name);
             }
         });
         this.setPlaceholder(t("Choose a Definition Provider Service"));
     }
 
-    onOpen(): void{
+    onOpen(): void {
         if (this.available.length <= 1) {
-            this.onChooseItem(this.available.first()??"");
+            this.onChooseItem(this.available.first() ?? "");
         }
+        //@ts-ignore
+        this.onInput();
     }
 
     getItems(): string[] {

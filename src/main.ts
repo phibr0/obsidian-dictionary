@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { DictionarySettings } from 'src/types';
 
-import { debounce, Editor, MarkdownView, Menu, Plugin, WorkspaceLeaf } from 'obsidian';
+import { debounce, Editor, MarkdownView, Menu, Plugin } from 'obsidian';
 import { matchCasing } from "match-casing";
 import SettingsTab from 'src/ui/settings/settingsTab';
 import DictionaryView from 'src/ui/dictionary/dictionaryView';
@@ -84,7 +84,7 @@ export default class DictionaryPlugin extends Plugin {
         this.app.workspace.off('editor-menu', this.handleContextMenuHelper)
     }
 
-    handleContextMenuHelper = (menu: Menu, editor: Editor, _: MarkdownView) => {
+    handleContextMenuHelper = (menu: Menu, editor: Editor, _: MarkdownView): void => {
         handleContextMenu(menu, editor, this);
     };
 

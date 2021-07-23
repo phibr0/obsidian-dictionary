@@ -36,6 +36,7 @@ export default class DictionaryView extends ItemView {
 
     async onClose(): Promise<void> {
         this._view.$destroy();
+        super.onClose();
     }
 
     async onOpen(): Promise<void> {
@@ -49,6 +50,7 @@ export default class DictionaryView extends ItemView {
         addEventListener('dictionary-open-language-switcher', () => {
             new LanguageChooser(this.app, this.plugin).open();
         });
+        super.onOpen();
     }
 
 }

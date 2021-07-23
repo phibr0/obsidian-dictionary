@@ -18,8 +18,7 @@ export default {
     output: {
         format: "cjs",
         file: "main.js",
-        sourcemap: "inline",
-        sourcemapExcludeSources: isProd,
+        sourcemap: isProd ? "none" : "inline",
         exports: "default",
         banner
     },

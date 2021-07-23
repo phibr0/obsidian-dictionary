@@ -31,7 +31,7 @@ export default class LocalDictionaryBuilder {
         let phonetics = '';
         content.phonetics.forEach((value, i, a) => {
             if(value){ //Should fix weird behaviour of Issue #16
-                phonetics += '- ' + value.text;
+                phonetics += '- ' + value.audio ? `<details><summary>${value.text}</summary><audio controls><source src="${value.audio}" type="audio/mpeg"></audio></details>` : value.text;
                 if (i != a.length - 1) {
                     phonetics += '\n';
                 }

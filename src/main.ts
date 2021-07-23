@@ -21,41 +21,6 @@ export default class DictionaryPlugin extends Plugin {
     localDictionary: LocalDictionaryBuilder;
     synonymPopover: SynonymPopover | null = null;
 
-    menus = [
-        {
-            pluginName: this.manifest.id,
-            name: t('Show Synonyms'),
-            icon: 'synonyms',
-            onClick: (instance: CodeMirror.Editor): void => {
-                if (instance.getSelection()) {
-                    this.handlePointerUp();
-                }
-            },
-            enabled: true,
-        },
-        {
-            pluginName: this.manifest.id,
-            name: t('Look up'),
-            icon: 'quote-glyph',
-            onClick: async (instance: CodeMirror.Editor): Promise<void> => {
-                if (instance.getSelection()) {
-                    let leaf: WorkspaceLeaf = this.app.workspace.getLeavesOfType(VIEW_TYPE).first();
-                    if (!leaf) {
-                        leaf = this.app.workspace.getRightLeaf(false);
-                        await leaf.setViewState({
-                            type: VIEW_TYPE,
-                        });
-                    }
-                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                    //@ts-ignore
-                    leaf.view.query(instance.getSelection());
-                    this.app.workspace.revealLeaf(leaf);
-                }
-            },
-            enabled: true,
-        },
-    ];
-
     async onload(): Promise<void> {
         console.log('loading dictionary');
 

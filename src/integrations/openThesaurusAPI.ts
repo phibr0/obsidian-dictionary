@@ -1,3 +1,4 @@
+import { request } from 'obsidian';
 import type { Synonym, SynonymProvider } from "src/integrations/types";
 
 export class OpenThesaurusSynonymAPI implements SynonymProvider {
@@ -17,17 +18,14 @@ export class OpenThesaurusSynonymAPI implements SynonymProvider {
     }
 
     async requestSynonyms(query: string): Promise<Synonym[]> {
-        let result: Response;
+        let result: string;
         try {
-            result = await fetch(this.constructRequest(query));
+            result = await request({url: this.constructRequest(query)});
         } catch (error) {
             return Promise.reject(error);
         }
-        if (result.status != 200) {
-            return Promise.reject();
-        }
 
-        const response = await result.json();
+        const response = await JSON.parse(result);
         if (response.synsets.length <= 0) {
             return Promise.reject("No Synonym found");
         }

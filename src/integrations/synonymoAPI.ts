@@ -1,13 +1,13 @@
+import { request } from 'obsidian';
 import type { Synonym, SynonymProvider } from "src/integrations/types";
 
 export class SynonymoSynonymAPI implements SynonymProvider {
-    //Yes this doesnt use https
-    //We need a Proxy to add cors headers
-    API_END_POINT = "https://api.allorigins.win/get?url=" + encodeURIComponent('http://www.synonymo.fr/synonyme/');
 
     public name = "Synonymo";
     public url = "http://www.synonymo.fr/";
     public supportedLanguages: string[] = ["fr"];
+
+    API_END_POINT = 'http://www.synonymo.fr/synonyme/';
 
     /**
      * @param query - The term you want to look up
@@ -20,23 +20,18 @@ export class SynonymoSynonymAPI implements SynonymProvider {
 
     async requestSynonyms(query: string): Promise<Synonym[]> {
         const synonyms: Synonym[] = [];
-        let result: Response;
+        let result: string;
         try {
-            result = await fetch(this.constructRequest(query));
+            result = await request({url: this.constructRequest(query)});
         } catch (error) {
             return Promise.reject(error);
-        }
-        if (result.status != 200) {
-            return Promise.reject();
         }
 
         const parser = new DOMParser();
 
-        const doc = parser.parseFromString(await result.text(), 'text/html');
+        const doc = parser.parseFromString(result, 'text/html');
 
-        const x = doc.body.getElementsByClassName('\\"word\\"');
-
-        console.log(doc);
+        const x = doc.body.getElementsByClassName("fiche").item(0).getElementsByClassName("word");
 
         for(let i = 0; i < x.length; i++){
             synonyms.push({word: x.item(i).textContent});

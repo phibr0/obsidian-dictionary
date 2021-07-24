@@ -19,3 +19,12 @@ a[href="https://www.buymeacoffee.com/phibr0"]{
     width: 100%;
     resize: vertical;
 }
+
+.dictionarycenter{
+    text-align: center;
+}
+
+.dictionarybuttons{
+    display: flex;
+    place-content: center;
+}

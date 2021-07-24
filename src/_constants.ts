@@ -35,7 +35,7 @@ export const DEFAULT_SETTINGS: DictionarySettings = {
     folder: '',
     capitalizedFileName: true,
     prefix: "",
-    suffix: "",
+    suffix: " {{lang}}",
     template: `---
 # {{notice}}
 word: "{{word}}"

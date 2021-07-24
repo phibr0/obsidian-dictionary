@@ -44,7 +44,7 @@ export default {
     'Capitalize File Name': 'Capitalize File Name',
     'If you disable this, the names of newly created files will be all lowercase.': 'If you disable this, the names of newly created files will be all lowercase.',
     'Filename Prefix and Suffix': 'Filename Prefix and Suffix',
-    'Here you can add a Prefix and Suffix for your newly created Files.': 'Here you can add a Prefix and Suffix for your newly created Files.',
+    'Here you can add a Prefix and Suffix for your newly created Files.': 'Here you can add a Prefix and Suffix for your newly created Files. You can use the {{lang}} variable here.',
     "Prefix": "Prefix",
     "Suffix": "Suffix",
     'Here you can edit the Template for newly created Files.': 'Here you can edit the Template for newly created Files.',

@@ -44,7 +44,7 @@ export default {
     'Capitalize File Name': 'Dateinamen groß schreiben',
     'If you disable this, the names of newly created files will be all lowercase.': 'Wenn dies deaktiviert wird, werden die Namen neu erstellter Dateien nur in Kleinbuchstaben geschrieben.',
     'Filename Prefix and Suffix': 'Dateinamen-Präfix und -Suffix',
-    'Here you can add a Prefix and Suffix for your newly created Files.': 'Hier kann ein ein Präfix und ein Suffix für neu erstellte Dateien hinzugefügt werden.',
+    'Here you can add a Prefix and Suffix for your newly created Files.': 'Hier kann ein ein Präfix und ein Suffix für neu erstellte Dateien hinzugefügt werden. Hier kann die {{lang}} Variable verwendet werden, um die momentane Sprache einzufügen.',
     "Prefix": "Prefix",
     "Suffix": "Suffix",
     'Here you can edit the Template for newly created Files.': 'Hier kann die Vorlage für neu erstellte Dateien angepasst werden.',

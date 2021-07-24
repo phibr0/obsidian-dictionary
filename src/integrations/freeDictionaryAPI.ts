@@ -1,3 +1,4 @@
+import { request } from 'obsidian';
 import { DefinitionProvider, DictionaryWord, Meaning, PartOfSpeech, Synonym, SynonymProvider } from "src/integrations/types";
 
 abstract class Base {
@@ -58,16 +59,13 @@ export class FreeDictionaryDefinitionProvider extends Base implements Definition
      * @returns The API Response of the API as Promise<DictionaryWord>
      */
     async requestDefinitions(query: string, lang: string, _ = true): Promise<DictionaryWord> {
-        let result: Response;
+        let result: string;
         try {
-            result = await fetch(this.constructRequest(query, this.languageCodes[lang]));
+            result = await request({url: this.constructRequest(query, this.languageCodes[lang])});
         } catch (error) {
             return Promise.reject(error);
         }
-        if(result.status!=200){
-            return Promise.reject("Couldn't find word");
-        }
-        return (await result.json() as DictionaryWord[]).first();
+        return (await JSON.parse(result) as DictionaryWord[]).first();
     }
 }
 
@@ -104,17 +102,14 @@ export class FreeDictionarySynonymProvider extends Base implements SynonymProvid
      * @returns A list of Synonyms
      */
     async requestSynonyms(query: string, lang: string, pos?: PartOfSpeech): Promise<Synonym[]> {
-        let result: Response;
+        let result: string;
         try {
-            result = await fetch(this.constructRequest(query, this.languageCodes[lang]));
+            result = await request({url: this.constructRequest(query, this.languageCodes[lang])});
         } catch (error) {
             return Promise.reject(error);
         }
-        if(result.status!=200){
-            return Promise.reject("Couldn't find Word");
-        }
 
-        const meanings: Meaning[] = (await result.json() as DictionaryWord[]).first().meanings;
+        const meanings: Meaning[] = (await JSON.parse(result) as DictionaryWord[]).first().meanings;
         const synonyms: Synonym[] = [];
 
         // The default POS provider seems pretty wonky at the moment,

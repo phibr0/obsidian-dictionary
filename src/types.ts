@@ -1,7 +1,7 @@
 import type { DictionaryWord, Synonym } from "src/integrations/types";
 
 export interface DictionarySettings {
-    defaultLanguage: string;
+	defaultLanguage: string;
 	definitionApiName: string;
 	synonymApiName: string;
 	partOfSpeechApiName: string;
@@ -9,8 +9,6 @@ export interface DictionarySettings {
 	shouldShowCustomContextMenu: boolean;
 	advancedSynonymAnalysis: boolean;
 	useCaching: boolean;
-	cachedDefinitions: CachedDictionaryWord[];
-	cachedSynonyms: CachedSynonymCollection[];
 	folder: string;
 	capitalizedFileName: boolean;
 	suffix: string;
@@ -18,15 +16,20 @@ export interface DictionarySettings {
 	template: string;
 }
 
-export interface CachedDictionaryWord{
+export interface DictionaryCache {
+	cachedDefinitions: CachedDictionaryWord[];
+	cachedSynonyms: CachedSynonymCollection[];
+}
+
+export interface CachedDictionaryWord {
 	content: DictionaryWord;
 	lang: string;
 	api: string;
 }
 
-export interface CachedSynonymCollection{
+export interface CachedSynonymCollection {
 	content: Synonym[];
 	word: string;
-	lang: string;	
+	lang: string;
 	api: string;
 }

@@ -6,7 +6,6 @@ import type {
     Synonym,
     SynonymProvider,
 } from "src/integrations/types";
-import type { DictionarySettings, CachedDictionaryWord } from "src/types";
 
 import {
     FreeDictionaryDefinitionProvider,
@@ -61,23 +60,26 @@ export default class APIManager {
     public async requestDefinitions(query: string): Promise<DictionaryWord> {
         //Get the currently enabled API
         const api = this.getDefinitionAPI();
-        const { settings } = this.plugin;
+        const { cache, settings } = this.plugin;
 
         if (settings.useCaching) {
             //Get any cached Definitions
-            const cachedDefintion = settings.cachedDefinitions.find((c) => c.content.word == query && c.lang == settings.defaultLanguage && c.api == api.name);
+            const cachedDefinition = cache.cachedDefinitions.find((c) => { return c.content.word.toLowerCase() == query.toLowerCase() && c.lang == settings.defaultLanguage && c.api == api.name });
+            console.log(cachedDefinition)
             //If cachedDefiniton exists return it as a Promise
-            if (cachedDefintion) {
-                return new Promise((resolve) => resolve(cachedDefintion.content));
+            if (cachedDefinition) {
+                console.log("cache")
+                return new Promise((resolve) => resolve(cachedDefinition.content));
             } else {
+                console.log("network")
                 //If it doesnt exist request a new Definition
                 const result = api.requestDefinitions(query, settings.defaultLanguage);
 
                 //If the word gets found by the API cache it for later use
                 const awaitedResult = await result;
                 if (awaitedResult) {
-                    settings.cachedDefinitions.push({ content: awaitedResult, api: api.name, lang: settings.defaultLanguage });
-                    this.plugin.saveSettings();
+                    cache.cachedDefinitions.push({ content: awaitedResult, api: api.name, lang: settings.defaultLanguage });
+                    await this.plugin.saveCache();
                 }
 
                 //finally return the Promise so it can be awaited by the UI
@@ -101,17 +103,17 @@ export default class APIManager {
      */
     public async requestSynonyms(query: string, pos?: PartOfSpeech): Promise<Synonym[]> {
         const api = this.getSynonymAPI();
-        const { settings } = this.plugin;
+        const { cache, settings } = this.plugin;
         if (settings.useCaching) {
-            const cachedSynonymCollection = settings.cachedSynonyms.find((s) => s.word == query && s.lang == settings.defaultLanguage && s.api == api.name);
+            const cachedSynonymCollection = cache.cachedSynonyms.find((s) => { return s.word.toLowerCase() == query.toLowerCase() && s.lang == settings.defaultLanguage && s.api == api.name });
             if (cachedSynonymCollection) {
                 return new Promise((resolve) => resolve(cachedSynonymCollection.content));
             } else {
                 const result = api.requestSynonyms(query, settings.defaultLanguage);
                 const awaitedResult = await result;
                 if (awaitedResult) {
-                    settings.cachedSynonyms.push({ content: awaitedResult, api: api.name, word: query, lang: settings.defaultLanguage });
-                    this.plugin.saveSettings();
+                    cache.cachedSynonyms.push({ content: awaitedResult, api: api.name, word: query, lang: settings.defaultLanguage });
+                    await this.plugin.saveCache();
                 }
                 return result;
             }

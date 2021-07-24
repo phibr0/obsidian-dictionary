@@ -1,4 +1,4 @@
-import type { DictionarySettings } from "src/types";
+import type { DictionaryCache, DictionarySettings } from "src/types";
 import t from 'src/l10n/helpers';
 
 export const VIEW_TYPE = 'dictionary-view';
@@ -21,6 +21,11 @@ export const LANGUAGES = {
     "tr": "Türkçe (Turkish)"
 }
 
+export const DEFAULT_CACHE: DictionaryCache = {
+    cachedDefinitions: [],
+    cachedSynonyms: [],
+}
+
 export const DEFAULT_SETTINGS: DictionarySettings = {
     defaultLanguage: "en_US",
     shouldShowSynonymPopover: true,
@@ -30,8 +35,6 @@ export const DEFAULT_SETTINGS: DictionarySettings = {
     partOfSpeechApiName: "Systran API",
     advancedSynonymAnalysis: false,
     useCaching: false,
-    cachedDefinitions: [],
-    cachedSynonyms: [],
     folder: '',
     capitalizedFileName: true,
     prefix: "",

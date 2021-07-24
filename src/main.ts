@@ -1,8 +1,9 @@
+import { DEFAULT_CACHE } from './_constants';
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { DictionarySettings } from 'src/types';
+import type { DictionaryCache, DictionarySettings } from 'src/types';
 
-import { debounce, Editor, MarkdownView, Menu, Plugin } from 'obsidian';
+import { debounce, Editor, MarkdownView, Menu, normalizePath, Plugin } from 'obsidian';
 import { matchCasing } from "match-casing";
 import SettingsTab from 'src/ui/settings/settingsTab';
 import DictionaryView from 'src/ui/dictionary/dictionaryView';
@@ -20,11 +21,13 @@ export default class DictionaryPlugin extends Plugin {
     manager: APIManager;
     localDictionary: LocalDictionaryBuilder;
     synonymPopover: SynonymPopover | null = null;
+    cache: DictionaryCache;
 
     async onload(): Promise<void> {
         console.log('loading dictionary');
 
         await this.loadSettings();
+        await this.loadCache();
 
         addIcons();
 
@@ -141,6 +144,22 @@ export default class DictionaryPlugin extends Plugin {
 
     async loadSettings(): Promise<void> {
         this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
+    }
+
+    async loadCache(): Promise<void> {
+        this.cache = Object.assign({}, DEFAULT_CACHE, await this.loadCacheFromDisk());
+    }
+
+    async loadCacheFromDisk(): Promise<DictionaryCache> {
+        const path = normalizePath(`${this.manifest.dir}/cache.json`);
+        if (!(await this.app.vault.adapter.exists(path))) {
+            await this.app.vault.adapter.write(path, "{}");
+        }
+        return JSON.parse(await this.app.vault.adapter.read(path)) as DictionaryCache;
+    }
+
+    async saveCache(): Promise<void> {
+        await this.app.vault.adapter.write(normalizePath(`${this.manifest.dir}/cache.json`), JSON.stringify(this.cache));
     }
 
     async saveSettings(): Promise<void> {

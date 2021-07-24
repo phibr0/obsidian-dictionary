@@ -202,9 +202,9 @@ export default class SettingsTab extends PluginSettingTab {
             t('Here you can delete all cached Data.'),
             templateDescription.createEl("br"),
             t("You currently have "),
-            plugin.settings.cachedDefinitions.length.toString(),
+            plugin.cache.cachedDefinitions.length.toString(),
             t(" cached Definitions and "),
-            plugin.settings.cachedSynonyms.length.toString(),
+            plugin.cache.cachedSynonyms.length.toString(),
             t(" cached Synonyms.")
         );
         new Setting(containerEl)
@@ -214,9 +214,9 @@ export default class SettingsTab extends PluginSettingTab {
                 button.setDisabled(!plugin.settings.useCaching);
                 button.setButtonText(t("Delete"));
                 button.onClick(async () => {
-                    plugin.settings.cachedSynonyms = [];
-                    plugin.settings.cachedDefinitions = [];
-                    await this.plugin.saveSettings();
+                    plugin.cache.cachedSynonyms = [];
+                    plugin.cache.cachedDefinitions = [];
+                    await this.plugin.saveCache();
                     new Notice(t("Success"));
                     this.display();
                 });

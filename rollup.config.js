@@ -4,6 +4,7 @@ import resolve from "@rollup/plugin-node-resolve";
 import autoPreprocess from "svelte-preprocess";
 import typescript from "@rollup/plugin-typescript";
 
+// eslint-disable-next-line no-undef
 const isProd = (process.env.BUILD === 'production');
 
 const banner = 
@@ -16,13 +17,11 @@ if you want to view the source visit the plugins github repository (https://gith
 export default {
     input: "src/main.ts",
     output: {
-        format: "cjs",
-        file: "main.js",
-        sourcemap: isProd ? "none" : "inline",
-        sourcemapExcludeSources: isProd,
-        exports: "default",
-        banner
-        
+        dir: '.',
+        sourcemap: isProd ? 'none' : 'inline',
+        format: 'cjs',
+        exports: 'default',
+        banner,
     },
     external: ["obsidian"],
     plugins: [

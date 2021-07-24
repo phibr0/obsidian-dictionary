@@ -176,15 +176,15 @@ export default class SettingsTab extends PluginSettingTab {
                     plugin.settings.template = value;
                     await this.save();
                 }))
-                .addExtraButton(cb => {
-                    cb.setIcon("reset")
-                        .setTooltip(t("Reset to default"))
-                        .setDisabled(this.plugin.settings.template === DEFAULT_SETTINGS.template)
-                        .onClick(async () => {
-                            this.plugin.settings.template = DEFAULT_SETTINGS.template;
-                            await this.plugin.saveSettings();
-                        });
-                });
+            .addExtraButton(cb => {
+                cb.setIcon("reset")
+                    .setTooltip(t("Reset to default"))
+                    .setDisabled(this.plugin.settings.template === DEFAULT_SETTINGS.template)
+                    .onClick(async () => {
+                        this.plugin.settings.template = DEFAULT_SETTINGS.template;
+                        await this.plugin.saveSettings();
+                    });
+            });
 
         containerEl.createEl('h3', { text: t("Caching Settings") });
         new Setting(containerEl)
@@ -213,7 +213,7 @@ export default class SettingsTab extends PluginSettingTab {
             .addButton(button => {
                 button.setDisabled(!plugin.settings.useCaching);
                 button.setButtonText(t("Delete"));
-                button.onClick(async (value) => {
+                button.onClick(async () => {
                     plugin.settings.cachedSynonyms = [];
                     plugin.settings.cachedDefinitions = [];
                     await this.plugin.saveSettings();
@@ -239,7 +239,7 @@ export default class SettingsTab extends PluginSettingTab {
             .setClass("extra")
             .addButton((bt) => {
                 bt.buttonEl.outerHTML = `<a href="https://www.buymeacoffee.com/phibr0"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=phibr0&button_colour=5F7FFF&font_colour=ffffff&font_family=Inter&outline_colour=000000&coffee_colour=FFDD00"></a>`;
-            })
+            });
     }
 
     private async save() {

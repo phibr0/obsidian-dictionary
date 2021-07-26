@@ -65,13 +65,10 @@ export default class APIManager {
         if (settings.useCaching) {
             //Get any cached Definitions
             const cachedDefinition = cache.cachedDefinitions.find((c) => { return c.content.word.toLowerCase() == query.toLowerCase() && c.lang == settings.defaultLanguage && c.api == api.name });
-            console.log(cachedDefinition)
             //If cachedDefiniton exists return it as a Promise
             if (cachedDefinition) {
-                console.log("cache")
                 return new Promise((resolve) => resolve(cachedDefinition.content));
             } else {
-                console.log("network")
                 //If it doesnt exist request a new Definition
                 const result = api.requestDefinitions(query, settings.defaultLanguage);
 

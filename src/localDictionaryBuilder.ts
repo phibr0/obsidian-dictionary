@@ -4,7 +4,7 @@ import type DictionaryPlugin from "src/main";
 import type { DictionarySettings } from "src/types";
 
 import t from "src/l10n/helpers";
-import { Modal,  TFile } from "obsidian";
+import { Modal, TFile } from "obsidian";
 
 //This really needs a refactor
 
@@ -31,11 +31,9 @@ export default class LocalDictionaryBuilder {
 
         let phonetics = '';
         content.phonetics.forEach((value, i, a) => {
-            if (value) { //Should fix weird behaviour of Issue #16
-                phonetics += '- ' + value.audio ? `<details><summary>${value.text}</summary><audio controls><source src="${value.audio}"></audio></details>` : value.text;
-                if (i != a.length - 1) {
-                    phonetics += '\n';
-                }
+            phonetics += '- ' + (value.audio ? `<details><summary>${value.text}</summary><audio controls><source src="${value.audio}"></audio></details>` : value.text);
+            if (i != a.length - 1) {
+                phonetics += '\n';
             }
         });
 
@@ -95,9 +93,9 @@ class OverwriteModal extends Modal {
     }
 
     onOpen() {
-        this.contentEl.appendChild(createEl("p", {text: t("A existing File with the same Name was found, do you want to overwrite it?"), cls: "dictionarycenter"}));
-        const buttonDiv = this.contentEl.appendChild(createDiv({cls: "dictionarybuttons"}))
-        buttonDiv.appendChild(createEl("button", {text: t("Yes, overwrite the old File."), cls: "mod-cta"})).onClickEvent(async () => {
+        this.contentEl.appendChild(createEl("p", { text: t("A existing File with the same Name was found, do you want to overwrite it?"), cls: "dictionarycenter" }));
+        const buttonDiv = this.contentEl.appendChild(createDiv({ cls: "dictionarybuttons" }))
+        buttonDiv.appendChild(createEl("button", { text: t("Yes, overwrite the old File."), cls: "mod-cta" })).onClickEvent(async () => {
             await this.app.vault.delete(this.app.vault.getAbstractFileByPath(this.path));
             const file = await this.app.vault.create(this.path, this.content);
             const leaf = this.app.workspace.splitActiveLeaf();
@@ -105,7 +103,7 @@ class OverwriteModal extends Modal {
             this.close();
             this.app.workspace.setActiveLeaf(leaf);
         });
-        buttonDiv.appendChild(createEl("button", {text: t("No, keep the old File."), cls: "mod-cta"})).onClickEvent(() => {
+        buttonDiv.appendChild(createEl("button", { text: t("No, keep the old File."), cls: "mod-cta" })).onClickEvent(() => {
             this.close();
         });
     }

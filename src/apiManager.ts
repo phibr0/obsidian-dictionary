@@ -90,10 +90,6 @@ export default class APIManager {
         }
     }
 
-    //TODO: Settings page with useCaching toggle, list of how many synonyms and definitions are cached, let the user delete them
-    //Test with multiple different apis and check if it still saves them correctly
-    //Different languages with same api doesnt work yet, add to cachedInterface thingos
-
     /**
      * Sends a request with the passed query to the chosen API and returns the resulting Synonyms
      *

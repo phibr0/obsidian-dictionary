@@ -31,6 +31,10 @@ export class AltervistaSynonymProvider implements SynonymProvider {
             return Promise.reject(error);
         }
 
+        if(!result){
+            return Promise.reject("Word doesnt exist in this Dictionary");
+        }
+
         const json = await JSON.parse(result);
 
         for(const c of json.response){

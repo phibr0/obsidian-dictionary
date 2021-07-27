@@ -65,7 +65,14 @@ export class FreeDictionaryDefinitionProvider extends Base implements Definition
         } catch (error) {
             return Promise.reject(error);
         }
-        return (await JSON.parse(result) as DictionaryWord[]).first();
+
+        const json = (await JSON.parse(result) as DictionaryWord[])?.first();
+
+        if(!json){
+            return Promise.reject("Word doesnt exist in this Dictionary");
+        }
+
+        return json;
     }
 }
 
@@ -107,6 +114,10 @@ export class FreeDictionarySynonymProvider extends Base implements SynonymProvid
             result = await request({url: this.constructRequest(query, this.languageCodes[lang])});
         } catch (error) {
             return Promise.reject(error);
+        }
+        
+        if(!result){
+            return Promise.reject("Word doesnt exist in this Dictionary");
         }
 
         const meanings: Meaning[] = (await JSON.parse(result) as DictionaryWord[]).first().meanings;

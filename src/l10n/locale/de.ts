@@ -82,6 +82,7 @@ export default {
     'Pronunciation': 'Aussprache',
     'Meanings': 'Bedeutungen',
     'New Note': 'Neue Notiz',
+    "View Error": "Fehler anzeigen",
 
     //errorComponent.ts
     'I can\'t find the word you are looking for or the server can\'t be reached. You can try again in a few minutes.': 'Ich kann das Wort nicht finden oder der Server kann nicht erreicht werden. Bitte probiere es in eingigen Minuten nocheinmal.',

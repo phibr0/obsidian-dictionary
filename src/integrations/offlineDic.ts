@@ -28,7 +28,7 @@ export class OfflineDictionary implements DefinitionProvider {
             const definition: Definition[] = [];
             definition.push({
                 definition: lang === "cn" ? element.def_cn : element.def_en,
-                example: lang === "cn" ? element.ext.first().ext_cn : element.ext.first().ext_en
+                example: lang === "cn" ? element.ext?.first()?.ext_cn : element.ext?.first()?.ext_en ?? ""
             });
             meanings.push({
                 partOfSpeech: lang === "cn" ? element.pos_cn : element.pos_en,

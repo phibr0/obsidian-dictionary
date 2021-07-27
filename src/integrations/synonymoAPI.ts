@@ -27,6 +27,10 @@ export class SynonymoSynonymAPI implements SynonymProvider {
             return Promise.reject(error);
         }
 
+        if(!result){
+            return Promise.reject("Word doesnt exist in this Dictionary");
+        }
+
         const parser = new DOMParser();
 
         const doc = parser.parseFromString(result, 'text/html');

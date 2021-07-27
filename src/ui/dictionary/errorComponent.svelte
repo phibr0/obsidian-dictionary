@@ -9,7 +9,7 @@
   <p class="errorDescription">
     {t('I can\'t find the word you are looking for or the server can\'t be reached. You can try again in a few minutes.')}
   </p>
-  <details style="display: none">{error ?? ""}</details>
+  <details class="errorDescription"><summary>{t("View Error")}</summary>{error ?? ""}</details>
 </div>
 
 <style>

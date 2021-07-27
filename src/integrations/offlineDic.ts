@@ -15,7 +15,7 @@ export class OfflineDictionary implements DefinitionProvider {
     }
 
     async requestDefinitions(query: string, lang: string): Promise<DictionaryWord> {
-        const data = (await this.getOfflineDictionary())[query];
+        const data = (await this.getOfflineDictionary())[query.toLowerCase()];
         if(!data){
             return Promise.reject("Word doesnt exist in Offline Dictionary");
         }

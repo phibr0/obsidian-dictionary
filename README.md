@@ -12,10 +12,10 @@ Open the *Command Palette* (default: `ctrl` + `p`), search for *Open Dictionary 
 
 The following Languages are currently supported:
 
-| Language             | Synonym Popover | Sidebar Lookup | UI Translated? |
+| Language             | Synonym Popover | Sidebar Lookup (Offline Support) | UI Translated? |
 |:-------------------- |:---------------:|:--------------:|:-----------:|
-| English (US)         |        🗸        |       🗸        |🗸|
-| English (UK)         |                 |       🗸        ||
+| English (US)         |        🗸        |       🗸  (🗸)       |🗸|
+| English (UK)         |                 |       🗸 (🗸)       ||
 | Hindi                |                 |       🗸        ||
 | Spanish              |        🗸        |       🗸        ||
 | French               |        🗸        |       🗸        ||
@@ -27,7 +27,7 @@ The following Languages are currently supported:
 | Brazilian Portuguese |                 |       🗸        ||
 | Arabic               |                 |       🗸        ||
 | Turkish              |                 |       🗸        | |
-| Chinese | | 🗸 | 🗸 |
+| Chinese | | 🗸 (🗸) | 🗸 |
 
 ## Offline Dictionary
 

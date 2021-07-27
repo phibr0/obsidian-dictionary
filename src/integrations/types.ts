@@ -1,6 +1,7 @@
 interface Provider {
     name: string;
-    url: string;
+    url?: string;
+    offline: boolean;
     supportedLanguages: string[];
 }
 export interface DefinitionProvider extends Provider {

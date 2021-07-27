@@ -26,8 +26,7 @@ export default class DictionaryPlugin extends Plugin {
     async onload(): Promise<void> {
         console.log('loading dictionary');
 
-        await this.loadSettings();
-        await this.loadCache();
+        await Promise.all([this.loadSettings(), this.loadCache()]);
 
         addIcons();
 

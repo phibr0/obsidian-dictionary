@@ -7,6 +7,7 @@ export class OpenThesaurusSynonymAPI implements SynonymProvider {
     public name = "OpenThesaurus";
     public url = "https://www.openthesaurus.de/";
     public supportedLanguages: string[] = ["de"];
+    offline = false;
 
     /**
      * @param query - The term you want to look up

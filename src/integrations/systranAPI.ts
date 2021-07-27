@@ -39,6 +39,7 @@ export class SystranPOSProvider implements PartOfSpeechProvider {
     public name = "Systran API";
     public url =
         "https://systran-systran-platform-for-language-processing-v1.p.rapidapi.com/";
+    offline = false;
 
     public supportedLanguages = [
         "ar",

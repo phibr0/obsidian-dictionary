@@ -4,6 +4,7 @@ import type{ PartOfSpeech, Synonym, SynonymProvider } from "src/integrations/typ
 export class AltervistaSynonymProvider implements SynonymProvider {
     name = "Altervista";
     url = "http://thesaurus.altervista.org/";
+    offline = false;
     //Look up more later
     supportedLanguages: string[] = [
         "es",

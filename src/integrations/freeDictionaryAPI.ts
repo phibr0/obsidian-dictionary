@@ -6,6 +6,7 @@ abstract class Base {
 
     public name = "Free Dictionary API";
     public url = "https://dictionaryapi.dev/";
+    offline = false;
 
     languageCodes = {
         "en_US": "en_US",

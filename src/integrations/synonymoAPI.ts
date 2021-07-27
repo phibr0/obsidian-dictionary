@@ -6,6 +6,7 @@ export class SynonymoSynonymAPI implements SynonymProvider {
     public name = "Synonymo";
     public url = "http://www.synonymo.fr/";
     public supportedLanguages: string[] = ["fr"];
+    offline = false;
 
     API_END_POINT = 'http://www.synonymo.fr/synonyme/';
 

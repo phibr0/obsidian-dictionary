@@ -1,13 +1,13 @@
-import type { Phonetic, Meaning, Definition } from './types';
+import type { Phonetic, Meaning, Definition, OfflineDic } from './types';
 import type APIManager from 'src/apiManager';
 import { normalizePath, request } from 'obsidian';
 import type { DefinitionProvider, DictionaryWord } from "src/integrations/types";
 
 export class OfflineDictionary implements DefinitionProvider {
     public name = "Offline Dictionary";
-    public url = "Offline, downloaded from GitHub Release on first use.";
     public supportedLanguages: string[] = ["en_US", "en_GB", "cn"];
-    offlineDic: any;
+    offlineDic: Record<string, OfflineDic>
+    offline = true;
     manager: APIManager;
 
     constructor(manager: APIManager) {
@@ -43,7 +43,7 @@ export class OfflineDictionary implements DefinitionProvider {
         return dictionaryWord;
     }
 
-    async getOfflineDictionary(): Promise<any> {
+    async getOfflineDictionary(): Promise<Record<string, OfflineDic>> {
         const { plugin } = this.manager;
         const { adapter } = plugin.app.vault;
         const path = normalizePath(`${plugin.manifest.dir}/offlineDictionary.json`);

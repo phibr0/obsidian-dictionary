@@ -8,7 +8,6 @@
   import ErrorComponent from "./errorComponent.svelte";
   import t from "src/l10n/helpers";
 
-
   export let manager: APIManager;
   export let localDictionary: LocalDictionaryBuilder;
 
@@ -21,8 +20,8 @@
     }
   }
 
-  function languageModal(){
-    dispatchEvent(new Event('dictionary-open-language-switcher'));
+  function languageModal() {
+    dispatchEvent(new Event("dictionary-open-language-switcher"));
   }
 
   addEventListener("obsidian-dictionary-plugin-search", () => {
@@ -38,7 +37,9 @@
 
 <div class="main">
   <div class="searchbox">
-    <button class="dictionary-button" on:click={languageModal}><i class="languageIcon" alt="Language"/></button>
+    <button class="dictionary-button" on:click={languageModal}
+      ><i class="languageIcon" alt="Language" /></button
+    >
     <input
       type="text"
       spellcheck="true"
@@ -46,7 +47,9 @@
       bind:value={query}
       on:keydown={handleKeyDown}
     />
-    <button class="dictionary-button" on:click={search}><i class="searchIcon" alt="Search"/></button>
+    <button class="dictionary-button" on:click={search}
+      ><i class="searchIcon" alt="Search" /></button
+    >
   </div>
   {#if query.trim() != "" && promise}
     {#await promise}
@@ -54,27 +57,29 @@
         <div class="spinner" />
       </div>
     {:then data}
-      <div class="results">
-        {#if data.phonetics.first().text}
+      {#if query === data.word}
+        <div class="results">
+          {#if data.phonetics.first().text}
+            <div class="container">
+              <h3>{t("Pronunciation")}</h3>
+              {#each data.phonetics as { text, audio }}
+                <PhoneticComponent {audio} {text} />
+              {/each}
+            </div>
+          {/if}
           <div class="container">
-            <h3>{t("Pronunciation")}</h3>
-            {#each data.phonetics as { text, audio }}
-              <PhoneticComponent {audio} {text} />
+            <h3>{t("Meanings")}</h3>
+            {#each data.meanings as { definitions, partOfSpeech }}
+              <MeaningComponent word={data.word} {partOfSpeech} {definitions} />
             {/each}
           </div>
-        {/if}
-        <div class="container">
-          <h3>{t("Meanings")}</h3>
-          {#each data.meanings as { definitions, partOfSpeech }}
-            <MeaningComponent word={data.word} {partOfSpeech} {definitions} />
-          {/each}
         </div>
-      </div>
-      <span
-        class="nn"
-        on:click={async () => await localDictionary.newNote(data)}
-        >{t("New Note")}</span
-      >
+        <span
+          class="nn"
+          on:click={async () => await localDictionary.newNote(data)}
+          >{t("New Note")}</span
+        >
+      {/if}
     {:catch error}
       <ErrorComponent {error} />
     {/await}
@@ -129,7 +134,7 @@
     }
   }
 
-  .dictionary-button{
+  .dictionary-button {
     margin-right: 0px;
   }
 
@@ -137,15 +142,15 @@
     box-sizing: border-box;
     position: relative;
     display: block;
-    transform: scale(var(--ggs,1));
+    transform: scale(var(--ggs, 1));
     width: 16px;
     height: 16px;
     border: 2px solid;
     border-radius: 100%;
     margin-left: -4px;
-    margin-top: -4px
-}
-.searchIcon::after {
+    margin-top: -4px;
+  }
+  .searchIcon::after {
     content: "";
     display: block;
     box-sizing: border-box;
@@ -156,40 +161,40 @@
     background: currentColor;
     transform: rotate(-45deg);
     top: 10px;
-    left: 12px
-}
+    left: 12px;
+  }
 
-.languageIcon,
-.languageIcon::after,
-.languageIcon::before {
+  .languageIcon,
+  .languageIcon::after,
+  .languageIcon::before {
     display: block;
     box-sizing: border-box;
     height: 18px;
-    border: 2px solid
-}
-.languageIcon {
+    border: 2px solid;
+  }
+  .languageIcon {
     position: relative;
-    transform: scale(var(--ggs,1));
+    transform: scale(var(--ggs, 1));
     width: 18px;
-    border-radius: 22px
-}
-.languageIcon::after,
-.languageIcon::before {
+    border-radius: 22px;
+  }
+  .languageIcon::after,
+  .languageIcon::before {
     content: "";
     position: absolute;
     width: 8px;
     border-radius: 100%;
     top: -2px;
-    left: 3px
-}
-.languageIcon::after {
+    left: 3px;
+  }
+  .languageIcon::after {
     width: 24px;
     height: 20px;
     border: 2px solid transparent;
     border-bottom: 2px solid;
     top: -11px;
-    left: -5px
-}
+    left: -5px;
+  }
 
   .center {
     margin: auto;

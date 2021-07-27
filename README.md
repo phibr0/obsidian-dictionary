@@ -27,7 +27,11 @@ The following Languages are currently supported:
 | Brazilian Portuguese |                 |       🗸        ||
 | Arabic               |                 |       🗸        ||
 | Turkish              |                 |       🗸        | |
-| Chinese | | | 🗸 |
+| Chinese | | 🗸 | 🗸 |
+
+## Offline Dictionary
+
+As of Release 2.13.0 this Plugin has experimental offline Support for English and Chinese. The offline Dictionary is pretty big (about 35 megabytes), which is why it's not bundled with this Plugin by default. It will download the neccessary files **when you are using it for the first time**. That means your first look-up still requires an internet connection.
 
 ## How to install
 

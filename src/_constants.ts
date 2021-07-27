@@ -18,7 +18,8 @@ export const LANGUAGES = {
     "ko": "한국어 (Korean)",
     "pt_BR": "Português do Brasil (Brazilian Portuguese)",
     "ar": "اَلْعَرَبِيَّةُ‎ (Arabic)",
-    "tr": "Türkçe (Turkish)"
+    "tr": "Türkçe (Turkish)",
+    "cn": "中国人 (Chinese)"
 }
 
 export const DEFAULT_CACHE: DictionaryCache = {

@@ -1,3 +1,4 @@
+import { OfflineDictionary } from './integrations/offlineDic';
 import type {
     DefinitionProvider,
     DictionaryWord,
@@ -29,11 +30,12 @@ APIManager, as seen below
 */
 
 export default class APIManager {
-    private plugin: DictionaryPlugin;
+    plugin: DictionaryPlugin;
 
     // Adds new API's to the Definition Providers
     definitionProvider: DefinitionProvider[] = [
         new FreeDictionaryDefinitionProvider(),
+        new OfflineDictionary(this)
     ];
     // Adds new API's to the Synonym Providers
     synonymProvider: SynonymProvider[] = [
@@ -62,7 +64,7 @@ export default class APIManager {
         const api = this.getDefinitionAPI();
         const { cache, settings } = this.plugin;
 
-        if (settings.useCaching) {
+        if (settings.useCaching && api.name != "Offline Dictionary") {
             //Get any cached Definitions
             const cachedDefinition = cache.cachedDefinitions.find((c) => { return c.content.word.toLowerCase() == query.toLowerCase() && c.lang == settings.defaultLanguage && c.api == api.name });
             //If cachedDefiniton exists return it as a Promise
@@ -97,7 +99,7 @@ export default class APIManager {
     public async requestSynonyms(query: string, pos?: PartOfSpeech): Promise<Synonym[]> {
         const api = this.getSynonymAPI();
         const { cache, settings } = this.plugin;
-        if (settings.useCaching) {
+        if (settings.useCaching && api.name != "Offline Dictionary") {
             const cachedSynonymCollection = cache.cachedSynonyms.find((s) => { return s.word.toLowerCase() == query.toLowerCase() && s.lang == settings.defaultLanguage && s.api == api.name });
             if (cachedSynonymCollection) {
                 return new Promise((resolve) => resolve(cachedSynonymCollection.content));

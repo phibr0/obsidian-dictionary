@@ -33,13 +33,6 @@ The following Languages are currently supported:
 
 As of Release 2.13.0 this Plugin has experimental offline Support for English and Chinese. The offline Dictionary is pretty big (about 35 megabytes), which is why it's not bundled with this Plugin by default. It will download the neccessary files **when you are using it for the first time**. That means your first look-up still requires an internet connection.
 
-## How to install
-
-1. Go to **Community Plugins** in your [Obsidian](https://www.obsidian.md) Settings and **disable** Safe Mode
-2. Click on **Browse** and search for “Obsidian Dictionary”
-3. Click install
-4. Toggle the Plugin on in the **Community Plugins** Tab
-
 ## Privacy
 
 This Plugin relies on third-party [API's](https://en.wikipedia.org/wiki/API) to find Definitions, Synonyms, etc. You can select from a Range of API’s and choose which one to trust, the Plugin will not make requests to API’s you didn’t allow it to. To find more Information about the different API’s click the “More Info“ Button in the Settings.
@@ -79,6 +72,13 @@ You can edit the Note Template for your local Dictionary in the Settings. Here i
 - `{{meanings}}` → Same as above, but for meanings the Plugin found.
 
 Localized means, that the Text changes based on Obsidians internal Language.
+
+## How to install
+
+1. Go to **Community Plugins** in your [Obsidian](https://www.obsidian.md) Settings and **disable** Safe Mode
+2. Click on **Browse** and search for “Obsidian Dictionary”
+3. Click install
+4. Toggle the Plugin on in the **Community Plugins** Tab
 
 ## Support me
 

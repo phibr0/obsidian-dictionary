@@ -3,7 +3,7 @@ import { DEFAULT_CACHE } from './_constants';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { DictionaryCache, DictionarySettings } from 'src/types';
 
-import { debounce, Editor, MarkdownView, Menu, normalizePath, Plugin } from 'obsidian';
+import { debounce, Editor, MarkdownView, Menu, normalizePath, Plugin, WorkspaceLeaf } from 'obsidian';
 import { matchCasing } from "match-casing";
 import SettingsTab from 'src/ui/settings/settingsTab';
 import DictionaryView from 'src/ui/dictionary/dictionaryView';
@@ -15,6 +15,7 @@ import { addIcons } from 'src/ui/icons';
 import t from 'src/l10n/helpers';
 import LocalDictionaryBuilder from 'src/localDictionaryBuilder';
 import LanguageChooser from 'src/ui/modals/languageChooser';
+import { copy } from 'src/util';
 
 export default class DictionaryPlugin extends Plugin {
     settings: DictionarySettings;
@@ -72,6 +73,47 @@ export default class DictionaryPlugin extends Plugin {
                 this.synonymPopover = null;
             }
         });
+
+        this.registerDomEvent(document.body, "contextmenu", (event) => {
+            //@ts-ignore
+            if(this.settings.shouldShowCustomContextMenu && event.path.find(((el: HTMLElement, i: number) => 
+                //@ts-ignore
+                i != event.path.length - 1 || i != event.path.length - 2 && el.hasClass("markdown-preview-view")
+            ))) {
+                if(window.getSelection().toString()) {
+                    event.preventDefault();
+
+                    const fileMenu = new Menu(this.app);
+
+                    fileMenu.addItem((item) => {
+                        item.setTitle(t('Copy'))
+                            .setIcon('copy')
+                            .onClick((_) => {
+                                copy(window.getSelection().toString());
+                            });
+                    });
+                    fileMenu.addItem((item) => {
+                        item.setTitle(t('Look up'))
+                            .setIcon('quote-glyph')
+                            .onClick(async (_) => {
+                                let leaf: WorkspaceLeaf = this.app.workspace.getLeavesOfType(VIEW_TYPE).first();
+                                if(!leaf){
+                                    leaf = this.app.workspace.getRightLeaf(false);
+                                    await leaf.setViewState({
+                                        type: VIEW_TYPE,
+                                    });
+                                }
+                                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                                //@ts-ignore
+                                leaf.view.query(window.getSelection().toString());
+                                this.app.workspace.revealLeaf(leaf);
+                            });
+                    });
+
+                    fileMenu.showAtPosition({ x: event.clientX, y: event.clientY });
+                }
+            }
+        })
 
         this.localDictionary = new LocalDictionaryBuilder(this);
 

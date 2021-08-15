@@ -67,7 +67,7 @@ export class FreeDictionaryDefinitionProvider extends Base implements Definition
             return Promise.reject(error);
         }
 
-        const json = (await JSON.parse(result) as DictionaryWord[])?.first();
+        const json = (await JSON.parse(result) as DictionaryWord[]).first();
 
         if(!json){
             return Promise.reject("Word doesnt exist in this Dictionary");

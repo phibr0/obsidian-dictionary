@@ -80,7 +80,7 @@ export default class DictionaryPlugin extends Plugin {
                 //@ts-ignore
                 i != event.path.length - 1 || i != event.path.length - 2 && el.hasClass("markdown-preview-view")
             ))) {
-                if(window.getSelection().toString()) {
+                if(window.getSelection().toString() && this.app.workspace.activeLeaf?.getViewState()?.state.mode === "preview") {
                     event.preventDefault();
 
                     const fileMenu = new Menu(this.app);

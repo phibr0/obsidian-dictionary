@@ -1,7 +1,12 @@
 <script lang="ts">
   import t from "src/l10n/helpers";
+  import { onMount } from "svelte";
 
   export let error: string;
+
+  onMount(() => {
+    console.error(error)
+  })
 </script>
 
 <div class="main">

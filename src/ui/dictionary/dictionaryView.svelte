@@ -15,7 +15,7 @@
   let promise: Promise<DictionaryWord>;
 
   function search() {
-    if (query.trim() !== "") {
+    if (query.trim()) {
       promise = manager.requestDefinitions(query);
     }
   }
@@ -51,7 +51,7 @@
       ><i class="searchIcon" alt="Search" /></button
     >
   </div>
-  {#if query.trim() != "" && promise}
+  {#if promise && query.trim()}
     {#await promise}
       <div class="center">
         <div class="spinner" />

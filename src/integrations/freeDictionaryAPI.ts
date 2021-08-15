@@ -67,13 +67,13 @@ export class FreeDictionaryDefinitionProvider extends Base implements Definition
             return Promise.reject(error);
         }
 
-        const json = (await JSON.parse(result) as DictionaryWord[]).first();
+        const json = (await JSON.parse(result) as DictionaryWord[]);
 
-        if(!json){
-            return Promise.reject("Word doesnt exist in this Dictionary");
+        if(!json || json["title"]){
+            return Promise.reject(json["title"]);
         }
 
-        return json;
+        return json.first();
     }
 }
 

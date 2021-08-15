@@ -113,7 +113,7 @@ export default class DictionaryPlugin extends Plugin {
                     fileMenu.showAtPosition({ x: event.clientX, y: event.clientY });
                 }
             }
-        })
+        });
 
         this.localDictionary = new LocalDictionaryBuilder(this);
 

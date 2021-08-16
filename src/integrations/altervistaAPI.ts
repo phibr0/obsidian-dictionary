@@ -27,7 +27,7 @@ export class AltervistaSynonymProvider implements SynonymProvider {
         const synonyms: Synonym[] = [];
         let result: string;
         try {
-            result = await request({url: this.constructRequest(query, lang)});
+            result = await request({url: this.constructRequest(encodeURIComponent(query), lang)});
         } catch (error) {
             return Promise.reject(error);
         }

@@ -62,7 +62,7 @@ export class FreeDictionaryDefinitionProvider extends Base implements Definition
     async requestDefinitions(query: string, lang: string, _ = true): Promise<DictionaryWord> {
         let result: string;
         try {
-            result = await request({url: this.constructRequest(query, this.languageCodes[lang])});
+            result = await request({url: this.constructRequest(encodeURIComponent(query), this.languageCodes[lang])});
         } catch (error) {
             return Promise.reject(error);
         }

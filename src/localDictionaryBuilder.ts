@@ -69,7 +69,8 @@ export default class LocalDictionaryBuilder {
             .replace(/{{pronunciationheader}}/ig, phonetics ? t('Pronunciation') : '')
             .replace(/{{phoneticlist}}/ig, phonetics)
             .replace(/{{meaningheader}}/ig, meanings ? t('Meanings') : '')
-            .replace(/{{meanings}}/ig, meanings);
+            .replace(/{{meanings}}/ig, meanings)
+            .replace(/{{lang}}/ig, langString);
 
         try {
             file = await plugin.app.vault.create(path, contents);

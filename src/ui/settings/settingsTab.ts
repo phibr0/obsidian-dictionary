@@ -129,6 +129,16 @@ export default class SettingsTab extends PluginSettingTab {
                     await this.save();
                 }));
         new Setting(containerEl)
+            .setName(t('Use Language specific Subfolders'))
+            .setDesc(t('Create Subfolders for every language, e.g. "Dictionary/en-US/Cake"'))
+            .addToggle(toggle => {
+                toggle.setValue(plugin.settings.languageSpecificSubFolders)
+                toggle.onChange(async (value) => {
+                    plugin.settings.languageSpecificSubFolders = value;
+                    await this.save();
+                })
+            });
+        new Setting(containerEl)
             .setName(t('Capitalize File Name'))
             .setDesc(t('If you disable this, the names of newly created files will be all lowercase.'))
             .addToggle(toggle => {

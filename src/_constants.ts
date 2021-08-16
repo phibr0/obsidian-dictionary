@@ -72,6 +72,7 @@ aliases: ["{{word}}"]
 ## {{meaningHeader}}
 
 {{meanings}}
-`
+`,
+    languageSpecificSubFolders: false
 }
 

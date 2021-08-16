@@ -62,6 +62,8 @@ export default {
     "Delete Cache": "Delete Cache",
     "Delete": "Delete",
     "Success": "Success",
+    'Use Language specific Subfolders': 'Use Language specific Subfolders',
+    'Create Subfolders for every language, e.g. "Dictionary/en-US/Cake"': 'Create Subfolders for every language, e.g. "Dictionary/en-US/Cake"',
 
 
     //localDictionaryBuilder.ts

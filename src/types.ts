@@ -10,6 +10,7 @@ export interface DictionarySettings {
 	advancedSynonymAnalysis: boolean;
 	useCaching: boolean;
 	folder: string;
+	languageSpecificSubFolders: boolean,
 	capitalizedFileName: boolean;
 	suffix: string;
 	prefix: string;

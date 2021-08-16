@@ -22,6 +22,24 @@ export const LANGUAGES = {
     "cn": "中国人 (Chinese)"
 }
 
+export const RFC = {
+    "en_US": "en-US",
+    "hi": "hi",
+    "es": "es",
+    "fr": "fr",
+    "ja": "ja",
+    "ru": "ru",
+    "en_GB": "en-GB",
+    "de": "de",
+    "it": "it",
+    "ko": "ko",
+    "pt_BR": "pt-BR",
+    "ar": "ar",
+    "tr": "tr",
+    "cn": "zh"
+}
+
+
 export const DEFAULT_CACHE: DictionaryCache = {
     cachedDefinitions: [],
     cachedSynonyms: [],

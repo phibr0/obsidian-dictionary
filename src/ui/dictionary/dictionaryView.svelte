@@ -6,6 +6,7 @@
   import PhoneticComponent from "./phoneticComponent.svelte";
   import MeaningComponent from "./meaningComponent.svelte";
   import ErrorComponent from "./errorComponent.svelte";
+  import OriginComponent from "./originComponent.svelte";
   import t from "src/l10n/helpers";
 
   export let manager: APIManager;
@@ -73,6 +74,12 @@
               <MeaningComponent word={data.word} {partOfSpeech} {definitions} />
             {/each}
           </div>
+          {#if data.origin}
+            <div class="container">
+              <h3>{t("Origin")}</h3>
+                <OriginComponent {data}/>
+            </div>
+          {/if}
         </div>
         <span
           class="nn"

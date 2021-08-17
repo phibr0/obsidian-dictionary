@@ -86,6 +86,7 @@ export default {
     'Enter a word': 'Enter a word',
     'Pronunciation': 'Pronunciation',
     'Meanings': 'Meanings',
+    "Origin": "Origin",
     'New Note': 'New Note',
     "View Error": "View Error",
 

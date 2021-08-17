@@ -62,7 +62,8 @@ export class FreeDictionaryDefinitionProvider extends Base implements Definition
     async requestDefinitions(query: string, lang: string, _ = true): Promise<DictionaryWord> {
         let result: string;
         try {
-            result = await request({url: this.constructRequest(encodeURIComponent(query), this.languageCodes[lang])});
+            const url = this.constructRequest(encodeURIComponent(query), this.languageCodes[lang]);
+            result = await request({url});
         } catch (error) {
             return Promise.reject(error);
         }
@@ -72,7 +73,6 @@ export class FreeDictionaryDefinitionProvider extends Base implements Definition
         if(!json || json["title"]){
             return Promise.reject(json["title"]);
         }
-
         return json.first();
     }
 }

@@ -9,7 +9,7 @@
       <summary>{text.replace("/", "").replace("/", "")}</summary>
       <!-- svelte-ignore a11y-media-has-caption -->
       <audio controls>
-        <source src={audio} type="audio/mpeg" />
+        <source src={audio.startsWith("http") ? audio : "https:" + audio} type="audio/mpeg" />
       </audio>
     </details>
   {:else}

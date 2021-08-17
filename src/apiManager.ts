@@ -98,6 +98,9 @@ export default class APIManager {
      */
     public async requestSynonyms(query: string, pos?: PartOfSpeech): Promise<Synonym[]> {
         const api = this.getSynonymAPI();
+        if(!api) {
+            throw("No Synonym API selected/available");
+        }
         const { cache, settings } = this.plugin;
         if (settings.useCaching && !api.name.toLowerCase().contains("offline")) {
             const cachedSynonymCollection = cache.cachedSynonyms.find((s) => { return s.word.toLowerCase() == query.toLowerCase() && s.lang == settings.defaultLanguage && s.api == api.name });

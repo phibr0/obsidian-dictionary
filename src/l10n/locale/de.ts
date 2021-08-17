@@ -71,6 +71,7 @@ export default {
     "Yes, overwrite the old File.": "Ja, überschreibe die alte Datei",
     "A existing File with the same Name was found, do you want to overwrite it?": "Eine bereits existierende Datei mit dem gleichen Namen wurde gefunden, möchtest du diese überschreiben?",
     "Meaning {{i}}": "Bedeutung {{i}}",
+
     //infoModal.svelte
     'API Information': 'API Informationen',
     'Definition API\'s': 'Definitionen APIs',
@@ -83,6 +84,7 @@ export default {
     'Enter a word': 'Gebe ein Wort ein',
     'Pronunciation': 'Aussprache',
     'Meanings': 'Bedeutungen',
+    "Origin": "Ursprung",
     'New Note': 'Neue Notiz',
     "View Error": "Fehler anzeigen",
 

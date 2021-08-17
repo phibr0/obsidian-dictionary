@@ -24,6 +24,7 @@ export enum PartOfSpeech {
 }
 export interface DictionaryWord {
     word: string;
+    origin?: string;
     phonetics: Phonetic[];
     meanings: Meaning[];
 }

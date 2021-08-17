@@ -18,11 +18,14 @@ export default class LocalDictionaryBuilder {
     }
 
     private cap(string: string): string {
-        const words = string.split(" ");
+        if (string) {
+            const words = string.split(" ");
 
-        return words.map((word) => {
-            return word[0].toUpperCase() + word.substring(1);
-        }).join(" ");
+            return words.map((word) => {
+                return word[0].toUpperCase() + word.substring(1);
+            }).join(" ");
+        }
+        return string;
     }
 
     async newNote(content: DictionaryWord): Promise<void> {
@@ -31,15 +34,17 @@ export default class LocalDictionaryBuilder {
 
         let phonetics = '';
         content.phonetics.forEach((value, i, a) => {
-            phonetics += '- ' + (value.audio ? `<details><summary>${value.text}</summary><audio controls><source src="${value.audio}"></audio></details>` : value.text);
-            if (i != a.length - 1) {
-                phonetics += '\n';
+            if (value.text) {
+                phonetics += '- ' + (value.audio ? `<details><summary>${value.text}</summary><audio controls><source src="${value.audio.startsWith("http") ? value.audio : "https://" + value.audio}"></audio></details>` : value.text);
+                if (i != a.length - 1) {
+                    phonetics += '\n';
+                }
             }
         });
 
         let meanings = '';
-        content.meanings.forEach((value) => {
-            meanings += '### ' + this.cap(value.partOfSpeech) + '\n\n';
+        content.meanings.forEach((value, i) => {
+            meanings += '### ' + this.cap(value.partOfSpeech ?? t("Meaning {{i}}").replace(/{{i}}/g, (i + 1).toString())) + '\n\n';
             value.definitions.forEach((def, j, b) => {
                 meanings += def.definition + '\n\n';
                 if (def.example) {
@@ -73,7 +78,7 @@ export default class LocalDictionaryBuilder {
             .replace(/{{lang}}/ig, langString);
 
         try {
-            if(!(await plugin.app.vault.adapter.exists(normalizePath(`${settings.folder ? settings.folder + '/' : ''}${settings.languageSpecificSubFolders ? langString + '/' : ''}`)))) {
+            if (!(await plugin.app.vault.adapter.exists(normalizePath(`${settings.folder ? settings.folder + '/' : ''}${settings.languageSpecificSubFolders ? langString + '/' : ''}`)))) {
                 await plugin.app.vault.createFolder(normalizePath(`${settings.folder ? settings.folder + '/' : ''}${settings.languageSpecificSubFolders ? langString + '/' : ''}`));
             }
             file = await plugin.app.vault.create(normalizePath(path), contents);

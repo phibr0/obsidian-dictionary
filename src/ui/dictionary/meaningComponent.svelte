@@ -9,7 +9,7 @@
 
 <div class="main">
   <details>
-    <summary>{partOfSpeech}</summary>
+    <summary>{partOfSpeech ?? ""}</summary>
 
     {#each definitions as definition, i}
       <div class="definition">

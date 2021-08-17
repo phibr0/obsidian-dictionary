@@ -71,6 +71,7 @@ export default {
     "Yes, overwrite the old File.": "Yes, overwrite the old File.",
     "A existing File with the same Name was found, do you want to overwrite it?": "A existing File with the same Name was found, do you want to overwrite it?",
     "No, keep the old File.": "No, keep the old File.",
+    "Meaning {{i}}": "Meaning {{i}}",
 
 
     //infoModal.svelte

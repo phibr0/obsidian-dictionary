@@ -70,7 +70,7 @@ export default {
     "No, keep the old File.": "Nein, behalte die alte Datei",
     "Yes, overwrite the old File.": "Ja, überschreibe die alte Datei",
     "A existing File with the same Name was found, do you want to overwrite it?": "Eine bereits existierende Datei mit dem gleichen Namen wurde gefunden, möchtest du diese überschreiben?",
-
+    "Meaning {{i}}": "Bedeutung {{i}}",
     //infoModal.svelte
     'API Information': 'API Informationen',
     'Definition API\'s': 'Definitionen APIs',

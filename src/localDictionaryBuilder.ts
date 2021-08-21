@@ -32,6 +32,16 @@ export default class LocalDictionaryBuilder {
 
         const { plugin, settings } = this;
 
+        let audioLinks = '';
+        content.phonetics.forEach((value, i, a) => {
+            if (value.audio) {
+                audioLinks += '- ' + (value.audio.startsWith("http") ? value.audio : "https:" + value.audio);
+                if (i != a.length - 1) {
+                    audioLinks += '\n';
+                }
+            }
+        });
+
         let phonetics = '';
         content.phonetics.forEach((value, i, a) => {
             if (value.text) {
@@ -75,7 +85,8 @@ export default class LocalDictionaryBuilder {
             .replace(/{{phoneticlist}}/ig, phonetics)
             .replace(/{{meaningheader}}/ig, t('Meanings'))
             .replace(/{{meanings}}/ig, meanings)
-            .replace(/{{lang}}/ig, langString);
+            .replace(/{{lang}}/ig, langString)
+            .replace(/{{audioLinks}}/ig, audioLinks);
 
         try {
             if (!(await plugin.app.vault.adapter.exists(normalizePath(`${settings.folder ? settings.folder + '/' : ''}${settings.languageSpecificSubFolders ? langString + '/' : ''}`)))) {

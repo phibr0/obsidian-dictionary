@@ -14,7 +14,7 @@ import {
 } from "src/integrations/freeDictionaryAPI";
 import { OpenThesaurusSynonymAPI as OpenThesaurusSynonymProvider } from "src/integrations/openThesaurusAPI";
 import { SystranPOSProvider } from "src/integrations/systranAPI";
-import { SynonymoSynonymAPI as SynonymoSynonymProvider } from "src/integrations/synonymoAPI";
+// import { SynonymoSynonymAPI as SynonymoSynonymProvider } from "src/integrations/synonymoAPI";
 import { AltervistaSynonymProvider } from "src/integrations/altervistaAPI";
 import type DictionaryPlugin from "src/main";
 
@@ -41,7 +41,7 @@ export default class APIManager {
     synonymProvider: SynonymProvider[] = [
         new FreeDictionarySynonymProvider(),
         new OpenThesaurusSynonymProvider(),
-        new SynonymoSynonymProvider(),
+        // new SynonymoSynonymProvider(), see #44
         new AltervistaSynonymProvider(),
     ];
     // Adds new API's to the Part Of Speech Providers

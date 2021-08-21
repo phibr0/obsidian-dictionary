@@ -73,6 +73,7 @@ export class FreeDictionaryDefinitionProvider extends Base implements Definition
         if(!json || json["title"]){
             return Promise.reject(json["title"]);
         }
+
         return json.first();
     }
 }

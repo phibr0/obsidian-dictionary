@@ -16,7 +16,7 @@ body:
   id: logs
   attributes:
     label: Relevant errors (if available)
-    description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+    description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks. Open Obsidian's Developer Console by pressing CTRL + SHIFT + I
     render: shell
 - type: textarea
   id: reproduce

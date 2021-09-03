@@ -37,12 +37,12 @@ body:
 - type: markdown
   attributes:
     value: "**If applicable, add Language and API here:**"
-- type: textfield
+- type: input
   id: api-lang
   attributes:
     label: Language
     description: Add the API Language here
-- type: textfield
+- type: input
   id: api-name
   attributes:
     label: API Name

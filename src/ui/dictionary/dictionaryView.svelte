@@ -90,17 +90,17 @@
     on:click={toggleContainer}
   />
   <div
-    id="localDictionaryBuilder"
-    class="dictionary-button nav-action-button"
-    aria-label={t("New Note")}
-    on:click={async () => promise && query.trim() && await localDictionary.newNote(await promise)}
-  />
-  <div
     id="matchCaseBtn"
     class="dictionary-button nav-action-button"
     class:is-active={matchCase}
     aria-label={t("Match Case")}
     on:click={() => matchCase = !matchCase}
+  />
+  <div
+    id="localDictionaryBuilder"
+    class="dictionary-button nav-action-button"
+    aria-label={t("New Note")}
+    on:click={async () => promise && query.trim() && await localDictionary.newNote(await promise)}
   />
 </div>
 <div class="search-bar-container">

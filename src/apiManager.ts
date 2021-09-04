@@ -13,7 +13,6 @@ import {
     FreeDictionarySynonymProvider,
 } from "src/integrations/freeDictionaryAPI";
 import { OpenThesaurusSynonymAPI as OpenThesaurusSynonymProvider } from "src/integrations/openThesaurusAPI";
-import { SystranPOSProvider } from "src/integrations/systranAPI";
 // import { SynonymoSynonymAPI as SynonymoSynonymProvider } from "src/integrations/synonymoAPI";
 import { AltervistaSynonymProvider } from "src/integrations/altervistaAPI";
 import type DictionaryPlugin from "src/main";
@@ -46,7 +45,7 @@ export default class APIManager {
     ];
     // Adds new API's to the Part Of Speech Providers
     partOfSpeechProvider: PartOfSpeechProvider[] = [
-        new SystranPOSProvider(),
+        //new SystranPOSProvider(), See Issue #46
     ];
 
     constructor(plugin: DictionaryPlugin) {

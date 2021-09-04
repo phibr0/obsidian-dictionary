@@ -1,6 +1,6 @@
 name: Feature Request
 description: Suggest a new Feature for this Plugin
-labels: 'enhancement'
+labels: ['enhancement']
 body:
   - type: markdown
     attributes:

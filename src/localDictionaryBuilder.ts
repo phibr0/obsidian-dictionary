@@ -4,7 +4,7 @@ import type DictionaryPlugin from "src/main";
 import type { DictionarySettings } from "src/types";
 
 import t from "src/l10n/helpers";
-import { Modal, normalizePath, TFile } from "obsidian";
+import { MarkdownView, Modal, normalizePath, TFile } from "obsidian";
 
 //This really needs a refactor
 
@@ -116,12 +116,22 @@ class OverwriteModal extends Modal {
         this.contentEl.appendChild(createEl("p", { text: t("A existing File with the same Name was found, do you want to overwrite it?"), cls: "dictionarycenter" }));
         const buttonDiv = this.contentEl.appendChild(createDiv({ cls: "dictionarybuttons" }))
         buttonDiv.appendChild(createEl("button", { text: t("Yes, overwrite the old File."), cls: "mod-cta" })).onClickEvent(async () => {
-            await this.app.vault.delete(this.app.vault.getAbstractFileByPath(this.path));
-            const file = await this.app.vault.create(this.path, this.content);
-            const leaf = this.app.workspace.splitActiveLeaf();
-            await leaf.openFile(file);
+            this.app.vault.modify(this.app.vault.getAbstractFileByPath(this.path) as TFile, this.content);
+            let oldPaneOpen = false;
+            this.app.workspace.iterateAllLeaves((leaf) => {
+                if(leaf.view instanceof MarkdownView) {
+                    if((leaf.getViewState().state.file as string).endsWith(this.path)) {
+                        oldPaneOpen = true;
+                        this.app.workspace.setActiveLeaf(leaf);
+                    }
+                }
+            });
+            if(!oldPaneOpen) {
+                const leaf = this.app.workspace.splitActiveLeaf();
+                await leaf.openFile(this.app.vault.getAbstractFileByPath(this.path) as TFile);
+                this.app.workspace.setActiveLeaf(leaf);
+            }
             this.close();
-            this.app.workspace.setActiveLeaf(leaf);
         });
         buttonDiv.appendChild(createEl("button", { text: t("No, keep the old File."), cls: "mod-cta" })).onClickEvent(() => {
             this.close();

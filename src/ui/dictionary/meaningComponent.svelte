@@ -1,10 +1,19 @@
 <script lang="ts">
   import t from "src/l10n/helpers";
   import type { Definition } from "src/integrations/types";
+  import { copy } from "src/util";
+  import { Notice } from "obsidian";
 
   export let word: string;
   export let definitions: Definition[];
   export let partOfSpeech: string;
+
+  function synonymCopy(word: string) {
+    copy(word);
+    new Notice(
+      t('Copied Synonym "{{word}}" to clipboard').replace(/{{word}}/g, word)
+    );
+  }
 </script>
 
 <div class="main">
@@ -14,27 +23,27 @@
     {#each definitions as definition, i}
       <div class="definition">
         {#if definition.definition}
-          <div class="label">{t('Definition:')}</div>
+          <div class="label">{t("Definition:")}</div>
           <p>{definition.definition}</p>
         {/if}
         {#if definition.example}
           <blockquote>
-            {@html 
-              definition.example.replace(
-                new RegExp(`(${word})`, "gi"), 
-                '<i class="mark">$1</i>'
-              )
-            }
+            {@html definition.example.replace(
+              new RegExp(`(${word})`, "gi"),
+              '<i class="mark">$1</i>'
+            )}
           </blockquote>
         {/if}
         {#if definition.synonyms && definition.synonyms[i]}
           <div class="synonyms">
-            <div class="label">{t('Synonyms:')}</div>
+            <div class="label">{t("Synonyms:")}</div>
             <p>
               {#each definition.synonyms as synonym, i}
-                {synonym}{#if i < definition.synonyms.length - 1}{", "}{/if}
+                <span class="synonym" on:click={() => synonymCopy(synonym)}
+                  >{synonym}</span
+                >{#if i < definition.synonyms.length - 1}{", "}{/if}
               {/each}
-              </p>
+            </p>
           </div>
         {/if}
       </div>
@@ -43,6 +52,14 @@
 </div>
 
 <style lang="scss">
+  .synonym {
+    transition: 100ms;
+    &:hover {
+      color: var(--interactive-accent);
+      border-radius: 2px;
+    }
+  }
+
   .main {
     background-color: var(--background-secondary);
     padding-left: 0.6rem;

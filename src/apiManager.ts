@@ -97,8 +97,8 @@ export default class APIManager {
      */
     public async requestSynonyms(query: string, pos?: PartOfSpeech): Promise<Synonym[]> {
         const api = this.getSynonymAPI();
-        if(!api) {
-            throw("No Synonym API selected/available");
+        if (!api) {
+            throw ("No Synonym API selected/available");
         }
         const { cache, settings } = this.plugin;
         if (settings.useCaching && !api.name.toLowerCase().contains("offline")) {
@@ -161,11 +161,9 @@ export default class APIManager {
     /**
      * @returns Returns the currently selected part of speech API
      */
-    private getPartOfSpeechAPI(): PartOfSpeechProvider {
-        return this.partOfSpeechProvider.find(
-            this.plugin.settings.advancedSynonymAnalysis
-                ? (api) => api.name == this.plugin.settings.partOfSpeechApiName
-                : null
-        );
+    private getPartOfSpeechAPI(): PartOfSpeechProvider | null {
+        return this.plugin.settings.advancedSynonymAnalysis
+            ? this.partOfSpeechProvider.find((api) => api.name == this.plugin.settings.partOfSpeechApiName)
+            : null;
     }
 }

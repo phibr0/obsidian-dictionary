@@ -87,6 +87,7 @@ export default {
     "Origin": "Ursprung",
     'New Note': 'Neue Notiz',
     "View Error": "Fehler anzeigen",
+    "Copied Synonym \"{{word}}\" to clipboard": "\"{{word}}\" wurde in die Zwischenablage kopiert",
 
     //errorComponent.ts
     'I can\'t find the word you are looking for or the server can\'t be reached. You can try again in a few minutes.': 'Ich kann das Wort nicht finden oder der Server kann nicht erreicht werden. Bitte probiere es in eingigen Minuten nocheinmal.',

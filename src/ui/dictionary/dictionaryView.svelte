@@ -18,6 +18,7 @@
   function search() {
     if (query.trim()) {
       promise = manager.requestDefinitions(query);
+      console.log(promise)
     }
   }
 
@@ -58,7 +59,7 @@
         <div class="spinner" />
       </div>
     {:then data}
-      {#if query === data.word}
+      {#if query.toLowerCase() === data.word.toLowerCase()}
         <div class="results">
           {#if data.phonetics.first().text}
             <div class="container">
@@ -94,6 +95,7 @@
 </div>
 
 <style lang="scss">
+  
   .results {
     display: flex;
     flex-wrap: wrap;

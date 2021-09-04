@@ -89,6 +89,7 @@ export default {
     "Origin": "Origin",
     'New Note': 'New Note',
     "View Error": "View Error",
+    "Copied Synonym \"{{word}}\" to clipboard": "Copied Synonym \"{{word}}\" to clipboard",
 
     //errorComponent.ts
     'I can\'t find the word you are looking for or the server can\'t be reached. You can try again in a few minutes.': 'I can\'t find the word you are looking for or the server can\'t be reached. You can try again in a few minutes.',

@@ -21,7 +21,7 @@
     "eslint": "^7.27.0",
     "rollup": "^2.32.1",
     "rollup-plugin-svelte": "^7.1.0",
-    "sass": "^1.34.0",
+    "sass": "^1.39.0",
     "scss": "^0.2.4",
     "svelte": "^3.40.3",
     "svelte-check": "^1.4.0",

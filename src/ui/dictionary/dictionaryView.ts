@@ -4,6 +4,7 @@ import { ItemView, WorkspaceLeaf } from "obsidian";
 import { VIEW_TYPE, VIEW_DISPLAY_TEXT, VIEW_ICON } from "src/_constants";
 import DictionaryComponent from "./dictionaryView.svelte";
 import LanguageChooser from "src/ui/modals/languageChooser";
+import DefinitionProviderChooser from "src/ui/modals/definitionProviderChooser";
 
 export default class DictionaryView extends ItemView {
 
@@ -49,6 +50,9 @@ export default class DictionaryView extends ItemView {
         });
         addEventListener('dictionary-open-language-switcher', () => {
             new LanguageChooser(this.app, this.plugin).open();
+        });
+        addEventListener('dictionary-open-api-switcher', () => {
+            new DefinitionProviderChooser(this.app, this.plugin).open();
         });
         return super.onOpen();
     }

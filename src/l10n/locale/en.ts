@@ -84,11 +84,15 @@ export default {
 
     //dictionaryView.svelte
     'Enter a word': 'Enter a word',
+    "Change Language": "Change Language",
+    "Change Provider": "Change Provider",
+    "Collapse Results": "Collapse Results",
     'Pronunciation': 'Pronunciation',
     'Meanings': 'Meanings',
     "Origin": "Origin",
     'New Note': 'New Note',
     "View Error": "View Error",
+    "Match Case": "Match Case",
     "Copied Synonym \"{{word}}\" to clipboard": "Copied Synonym \"{{word}}\" to clipboard",
 
     //errorComponent.ts

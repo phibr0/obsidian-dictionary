@@ -81,11 +81,15 @@ export default {
     'This Plugin is using <a href="https://feathericons.com/">Feather Icons</a>': 'Diese Erweiterung verwendet <a href="https://feathericons.com/">Feather Icons</a>',
 
     //dictionaryView.svelte
+    "Change Language": "Sprache ändern",
+    "Change Provider": "API ändern",
+    "Collapse Results": "Ergebnisse ausklappen",
     'Enter a word': 'Gebe ein Wort ein',
     'Pronunciation': 'Aussprache',
     'Meanings': 'Bedeutungen',
     "Origin": "Ursprung",
     'New Note': 'Neue Notiz',
+    "Match Case": "Match Case",
     "View Error": "Fehler anzeigen",
     "Copied Synonym \"{{word}}\" to clipboard": "\"{{word}}\" wurde in die Zwischenablage kopiert",
 

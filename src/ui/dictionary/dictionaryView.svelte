@@ -8,6 +8,7 @@
   import ErrorComponent from "./errorComponent.svelte";
   import OriginComponent from "./originComponent.svelte";
   import t from "src/l10n/helpers";
+  import { debounce, setIcon } from "obsidian";
 
   export let manager: APIManager;
   export let localDictionary: LocalDictionaryBuilder;
@@ -15,10 +16,21 @@
   export let query: string = "";
   let promise: Promise<DictionaryWord>;
 
+  setImmediate(() => {
+    setIcon(document.getElementById("languageModal"), "languages", 20);
+    setIcon(document.getElementById("apiModal"), "cloud", 20);
+    setIcon(document.getElementById("openAndCloseAll"), "bullet-list", 20);
+    setIcon(document.getElementById("localDictionaryBuilder"), "documents", 20);
+    setIcon(document.getElementById("matchCaseBtn"), "uppercase-lowercase-a", 20);
+  });
+
+  const debouncedSearch = debounce(search, 800, true);
+
+ let matchCase = true;
   function search() {
     if (query.trim()) {
-      promise = manager.requestDefinitions(query);
-      console.log(promise)
+      promise = manager.requestDefinitions(matchCase ? query : query.toLowerCase());
+      console.log(promise);
     }
   }
 
@@ -26,33 +38,82 @@
     dispatchEvent(new Event("dictionary-open-language-switcher"));
   }
 
-  addEventListener("obsidian-dictionary-plugin-search", () => {
-    search();
-  });
+  function apiModal() {
+    dispatchEvent(new Event("dictionary-open-api-switcher"));
+  }
+
+  let detailsOpen = false;
+  function toggleContainer() {
+    const collection = document
+      .querySelector('div[data-type="dictionary-view"]')
+      .getElementsByTagName("details");
+    for (let i = 0; i < collection.length; i++) {
+      const container = collection.item(i);
+      if (detailsOpen) {
+        container.open && container.toggleAttribute("open");
+      } else {
+        !container.open && container.toggleAttribute("open");
+      }
+    }
+    detailsOpen = !detailsOpen;
+  }
 
   function handleKeyDown(e: KeyboardEvent) {
     if (e.key === "Enter") {
       search();
     }
   }
+
+  addEventListener("obsidian-dictionary-plugin-search", () => {
+    search();
+  });
 </script>
 
-<div class="main">
-  <div class="searchbox">
-    <button class="dictionary-button" on:click={languageModal}
-      ><i class="languageIcon" alt="Language" /></button
-    >
-    <input
-      type="text"
-      spellcheck="true"
-      placeholder={t("Enter a word")}
-      bind:value={query}
-      on:keydown={handleKeyDown}
-    />
-    <button class="dictionary-button" on:click={search}
-      ><i class="searchIcon" alt="Search" /></button
-    >
-  </div>
+<div class="settings">
+  <div
+    id="languageModal"
+    class="dictionary-button nav-action-button"
+    aria-label={t("Change Language")}
+    on:click={languageModal}
+  />
+  <div
+    id="apiModal"
+    class="dictionary-button nav-action-button"
+    aria-label={t("Change Provider")}
+    on:click={apiModal}
+  />
+  <div
+    id="openAndCloseAll"
+    class="dictionary-button nav-action-button"
+    class:is-active={detailsOpen}
+    aria-label={t("Collapse Results")}
+    on:click={toggleContainer}
+  />
+  <div
+    id="localDictionaryBuilder"
+    class="dictionary-button nav-action-button"
+    aria-label={t("New Note")}
+    on:click={async () => promise && query.trim() && await localDictionary.newNote(await promise)}
+  />
+  <div
+    id="matchCaseBtn"
+    class="dictionary-button nav-action-button"
+    class:is-active={matchCase}
+    aria-label={t("Match Case")}
+    on:click={() => matchCase = !matchCase}
+  />
+</div>
+<div class="search-bar-container">
+  <input
+    type="text"
+    spellcheck="true"
+    placeholder={t("Enter a word")}
+    bind:value={query}
+    on:keydown={handleKeyDown}
+    on:keydown={debouncedSearch}
+  />
+</div>
+<div class="contents">
   {#if promise && query.trim()}
     {#await promise}
       <div class="center">
@@ -78,40 +139,30 @@
           {#if data.origin}
             <div class="container">
               <h3>{t("Origin")}</h3>
-                <OriginComponent {data}/>
+              <OriginComponent {data} />
             </div>
           {/if}
         </div>
-        <span
-          class="nn"
-          on:click={async () => await localDictionary.newNote(data)}
-          >{t("New Note")}</span
-        >
       {/if}
     {:catch error}
       <ErrorComponent {error} />
     {/await}
+  {:else if query.trim()}
+    <div class="center">
+      <div class="spinner" />
+    </div>
   {/if}
 </div>
 
 <style lang="scss">
-  
+  .settings {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+  }
   .results {
     display: flex;
     flex-wrap: wrap;
-  }
-
-  .nn {
-    color: var(--text-faint);
-    transition: 0.2s;
-    width: 100%;
-    display: inline-block;
-    text-align: center;
-    margin-top: 1.5rem;
-    font-size: 1em;
-    &:hover {
-      color: var(--text);
-    }
   }
 
   .container {
@@ -132,77 +183,17 @@
     }
   }
 
-  .searchbox {
+  .search-bar-container {
     margin-top: 0.1rem;
+    margin-bottom: 0.8rem;
     display: flex;
-
     > input {
       width: 100%;
-      margin-right: 0.8rem;
-      margin-left: 0.8rem;
     }
   }
 
   .dictionary-button {
     margin-right: 0px;
-  }
-
-  .searchIcon {
-    box-sizing: border-box;
-    position: relative;
-    display: block;
-    transform: scale(var(--ggs, 1));
-    width: 16px;
-    height: 16px;
-    border: 2px solid;
-    border-radius: 100%;
-    margin-left: -4px;
-    margin-top: -4px;
-  }
-  .searchIcon::after {
-    content: "";
-    display: block;
-    box-sizing: border-box;
-    position: absolute;
-    border-radius: 3px;
-    width: 2px;
-    height: 8px;
-    background: currentColor;
-    transform: rotate(-45deg);
-    top: 10px;
-    left: 12px;
-  }
-
-  .languageIcon,
-  .languageIcon::after,
-  .languageIcon::before {
-    display: block;
-    box-sizing: border-box;
-    height: 18px;
-    border: 2px solid;
-  }
-  .languageIcon {
-    position: relative;
-    transform: scale(var(--ggs, 1));
-    width: 18px;
-    border-radius: 22px;
-  }
-  .languageIcon::after,
-  .languageIcon::before {
-    content: "";
-    position: absolute;
-    width: 8px;
-    border-radius: 100%;
-    top: -2px;
-    left: 3px;
-  }
-  .languageIcon::after {
-    width: 24px;
-    height: 20px;
-    border: 2px solid transparent;
-    border-bottom: 2px solid;
-    top: -11px;
-    left: -5px;
   }
 
   .center {

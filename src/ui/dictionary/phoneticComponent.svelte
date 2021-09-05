@@ -5,6 +5,13 @@ import { slide } from "svelte/transition";
   export let text: string;
   export let audio: string;
 
+  addEventListener("dictionary-open-all", () => {
+    open = true;
+  });
+  addEventListener("dictionary-close-all", () => {
+    open = false;
+  });
+
   let open = false;
 </script>
 

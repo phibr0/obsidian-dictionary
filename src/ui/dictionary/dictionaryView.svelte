@@ -44,18 +44,13 @@
 
   let detailsOpen = false;
   function toggleContainer() {
-    const collection = document
-      .querySelector('div[data-type="dictionary-view"]')
-      .getElementsByTagName("details");
-    for (let i = 0; i < collection.length; i++) {
-      const container = collection.item(i);
-      if (detailsOpen) {
-        container.open && container.toggleAttribute("open");
-      } else {
-        !container.open && container.toggleAttribute("open");
-      }
+    if(detailsOpen) {
+      dispatchEvent(new Event("dictionary-close-all"));
+      detailsOpen = false;
+    } else {
+      dispatchEvent(new Event("dictionary-open-all"));
+      detailsOpen = true;
     }
-    detailsOpen = !detailsOpen;
   }
 
   function handleKeyDown(e: KeyboardEvent) {

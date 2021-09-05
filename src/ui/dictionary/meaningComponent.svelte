@@ -10,6 +10,13 @@
   export let partOfSpeech: string;
   let open = false;
 
+  addEventListener("dictionary-open-all", () => {
+    open = true;
+  });
+  addEventListener("dictionary-close-all", () => {
+    open = false;
+  });
+
   function synonymCopy(word: string) {
     copy(word);
     new Notice(

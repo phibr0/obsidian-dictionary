@@ -64,17 +64,4 @@ import { slide } from "svelte/transition";
   audio {
     margin-top: 0.3rem;
   }
-
-  details[open] summary ~ * {
-    animation: open 0.2s ease-in-out;
-  }
-
-  @keyframes open {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
 </style>

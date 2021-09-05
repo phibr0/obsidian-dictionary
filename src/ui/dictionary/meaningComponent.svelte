@@ -3,10 +3,12 @@
   import type { Definition } from "src/integrations/types";
   import { copy } from "src/util";
   import { Notice } from "obsidian";
+  import { slide } from "svelte/transition";
 
   export let word: string;
   export let definitions: Definition[];
   export let partOfSpeech: string;
+  let open = false;
 
   function synonymCopy(word: string) {
     copy(word);
@@ -17,41 +19,65 @@
 </script>
 
 <div class="main">
-  <details>
-    <summary>{partOfSpeech ?? ""}</summary>
-
-    {#each definitions as definition, i}
-      <div class="definition">
-        {#if definition.definition}
-          <div class="label">{t("Definition:")}</div>
-          <p>{definition.definition}</p>
-        {/if}
-        {#if definition.example}
-          <blockquote>
-            {@html definition.example.replace(
-              new RegExp(`(${word})`, "gi"),
-              '<i class="mark">$1</i>'
-            )}
-          </blockquote>
-        {/if}
-        {#if definition.synonyms && definition.synonyms[i]}
-          <div class="synonyms">
-            <div class="label">{t("Synonyms:")}</div>
-            <p>
-              {#each definition.synonyms as synonym, i}
-                <span class="synonym" on:click={() => synonymCopy(synonym)}
-                  >{synonym}</span
-                >{#if i < definition.synonyms.length - 1}{", "}{/if}
-              {/each}
-            </p>
-          </div>
-        {/if}
-      </div>
-    {/each}
-  </details>
+  <div class="opener" class:open on:click={() => (open = !open)}>
+    <div class="tree-item-icon collapse-icon" style="">
+      <svg viewBox="0 0 100 100" class="right-triangle" width="8" height="8"
+        ><path
+          fill="currentColor"
+          stroke="currentColor"
+          d="M94.9,20.8c-1.4-2.5-4.1-4.1-7.1-4.1H12.2c-3,0-5.7,1.6-7.1,4.1c-1.3,2.4-1.2,5.2,0.2,7.6L43.1,88c1.5,2.3,4,3.7,6.9,3.7 s5.4-1.4,6.9-3.7l37.8-59.6C96.1,26,96.2,23.2,94.9,20.8L94.9,20.8z"
+        /></svg
+      >
+    </div>
+    {partOfSpeech ?? ""}
+  </div>
+  {#if open}
+    <div transition:slide|local={{ duration: 150 }}>
+      {#each definitions as definition, i}
+        <div class="definition">
+          {#if definition.definition}
+            <div class="label">{t("Definition:")}</div>
+            <p>{definition.definition}</p>
+          {/if}
+          {#if definition.example}
+            <blockquote>
+              {@html definition.example.replace(
+                new RegExp(`(${word})`, "gi"),
+                '<i class="mark">$1</i>'
+              )}
+            </blockquote>
+          {/if}
+          {#if definition.synonyms && definition.synonyms[i]}
+            <div class="synonyms">
+              <div class="label">{t("Synonyms:")}</div>
+              <p>
+                {#each definition.synonyms as synonym, i}
+                  <span class="synonym" on:click={() => synonymCopy(synonym)}
+                    >{synonym}</span
+                  >{#if i < definition.synonyms.length - 1}{", "}{/if}
+                {/each}
+              </p>
+            </div>
+          {/if}
+        </div>
+      {/each}
+    </div>
+  {/if}
 </div>
 
 <style lang="scss">
+  .opener {
+    display: flex;
+    .collapse-icon::after {
+      content: "\00a0";
+    }
+    svg {
+      transform: rotate(-90deg);
+    }
+    &.open svg {
+      transform: rotate(0);
+    }
+  }
   .synonym {
     transition: 100ms;
     &:hover {
@@ -69,10 +95,6 @@
     margin-bottom: 0.3rem;
     border-radius: 0.3rem;
 
-    details > summary {
-      text-transform: capitalize;
-    }
-
     blockquote {
       font-style: italic;
       margin: 0 0 1rem;
@@ -88,19 +110,6 @@
   .label {
     font-size: 0.875em;
     font-weight: bold;
-  }
-
-  details[open] summary ~ * {
-    animation: open 0.3s ease-in-out;
-  }
-
-  @keyframes open {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
   }
 
   .synonyms {

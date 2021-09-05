@@ -155,6 +155,10 @@
 </div>
 
 <style lang="scss">
+  .contents{
+    height: 80%;
+    overflow-y: auto;
+  }
   .settings {
     display: flex;
     flex-flow: row;

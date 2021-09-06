@@ -21,15 +21,21 @@
     setIcon(document.getElementById("apiModal"), "cloud", 20);
     setIcon(document.getElementById("openAndCloseAll"), "bullet-list", 20);
     setIcon(document.getElementById("localDictionaryBuilder"), "documents", 20);
-    setIcon(document.getElementById("matchCaseBtn"), "uppercase-lowercase-a", 20);
+    setIcon(
+      document.getElementById("matchCaseBtn"),
+      "uppercase-lowercase-a",
+      20
+    );
   });
 
   const debouncedSearch = debounce(search, 800, true);
 
- let matchCase = true;
+  let matchCase = true;
   function search() {
     if (query.trim()) {
-      promise = manager.requestDefinitions(matchCase ? query : query.toLowerCase());
+      promise = manager.requestDefinitions(
+        matchCase ? query : query.toLowerCase()
+      );
       console.log(promise);
     }
   }
@@ -44,7 +50,7 @@
 
   let detailsOpen = false;
   function toggleContainer() {
-    if(detailsOpen) {
+    if (detailsOpen) {
       dispatchEvent(new Event("dictionary-close-all"));
       detailsOpen = false;
     } else {
@@ -59,47 +65,56 @@
     }
   }
 
+  function clear() {
+    query = "";
+    promise = null;
+    //@ts-ignore
+    document.querySelector("#dictionary-search-input").focus();
+  }
+
   addEventListener("obsidian-dictionary-plugin-search", () => {
     search();
   });
 </script>
 
-<div class="settings">
+<div class="nav-buttons-container">
   <div
     id="languageModal"
-    class="dictionary-button nav-action-button"
+    class="nav-action-button"
     aria-label={t("Change Language")}
     on:click={languageModal}
   />
   <div
     id="apiModal"
-    class="dictionary-button nav-action-button"
+    class="nav-action-button"
     aria-label={t("Change Provider")}
     on:click={apiModal}
   />
   <div
     id="openAndCloseAll"
-    class="dictionary-button nav-action-button"
+    class="nav-action-button"
     class:is-active={detailsOpen}
     aria-label={t("Collapse Results")}
     on:click={toggleContainer}
   />
   <div
     id="matchCaseBtn"
-    class="dictionary-button nav-action-button"
+    class="nav-action-button"
     class:is-active={matchCase}
     aria-label={t("Match Case")}
-    on:click={() => matchCase = !matchCase}
+    on:click={() => (matchCase = !matchCase)}
   />
   <div
     id="localDictionaryBuilder"
-    class="dictionary-button nav-action-button"
+    class="nav-action-button"
     aria-label={t("New Note")}
-    on:click={async () => promise && query.trim() && await localDictionary.newNote(await promise)}
+    on:click={async () =>
+      promise && query.trim() && (await localDictionary.newNote(await promise))}
   />
 </div>
-<div class="search-bar-container">
+<div class="search-input-container">
   <input
+    id="dictionary-search-input"
     type="text"
     spellcheck="true"
     placeholder={t("Enter a word")}
@@ -107,38 +122,39 @@
     on:keydown={handleKeyDown}
     on:keydown={debouncedSearch}
   />
+  {#if query}
+    <div class="search-input-clear-button" on:click={clear} />
+  {/if}
 </div>
 <div class="contents">
-  {#if promise && query.trim()}
+  {#if promise}
     {#await promise}
       <div class="center">
         <div class="spinner" />
       </div>
     {:then data}
-      {#if query.toLowerCase() === data.word.toLowerCase()}
-        <div class="results">
-          {#if data.phonetics.first().text}
-            <div class="container">
-              <h3>{t("Pronunciation")}</h3>
-              {#each data.phonetics as { text, audio }}
-                <PhoneticComponent {audio} {text} />
-              {/each}
-            </div>
-          {/if}
+      <div class="results">
+        {#if data.phonetics.first().text}
           <div class="container">
-            <h3>{t("Meanings")}</h3>
-            {#each data.meanings as { definitions, partOfSpeech }}
-              <MeaningComponent word={data.word} {partOfSpeech} {definitions} />
+            <h3>{t("Pronunciation")}</h3>
+            {#each data.phonetics as { text, audio }}
+              <PhoneticComponent {audio} {text} />
             {/each}
           </div>
-          {#if data.origin}
-            <div class="container">
-              <h3>{t("Origin")}</h3>
-              <OriginComponent {data} />
-            </div>
-          {/if}
+        {/if}
+        <div class="container">
+          <h3>{t("Meanings")}</h3>
+          {#each data.meanings as { definitions, partOfSpeech }}
+            <MeaningComponent word={data.word} {partOfSpeech} {definitions} />
+          {/each}
         </div>
-      {/if}
+        {#if data.origin}
+          <div class="container">
+            <h3>{t("Origin")}</h3>
+            <OriginComponent {data} />
+          </div>
+        {/if}
+      </div>
     {:catch error}
       <ErrorComponent {error} />
     {/await}
@@ -150,7 +166,7 @@
 </div>
 
 <style lang="scss">
-  .contents{
+  .contents {
     height: 80%;
     overflow-y: auto;
   }
@@ -189,10 +205,6 @@
     > input {
       width: 100%;
     }
-  }
-
-  .dictionary-button {
-    margin-right: 0px;
   }
 
   .center {

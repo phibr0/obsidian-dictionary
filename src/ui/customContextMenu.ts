@@ -9,8 +9,8 @@ export default function handleContextMenu(menu: Menu, instance: Editor, plugin: 
     }
     const selection = instance.getSelection();
 
-    if (selection) {
-        if (!plugin.settings.shouldShowSynonymPopover && selection.split(" ").length === 1) {
+    if (selection && selection.split(" ").length === 1) {
+        if (!plugin.settings.shouldShowSynonymPopover) {
             menu.addItem((item) => {
                 item.setTitle(t('Show Synonyms'))
                     .setIcon('synonyms')

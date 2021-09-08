@@ -83,7 +83,8 @@ export default class DictionaryPlugin extends Plugin {
                     return false;
                 }
             })) {
-                if (window.getSelection().toString() && this.app.workspace.activeLeaf?.getViewState()?.state.mode === "preview") {
+                const selection = window.getSelection().toString();
+                if (selection && this.app.workspace.activeLeaf?.getViewState()?.state.mode === "preview") {
                     event.preventDefault();
 
                     const fileMenu = new Menu(this.app);
@@ -92,26 +93,29 @@ export default class DictionaryPlugin extends Plugin {
                         item.setTitle(t('Copy'))
                             .setIcon('copy')
                             .onClick((_) => {
-                                copy(window.getSelection().toString());
+                                copy(selection);
                             });
                     });
-                    fileMenu.addItem((item) => {
-                        item.setTitle(t('Look up'))
-                            .setIcon('quote-glyph')
-                            .onClick(async (_) => {
-                                let leaf: WorkspaceLeaf = this.app.workspace.getLeavesOfType(VIEW_TYPE).first();
-                                if (!leaf) {
-                                    leaf = this.app.workspace.getRightLeaf(false);
-                                    await leaf.setViewState({
-                                        type: VIEW_TYPE,
-                                    });
-                                }
-                                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                                //@ts-ignore
-                                leaf.view.query(window.getSelection().toString());
-                                this.app.workspace.revealLeaf(leaf);
-                            });
-                    });
+
+                    if (selection.split(" ").length === 1) {
+                        fileMenu.addItem((item) => {
+                            item.setTitle(t('Look up'))
+                                .setIcon('quote-glyph')
+                                .onClick(async (_) => {
+                                    let leaf: WorkspaceLeaf = this.app.workspace.getLeavesOfType(VIEW_TYPE).first();
+                                    if (!leaf) {
+                                        leaf = this.app.workspace.getRightLeaf(false);
+                                        await leaf.setViewState({
+                                            type: VIEW_TYPE,
+                                        });
+                                    }
+                                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                                    //@ts-ignore
+                                    leaf.view.query(selection);
+                                    this.app.workspace.revealLeaf(leaf);
+                                });
+                        });
+                    }
 
                     fileMenu.showAtPosition({ x: event.clientX, y: event.clientY });
                 }
@@ -187,7 +191,7 @@ export default class DictionaryPlugin extends Plugin {
     );
 
     async loadSettings(): Promise<void> {
-        this.settings = Object.assign({ }, DEFAULT_SETTINGS, await this.loadData());
+        this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
         //Remove in a few Updates, remove the old Cache
         //@ts-ignore
         this.settings.cachedDefinitions = undefined;
@@ -196,7 +200,7 @@ export default class DictionaryPlugin extends Plugin {
     }
 
     async loadCache(): Promise<void> {
-        this.cache = Object.assign({ }, DEFAULT_CACHE, await this.loadCacheFromDisk());
+        this.cache = Object.assign({}, DEFAULT_CACHE, await this.loadCacheFromDisk());
     }
 
     async loadCacheFromDisk(): Promise<DictionaryCache> {

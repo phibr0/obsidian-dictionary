@@ -14,6 +14,7 @@
   export let localDictionary: LocalDictionaryBuilder;
 
   export let query: string = "";
+  let lastQuery: string = null;
   let promise: Promise<DictionaryWord>;
 
   setImmediate(() => {
@@ -33,10 +34,10 @@
   let matchCase = true;
   function search() {
     if (query.trim()) {
+      lastQuery = query;
       promise = manager.requestDefinitions(
         matchCase ? query : query.toLowerCase()
       );
-      console.log(promise);
     }
   }
 
@@ -67,6 +68,7 @@
 
   function clear() {
     query = "";
+    lastQuery = null;
     promise = null;
     //@ts-ignore
     document.querySelector("#dictionary-search-input").focus();
@@ -123,11 +125,11 @@
     on:keydown={debouncedSearch}
   />
   {#if query}
-    <div class="search-input-clear-button" on:click={clear} />
+    <div class="search-input-clear-button" on:click={clear} aria-label={t("Clear")} />
   {/if}
 </div>
 <div class="contents">
-  {#if promise}
+  {#if promise && query === lastQuery}
     {#await promise}
       <div class="center">
         <div class="spinner" />

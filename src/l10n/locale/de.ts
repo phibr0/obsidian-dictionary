@@ -81,6 +81,7 @@ export default {
     'This Plugin is using <a href="https://feathericons.com/">Feather Icons</a>': 'Diese Erweiterung verwendet <a href="https://feathericons.com/">Feather Icons</a>',
 
     //dictionaryView.svelte
+    "Clear": "Eingabe löschen",
     "Change Language": "Sprache ändern",
     "Change Provider": "API ändern",
     "Collapse Results": "Ergebnisse ausklappen",

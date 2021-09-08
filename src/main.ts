@@ -76,11 +76,14 @@ export default class DictionaryPlugin extends Plugin {
 
         this.registerDomEvent(document.body, "contextmenu", (event) => {
             //@ts-ignore
-            if(this.settings.shouldShowCustomContextMenu && event.path.find(((el: HTMLElement, i: number) => 
-                //@ts-ignore
-                i != event.path.length - 1 || i != event.path.length - 2 && el.hasClass("markdown-preview-view")
-            ))) {
-                if(window.getSelection().toString() && this.app.workspace.activeLeaf?.getViewState()?.state.mode === "preview") {
+            if (this.settings.shouldShowCustomContextMenu && event.path.find((el: HTMLElement) => {
+                try {
+                    return el.hasClass("markdown-preview-view");
+                } catch (error) {
+                    return false;
+                }
+            })) {
+                if (window.getSelection().toString() && this.app.workspace.activeLeaf?.getViewState()?.state.mode === "preview") {
                     event.preventDefault();
 
                     const fileMenu = new Menu(this.app);
@@ -97,7 +100,7 @@ export default class DictionaryPlugin extends Plugin {
                             .setIcon('quote-glyph')
                             .onClick(async (_) => {
                                 let leaf: WorkspaceLeaf = this.app.workspace.getLeavesOfType(VIEW_TYPE).first();
-                                if(!leaf){
+                                if (!leaf) {
                                     leaf = this.app.workspace.getRightLeaf(false);
                                     await leaf.setViewState({
                                         type: VIEW_TYPE,
@@ -184,7 +187,7 @@ export default class DictionaryPlugin extends Plugin {
     );
 
     async loadSettings(): Promise<void> {
-        this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
+        this.settings = Object.assign({ }, DEFAULT_SETTINGS, await this.loadData());
         //Remove in a few Updates, remove the old Cache
         //@ts-ignore
         this.settings.cachedDefinitions = undefined;
@@ -193,7 +196,7 @@ export default class DictionaryPlugin extends Plugin {
     }
 
     async loadCache(): Promise<void> {
-        this.cache = Object.assign({}, DEFAULT_CACHE, await this.loadCacheFromDisk());
+        this.cache = Object.assign({ }, DEFAULT_CACHE, await this.loadCacheFromDisk());
     }
 
     async loadCacheFromDisk(): Promise<DictionaryCache> {

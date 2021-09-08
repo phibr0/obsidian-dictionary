@@ -17,5 +17,6 @@
     padding-bottom: 0.3rem;
     margin-bottom: 0.3rem;
     border-radius: 0.3rem;
+    user-select: text;
   }
 </style>

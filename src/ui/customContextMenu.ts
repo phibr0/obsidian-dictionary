@@ -7,9 +7,10 @@ export default function handleContextMenu(menu: Menu, instance: Editor, plugin: 
     if (!plugin.settings.shouldShowCustomContextMenu) {
         return;
     }
+    const selection = instance.getSelection();
 
-    if (instance.getSelection()) {
-        if (!plugin.settings.shouldShowSynonymPopover) {
+    if (selection) {
+        if (!plugin.settings.shouldShowSynonymPopover && selection.split(" ").length === 1) {
             menu.addItem((item) => {
                 item.setTitle(t('Show Synonyms'))
                     .setIcon('synonyms')
@@ -31,7 +32,7 @@ export default function handleContextMenu(menu: Menu, instance: Editor, plugin: 
                     }
                     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                     //@ts-ignore
-                    leaf.view.query(instance.getSelection());
+                    leaf.view.query(selection);
                     plugin.app.workspace.revealLeaf(leaf);
                 });
         });

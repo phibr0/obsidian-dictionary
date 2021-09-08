@@ -79,28 +79,31 @@ export default class SettingsTab extends PluginSettingTab {
                     await this.save();
                 })
             });
-        const desc = document.createDocumentFragment();
-        desc.append(
-            t('Enabling this will allow the Plugin to analyze full sentences to better suggest synonyms based on the context.'),
-            desc.createEl("br"),
-            t('Click '),
-            desc.createEl("a", {
-                href: "https://github.com/phibr0/obsidian-dictionary#privacy",
-                text: t('here')
-            }),
-            t(' for Privacy Concerns.'),
-        );
-        new Setting(containerEl)
-            .setName(t('Advanced Synonym Search'))
-            .setDesc(desc)
-            .addToggle(toggle => {
-                toggle.setValue(plugin.settings.advancedSynonymAnalysis)
 
-                toggle.onChange(async (value) => {
-                    plugin.settings.advancedSynonymAnalysis = value;
-                    await this.save();
-                })
-            });
+        if(plugin.manager.partOfSpeechProvider.length) {
+            const desc = document.createDocumentFragment();
+            desc.append(
+                t('Enabling this will allow the Plugin to analyze full sentences to better suggest synonyms based on the context.'),
+                desc.createEl("br"),
+                t('Click '),
+                desc.createEl("a", {
+                    href: "https://github.com/phibr0/obsidian-dictionary#privacy",
+                    text: t('here')
+                }),
+                t(' for Privacy Concerns.'),
+            );
+            new Setting(containerEl)
+                .setName(t('Advanced Synonym Search'))
+                .setDesc(desc)
+                .addToggle(toggle => {
+                    toggle.setValue(plugin.settings.advancedSynonymAnalysis)
+        
+                    toggle.onChange(async (value) => {
+                        plugin.settings.advancedSynonymAnalysis = value;
+                        await this.save();
+                    })
+                });
+        }
 
         new Setting(containerEl)
             .setName(t('Show Options in Context Menu'))

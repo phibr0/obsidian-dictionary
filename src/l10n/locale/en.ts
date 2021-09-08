@@ -84,6 +84,7 @@ export default {
 
     //dictionaryView.svelte
     'Enter a word': 'Enter a word',
+    "Clear": "Clear",
     "Change Language": "Change Language",
     "Change Provider": "Change Provider",
     "Collapse Results": "Collapse Results",

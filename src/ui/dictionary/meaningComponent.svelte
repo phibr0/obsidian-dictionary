@@ -73,6 +73,10 @@
 </div>
 
 <style lang="scss">
+  .definition > p {
+    user-select: text;
+  }
+
   .opener {
     display: flex;
     .collapse-icon::after {

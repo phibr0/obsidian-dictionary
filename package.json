@@ -4,8 +4,8 @@
   "description": "This is a sample plugin for Obsidian (https://obsidian.md)",
   "main": "main.js",
   "scripts": {
-    "dev": "rollup --config rollup.config.js -w",
-    "build": "rollup --config rollup.config.js --environment BUILD:production"
+    "dev": "node dev.config.mjs",
+    "build": "node release.config.mjs"
   },
   "keywords": [],
   "author": "",
@@ -19,8 +19,6 @@
     "@typescript-eslint/eslint-plugin": "^4.25.0",
     "@typescript-eslint/parser": "^4.25.0",
     "eslint": "^7.27.0",
-    "rollup": "^2.32.1",
-    "rollup-plugin-svelte": "^7.1.0",
     "sass": "^1.39.0",
     "scss": "^0.2.4",
     "svelte": "^3.40.3",
@@ -28,7 +26,9 @@
     "svelte-preprocess": "^4.7.0",
     "tslib": "^2.2.0",
     "typescript": "^4.3.2",
-    "typescript-eslint": "^0.0.1-alpha.0"
+    "typescript-eslint": "^0.0.1-alpha.0",
+    "esbuild": "^0.12.26",
+    "esbuild-svelte": "^0.5.4"
   },
   "moduleFileExtensions": [
     "js",

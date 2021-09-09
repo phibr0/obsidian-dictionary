@@ -172,11 +172,6 @@
     height: 80%;
     overflow-y: auto;
   }
-  .settings {
-    display: flex;
-    flex-flow: row;
-    justify-content: center;
-  }
   .results {
     display: flex;
     flex-wrap: wrap;
@@ -197,15 +192,6 @@
       margin-top: 0.3rem;
       margin-bottom: 0.3rem;
       font-weight: normal;
-    }
-  }
-
-  .search-bar-container {
-    margin-top: 0.1rem;
-    margin-bottom: 0.8rem;
-    display: flex;
-    > input {
-      width: 100%;
     }
   }
 

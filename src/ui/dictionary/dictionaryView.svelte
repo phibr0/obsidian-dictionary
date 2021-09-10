@@ -169,7 +169,7 @@
 
 <style lang="scss">
   .contents {
-    height: 80%;
+    height: calc(100% - 5rem);
     overflow-y: auto;
   }
   .results {

@@ -94,7 +94,7 @@ export default {
     'New Note': 'New Note',
     "View Error": "View Error",
     "Match Case": "Match Case",
-    "Copied Synonym \"{{word}}\" to clipboard": "Copied Synonym \"{{word}}\" to clipboard",
+    "Copied \"{{word}}\" to clipboard": "Copied \"{{word}}\" to clipboard",
 
     //errorComponent.ts
     'I can\'t find the word you are looking for or the server can\'t be reached. You can try again in a few minutes.': 'I can\'t find the word you are looking for or the server can\'t be reached. You can try again in a few minutes.',
@@ -102,6 +102,7 @@ export default {
     //meaningComponent.ts
     'Definition:': 'Definition:',
     'Synonyms:': 'Synonyms:',
+    'Antonyms:': 'Antonyms:',
 
     //modals
     "Choose a Definition Provider Service": "Choose a Definition Provider Service",

@@ -10,17 +10,14 @@
   export let partOfSpeech: string;
   let open = false;
 
-  addEventListener("dictionary-open-all", () => {
-    open = true;
-  });
-  addEventListener("dictionary-close-all", () => {
-    open = false;
+  addEventListener("dictionary-collapse", (event: CustomEvent) => {
+    open = event.detail.open as boolean;
   });
 
-  function synonymCopy(word: string) {
+  function wordCopy(word: string) {
     copy(word);
     new Notice(
-      t('Copied Synonym "{{word}}" to clipboard').replace(/{{word}}/g, word)
+      t('Copied "{{word}}" to clipboard').replace(/{{word}}/g, word)
     );
   }
 </script>
@@ -59,9 +56,21 @@
               <div class="label">{t("Synonyms:")}</div>
               <p>
                 {#each definition.synonyms as synonym, i}
-                  <span class="synonym" on:click={() => synonymCopy(synonym)}
+                  <span class="synonym" on:click={() => wordCopy(synonym)}
                     >{synonym}</span
                   >{#if i < definition.synonyms.length - 1}{", "}{/if}
+                {/each}
+              </p>
+            </div>
+          {/if}
+          {#if definition.antonyms && definition.antonyms[i]}
+            <div class="antonyms">
+              <div class="label">{t("Antonyms:")}</div>
+              <p>
+                {#each definition.antonyms as antonym, i}
+                  <span class="antonym" on:click={() => wordCopy(antonym)}
+                    >{antonym}</span
+                  >{#if i < definition.antonyms.length - 1}{", "}{/if}
                 {/each}
               </p>
             </div>
@@ -89,6 +98,7 @@
       transform: rotate(0);
     }
   }
+  .antonym,
   .synonym {
     transition: 100ms;
     &:hover {
@@ -123,10 +133,12 @@
     font-weight: bold;
   }
 
+  .antonyms,
   .synonyms {
     padding-top: 1rem;
   }
 
+  .antonyms > p,
   .synonyms > p,
   .definition > p {
     margin-top: 0;

@@ -192,11 +192,6 @@ export default class DictionaryPlugin extends Plugin {
 
     async loadSettings(): Promise<void> {
         this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
-        //Remove in a few Updates, remove the old Cache
-        //@ts-ignore
-        this.settings.cachedDefinitions = undefined;
-        //@ts-ignore
-        this.settings.cachedSynonyms = undefined;
     }
 
     async loadCache(): Promise<void> {

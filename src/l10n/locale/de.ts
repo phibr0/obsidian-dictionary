@@ -92,7 +92,7 @@ export default {
     'New Note': 'Neue Notiz',
     "Match Case": "Match Case",
     "View Error": "Fehler anzeigen",
-    "Copied Synonym \"{{word}}\" to clipboard": "\"{{word}}\" wurde in die Zwischenablage kopiert",
+    "Copied \"{{word}}\" to clipboard": "\"{{word}}\" wurde in die Zwischenablage kopiert",
 
     //errorComponent.ts
     'I can\'t find the word you are looking for or the server can\'t be reached. You can try again in a few minutes.': 'Ich kann das Wort nicht finden oder der Server kann nicht erreicht werden. Bitte probiere es in eingigen Minuten nocheinmal.',
@@ -100,6 +100,7 @@ export default {
     //meaningComponent.ts
     'Definition:': 'Definition:',
     'Synonyms:': 'Synonyme:',
+    'Antonyms:': 'Antonyme:',
 
     //modals
     "Choose a Definition Provider Service": "API für Definitionen auswählen",

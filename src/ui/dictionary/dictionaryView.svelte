@@ -51,13 +51,12 @@
 
   let detailsOpen = false;
   function toggleContainer() {
-    if (detailsOpen) {
-      dispatchEvent(new Event("dictionary-close-all"));
-      detailsOpen = false;
-    } else {
-      dispatchEvent(new Event("dictionary-open-all"));
-      detailsOpen = true;
-    }
+    dispatchEvent(
+      new CustomEvent("dictionary-collapse", {
+        detail: { open: !detailsOpen },
+      })
+    );
+    detailsOpen = !detailsOpen;
   }
 
   function handleKeyDown(e: KeyboardEvent) {
@@ -125,7 +124,11 @@
     on:keydown={debouncedSearch}
   />
   {#if query}
-    <div class="search-input-clear-button" on:click={clear} aria-label={t("Clear")} />
+    <div
+      class="search-input-clear-button"
+      on:click={clear}
+      aria-label={t("Clear")}
+    />
   {/if}
 </div>
 <div class="contents">

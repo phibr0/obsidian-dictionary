@@ -99,8 +99,6 @@ export class FreeDictionarySynonymProvider extends Base implements SynonymProvid
         case PartOfSpeech.Adverb:
             return meaning.partOfSpeech.toLowerCase().contains('adverb');
         }
-
-        return false;
     }
 
     /**

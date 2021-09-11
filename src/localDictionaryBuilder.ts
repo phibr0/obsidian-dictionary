@@ -28,7 +28,7 @@ export default class LocalDictionaryBuilder {
         return string;
     }
 
-    async newNote(content: DictionaryWord): Promise<void> {
+    async newNote(content: DictionaryWord, openNote = true): Promise<void> {
 
         const { plugin, settings } = this;
 
@@ -93,11 +93,13 @@ export default class LocalDictionaryBuilder {
                 await plugin.app.vault.createFolder(normalizePath(`${settings.folder ? settings.folder + '/' : ''}${settings.languageSpecificSubFolders ? langString + '/' : ''}`));
             }
             file = await plugin.app.vault.create(normalizePath(path), contents);
-            const leaf = plugin.app.workspace.splitActiveLeaf();
-            await leaf.openFile(file);
-            plugin.app.workspace.setActiveLeaf(leaf);
+            if (openNote) {
+                const leaf = plugin.app.workspace.splitActiveLeaf();
+                await leaf.openFile(file);
+                plugin.app.workspace.setActiveLeaf(leaf);
+            }
         } catch (error) {
-            new OverwriteModal(this.plugin, normalizePath(path), contents).open();
+            new OverwriteModal(this.plugin, normalizePath(path), contents, openNote).open();
         }
     }
 }
@@ -105,11 +107,13 @@ export default class LocalDictionaryBuilder {
 class OverwriteModal extends Modal {
     path: string;
     content: string;
+    openNote: boolean;
 
-    constructor(plugin: DictionaryPlugin, path: string, content: string) {
+    constructor(plugin: DictionaryPlugin, path: string, content: string, openNote: boolean) {
         super(plugin.app);
         this.path = path;
         this.content = content;
+        this.openNote = openNote;
     }
 
     onOpen() {
@@ -119,14 +123,14 @@ class OverwriteModal extends Modal {
             this.app.vault.modify(this.app.vault.getAbstractFileByPath(this.path) as TFile, this.content);
             let oldPaneOpen = false;
             this.app.workspace.iterateAllLeaves((leaf) => {
-                if(leaf.view instanceof MarkdownView) {
-                    if((leaf.getViewState().state.file as string).endsWith(this.path)) {
+                if (leaf.view instanceof MarkdownView) {
+                    if ((leaf.getViewState().state.file as string).endsWith(this.path)) {
                         oldPaneOpen = true;
                         this.app.workspace.setActiveLeaf(leaf);
                     }
                 }
             });
-            if(!oldPaneOpen) {
+            if (!oldPaneOpen && this.openNote) {
                 const leaf = this.app.workspace.splitActiveLeaf();
                 await leaf.openFile(this.app.vault.getAbstractFileByPath(this.path) as TFile);
                 this.app.workspace.setActiveLeaf(leaf);

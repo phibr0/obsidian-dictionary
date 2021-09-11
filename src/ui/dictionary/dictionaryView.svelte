@@ -1,6 +1,6 @@
 <script lang="ts">
   import type APIManager from "src/apiManager";
-  import type { DictionaryWord } from "src/integrations/types";
+  import type { DictionaryWord, Synonym } from "src/integrations/types";
   import type LocalDictionaryBuilder from "src/localDictionaryBuilder";
 
   import PhoneticComponent from "./phoneticComponent.svelte";
@@ -73,6 +73,12 @@
     document.querySelector("#dictionary-search-input").focus();
   }
 
+  async function generateNote(event: MouseEvent) {
+    if(query.trim() && promise) {
+      await localDictionary.newNote(await promise, event.ctrlKey ? false : true);
+    }
+  }
+
   addEventListener("obsidian-dictionary-plugin-search", () => {
     search();
   });
@@ -109,8 +115,7 @@
     id="localDictionaryBuilder"
     class="nav-action-button"
     aria-label={t("New Note")}
-    on:click={async () =>
-      promise && query.trim() && (await localDictionary.newNote(await promise))}
+    on:click={generateNote}
   />
 </div>
 <div class="search-input-container">

@@ -1,6 +1,6 @@
 <script lang="ts">
   import type APIManager from "src/apiManager";
-  import type { DictionaryWord, Synonym } from "src/integrations/types";
+  import type { DictionaryWord } from "src/integrations/types";
   import type LocalDictionaryBuilder from "src/localDictionaryBuilder";
 
   import PhoneticComponent from "./phoneticComponent.svelte";
@@ -9,6 +9,7 @@
   import OriginComponent from "./originComponent.svelte";
   import t from "src/l10n/helpers";
   import { debounce, setIcon } from "obsidian";
+  import { onMount } from "svelte";
 
   export let manager: APIManager;
   export let localDictionary: LocalDictionaryBuilder;
@@ -16,18 +17,17 @@
   export let query: string = "";
   let lastQuery: string = null;
   let promise: Promise<DictionaryWord>;
+  let buttons: HTMLElement[] = [];
 
-  setImmediate(() => {
-    setIcon(document.getElementById("languageModal"), "languages", 20);
-    setIcon(document.getElementById("apiModal"), "cloud", 20);
-    setIcon(document.getElementById("openAndCloseAll"), "bullet-list", 20);
-    setIcon(document.getElementById("localDictionaryBuilder"), "documents", 20);
-    setIcon(
-      document.getElementById("matchCaseBtn"),
-      "uppercase-lowercase-a",
-      20
-    );
-  });
+  onMount(() =>
+    setImmediate(() => {
+      setIcon(buttons[0], "languages", 20);
+      setIcon(buttons[1], "cloud", 20);
+      setIcon(buttons[2], "bullet-list", 20);
+      setIcon(buttons[3], "documents", 20);
+      setIcon(buttons[4], "uppercase-lowercase-a", 20);
+    })
+  );
 
   const debouncedSearch = debounce(search, 800, true);
 
@@ -74,8 +74,11 @@
   }
 
   async function generateNote(event: MouseEvent) {
-    if(query.trim() && promise) {
-      await localDictionary.newNote(await promise, event.ctrlKey ? false : true);
+    if (query.trim() && promise) {
+      await localDictionary.newNote(
+        await promise,
+        event.ctrlKey ? false : true
+      );
     }
   }
 
@@ -89,12 +92,14 @@
     id="languageModal"
     class="nav-action-button"
     aria-label={t("Change Language")}
+    bind:this={buttons[0]}
     on:click={languageModal}
   />
   <div
     id="apiModal"
     class="nav-action-button"
     aria-label={t("Change Provider")}
+    bind:this={buttons[1]}
     on:click={apiModal}
   />
   <div
@@ -102,6 +107,7 @@
     class="nav-action-button"
     class:is-active={detailsOpen}
     aria-label={t("Collapse Results")}
+    bind:this={buttons[2]}
     on:click={toggleContainer}
   />
   <div
@@ -109,12 +115,14 @@
     class="nav-action-button"
     class:is-active={matchCase}
     aria-label={t("Match Case")}
+    bind:this={buttons[3]}
     on:click={() => (matchCase = !matchCase)}
   />
   <div
     id="localDictionaryBuilder"
     class="nav-action-button"
     aria-label={t("New Note")}
+    bind:this={buttons[4]}
     on:click={generateNote}
   />
 </div>

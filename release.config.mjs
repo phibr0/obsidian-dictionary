@@ -21,6 +21,7 @@ esbuild.build({
     minify: true,
     watch: false,
     logLevel: "info",
+    treeShaking: true,
     plugins: [sveltePlugin({
         compileOptions: {
             css: true,

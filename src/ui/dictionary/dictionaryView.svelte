@@ -82,9 +82,16 @@
     }
   }
 
-  addEventListener("obsidian-dictionary-plugin-search", () => {
+  addEventListener("obsidian-dictionary-plugin-search", (event: CustomEvent) => {
+    query = event.detail.query;
     search();
   });
+
+  addEventListener("dictionary-focus-on-search", () => {
+    //@ts-ignore
+    const el = document.querySelector("#dictionary-search-input");
+    el.focus();
+  })
 </script>
 
 <div class="nav-buttons-container">

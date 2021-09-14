@@ -49,6 +49,7 @@ export default class DictionaryPlugin extends Plugin {
                     });
                 }
                 this.app.workspace.revealLeaf(this.app.workspace.getLeavesOfType(VIEW_TYPE).first());
+                dispatchEvent(new Event("dictionary-focus-on-search"));
             },
         });
 

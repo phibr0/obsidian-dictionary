@@ -24,8 +24,8 @@
       setIcon(buttons[0], "languages", 20);
       setIcon(buttons[1], "cloud", 20);
       setIcon(buttons[2], "bullet-list", 20);
-      setIcon(buttons[3], "documents", 20);
-      setIcon(buttons[4], "uppercase-lowercase-a", 20);
+      setIcon(buttons[3], "uppercase-lowercase-a", 20);
+      setIcon(buttons[4], "documents", 20);
     })
   );
 

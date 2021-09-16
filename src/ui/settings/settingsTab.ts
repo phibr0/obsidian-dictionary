@@ -30,10 +30,21 @@ export default class SettingsTab extends PluginSettingTab {
                 dropdown.setValue(plugin.settings.defaultLanguage)
                     .onChange(async (value) => {
                         plugin.settings.defaultLanguage = value as keyof typeof LANGUAGES;
+                        plugin.settings.normalLang = value as keyof typeof LANGUAGES;
                         await this.save();
                         this.display();
                     });
             });
+        new Setting(containerEl)
+            .setName('Get Language from File')
+            .setDesc('Use the lang or language key in the frontmatter to set the Language dependent on your open File. Example: lang: "en_US" or language: "de".')
+            .addToggle(toggle => {
+                toggle.setValue(this.plugin.settings.getLangFromFile).onChange(async value => {
+                    this.plugin.settings.getLangFromFile = value;
+                    await this.plugin.saveSettings();
+                });
+            });
+
         new Setting(containerEl)
             .setName(t('Definition Provider'))
             .setDesc(t('The API the Plugin will use to search for Definitions.'))

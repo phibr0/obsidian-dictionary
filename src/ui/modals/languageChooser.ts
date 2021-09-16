@@ -31,6 +31,7 @@ export default class LanguageChooser extends FuzzySuggestModal<string>{
 
     async onChooseItem(item: string): Promise<void> {
         this.plugin.settings.defaultLanguage = item as keyof typeof LANGUAGES;
+        this.plugin.settings.normalLang = item as keyof typeof LANGUAGES;
         await this.plugin.saveSettings();
         this.close();
     }

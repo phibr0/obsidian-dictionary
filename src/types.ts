@@ -2,6 +2,8 @@ import type { DictionaryWord, Synonym } from "src/integrations/types";
 
 export interface DictionarySettings {
 	defaultLanguage: keyof APISettings;
+	normalLang: keyof APISettings;
+	getLangFromFile: boolean;
 	apiSettings: APISettings;
 	partOfSpeechApiName: string;
 	shouldShowSynonymPopover: boolean;

@@ -46,7 +46,9 @@ export const DEFAULT_CACHE: DictionaryCache = {
 }
 
 export const DEFAULT_SETTINGS: DictionarySettings = {
+    getLangFromFile: true,
     defaultLanguage: "en_US",
+    normalLang: 'en_US',
     shouldShowSynonymPopover: true,
     shouldShowCustomContextMenu: false,
     apiSettings: {

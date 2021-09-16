@@ -1,4 +1,4 @@
-import { DEFAULT_CACHE } from './_constants';
+import { DEFAULT_CACHE, LANGUAGES } from './_constants';
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { DictionaryCache, DictionarySettings } from 'src/types';
@@ -129,6 +129,22 @@ export default class DictionaryPlugin extends Plugin {
         // Editor mode
         // @ts-ignore
         this.registerEvent(this.app.workspace.on('editor-menu', this.handleContextMenuHelper));
+
+        this.registerEvent(this.app.workspace.on('file-open', async (file) => {
+            if (this.settings.getLangFromFile) {
+                let lang = this.app.metadataCache.getFileCache(file).frontmatter?.lang;
+                if (!lang) {
+                    lang = this.app.metadataCache.getFileCache(file).frontmatter?.language;
+                }
+                if (lang && Object.keys(LANGUAGES).contains(lang)) {
+                    this.settings.defaultLanguage = lang;
+                    await this.saveSettings();
+                } else {
+                    this.settings.defaultLanguage = this.settings.normalLang;
+                    await this.saveSettings();
+                }
+            }
+        }));
     }
 
     onunload(): void {

@@ -29,7 +29,7 @@ export default class SettingsTab extends PluginSettingTab {
                 }
                 dropdown.setValue(plugin.settings.defaultLanguage)
                     .onChange(async (value) => {
-                        plugin.settings.defaultLanguage = value;
+                        plugin.settings.defaultLanguage = value as keyof typeof LANGUAGES;
                         await this.save();
                         this.display();
                     });
@@ -38,14 +38,16 @@ export default class SettingsTab extends PluginSettingTab {
             .setName(t('Definition Provider'))
             .setDesc(t('The API the Plugin will use to search for Definitions.'))
             .addDropdown((dropdown) => {
+                const list: Record<string, string> = {};
                 for (const api of plugin.manager.definitionProvider) {
                     if (api.supportedLanguages.contains(plugin.settings.defaultLanguage)) {
-                        dropdown.addOption(api.name, api.name);
+                        list[api.name] = api.name;
                     }
                 }
-                dropdown.setValue(plugin.settings.definitionApiName)
+                dropdown.addOptions(list)
+                    .setValue(plugin.settings.apiSettings[plugin.settings.defaultLanguage].definitionApiName ?? Object.keys(list).first())
                     .onChange(async (value) => {
-                        plugin.settings.definitionApiName = value;
+                        plugin.settings.apiSettings[plugin.settings.defaultLanguage].definitionApiName = value;
                         await this.save();
                     });
             });
@@ -53,14 +55,16 @@ export default class SettingsTab extends PluginSettingTab {
             .setName(t('Synonym Provider'))
             .setDesc(t('The API the Plugin will use to search for Synonyms.'))
             .addDropdown((dropdown) => {
+                const list: Record<string, string> = {};
                 for (const api of plugin.manager.synonymProvider) {
                     if (api.supportedLanguages.contains(plugin.settings.defaultLanguage)) {
-                        dropdown.addOption(api.name, api.name);
+                        list[api.name] = api.name;
                     }
                 }
-                dropdown.setValue(plugin.settings.synonymApiName)
+                dropdown.addOptions(list)
+                    .setValue(plugin.settings.apiSettings[plugin.settings.defaultLanguage].synonymApiName ?? Object.keys(list).first())
                     .onChange(async (value) => {
-                        plugin.settings.synonymApiName = value;
+                        plugin.settings.apiSettings[plugin.settings.defaultLanguage].synonymApiName = value;
                         await this.save();
                     });
             });
@@ -80,7 +84,7 @@ export default class SettingsTab extends PluginSettingTab {
                 })
             });
 
-        if(plugin.manager.partOfSpeechProvider.length) {
+        if (plugin.manager.partOfSpeechProvider.length) {
             const desc = document.createDocumentFragment();
             desc.append(
                 t('Enabling this will allow the Plugin to analyze full sentences to better suggest synonyms based on the context.'),
@@ -97,7 +101,7 @@ export default class SettingsTab extends PluginSettingTab {
                 .setDesc(desc)
                 .addToggle(toggle => {
                     toggle.setValue(plugin.settings.advancedSynonymAnalysis)
-        
+
                     toggle.onChange(async (value) => {
                         plugin.settings.advancedSynonymAnalysis = value;
                         await this.save();

@@ -49,8 +49,64 @@ export const DEFAULT_SETTINGS: DictionarySettings = {
     defaultLanguage: "en_US",
     shouldShowSynonymPopover: true,
     shouldShowCustomContextMenu: false,
-    definitionApiName: "Free Dictionary API",
-    synonymApiName: "Free Dictionary API",
+    apiSettings: {
+        en_US: {
+            definitionApiName: 'Free Dictionary API',
+            synonymApiName: 'Free Dictionary API',
+        },
+        hi: {
+            definitionApiName: 'Free Dictionary API',
+            synonymApiName: null,
+        },
+        es: {
+            definitionApiName: 'Free Dictionary API',
+            synonymApiName: 'Altervista',
+        },
+        fr: {
+            definitionApiName: 'Free Dictionary API',
+            synonymApiName: 'Altervista',
+        },
+        ja: {
+            definitionApiName: 'Free Dictionary API',
+            synonymApiName: null,
+        },
+        ru: {
+            definitionApiName: 'Free Dictionary API',
+            synonymApiName: null,
+        },
+        en_GB: {
+            definitionApiName: 'Free Dictionary API',
+            synonymApiName: null,
+        },
+        de: {
+            definitionApiName: 'Free Dictionary API',
+            synonymApiName: 'Open Thesaurus',
+        },
+        it: {
+            definitionApiName: 'Free Dictionary API',
+            synonymApiName: 'Altervista',
+        },
+        ko: {
+            definitionApiName: 'Free Dictionary API',
+            synonymApiName: null,
+        },
+        pt_BR: {
+            definitionApiName: 'Free Dictionary API',
+            synonymApiName: null,
+        },
+        ar: {
+            definitionApiName: 'Free Dictionary API',
+            synonymApiName: null,
+        },
+        tr: {
+            definitionApiName: 'Free Dictionary API',
+            synonymApiName: null,
+        },
+        cn: {
+            definitionApiName: 'Offline Dictionary',
+            synonymApiName: null,
+        },
+    },
     partOfSpeechApiName: "Systran API",
     advancedSynonymAnalysis: false,
     useCaching: false,

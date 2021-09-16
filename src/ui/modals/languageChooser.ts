@@ -2,7 +2,6 @@ import type DictionaryPlugin from "src/main";
 
 import { App, FuzzySuggestModal } from "obsidian";
 import { LANGUAGES } from "src/_constants";
-import DefinitionProviderChooser from "src/ui/modals/definitionProviderChooser";
 import t from "src/l10n/helpers";
 
 export default class LanguageChooser extends FuzzySuggestModal<string>{
@@ -31,10 +30,9 @@ export default class LanguageChooser extends FuzzySuggestModal<string>{
     }
 
     async onChooseItem(item: string): Promise<void> {
-        this.plugin.settings.defaultLanguage = item;
+        this.plugin.settings.defaultLanguage = item as keyof typeof LANGUAGES;
         await this.plugin.saveSettings();
         this.close();
-        new DefinitionProviderChooser(this.app, this.plugin).open();
     }
 
 }

@@ -9,17 +9,18 @@ export default class SynonymProviderChooser extends FuzzySuggestModal<string>{
     constructor(app: App, plugin: DictionaryPlugin) {
         super(app);
         this.plugin = plugin;
-        this.plugin.manager.synonymProvider.forEach((api) => {
+        for(let i = 0; i < this.plugin.manager.synonymProvider.length; i++){
+            const api = this.plugin.manager.synonymProvider[i];
             if (api.supportedLanguages.contains(this.plugin.settings.defaultLanguage)) {
                 this.available.push(api.name);
             }
-        });
+        }
         this.setPlaceholder(t("Choose a Synonym Provider Service"));
     }
 
     onOpen(): void {
         if (this.available.length <= 1) {
-            this.onChooseItem(this.available.first() ?? "");
+            this.onChooseItem(this.available.first() ?? null);
         }
         super.onOpen();
     }
@@ -33,7 +34,8 @@ export default class SynonymProviderChooser extends FuzzySuggestModal<string>{
     }
 
     async onChooseItem(item: string): Promise<void> {
-        this.plugin.settings.synonymApiName = item;
+        const lang = this.plugin.settings.defaultLanguage;
+        this.plugin.settings.apiSettings[lang].synonymApiName = item;
         await this.plugin.saveSettings();
         this.close();
     }

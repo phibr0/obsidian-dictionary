@@ -1,9 +1,8 @@
 import type { DictionaryWord, Synonym } from "src/integrations/types";
 
 export interface DictionarySettings {
-	defaultLanguage: string;
-	definitionApiName: string;
-	synonymApiName: string;
+	defaultLanguage: keyof APISettings;
+	apiSettings: APISettings;
 	partOfSpeechApiName: string;
 	shouldShowSynonymPopover: boolean;
 	shouldShowCustomContextMenu: boolean;
@@ -15,6 +14,28 @@ export interface DictionarySettings {
 	suffix: string;
 	prefix: string;
 	template: string;
+}
+
+export interface APISettings {
+	en_US: APIPair;
+	hi: APIPair;
+	es: APIPair;
+	fr: APIPair;
+	ja: APIPair;
+	ru: APIPair;
+	en_GB: APIPair;
+	de: APIPair;
+	it: APIPair;
+	ko: APIPair;
+	pt_BR: APIPair;
+	ar: APIPair;
+	tr: APIPair;
+	cn: APIPair;
+}
+
+export interface APIPair {
+	definitionApiName: string | null;
+	synonymApiName: string | null;
 }
 
 export interface DictionaryCache {

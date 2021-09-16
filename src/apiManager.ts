@@ -144,8 +144,9 @@ export default class APIManager {
      * @returns Returns the currently selected Definition API
      */
     private getDefinitionAPI(): DefinitionProvider {
+        const lang = this.plugin.settings.defaultLanguage;
         return this.definitionProvider.find(
-            (api) => api.name == this.plugin.settings.definitionApiName
+            (api) => api.name == this.plugin.settings.apiSettings[lang].definitionApiName
         );
     }
 
@@ -153,8 +154,9 @@ export default class APIManager {
      * @returns Returns the currently selected Synonym API
      */
     private getSynonymAPI(): SynonymProvider {
+        const lang = this.plugin.settings.defaultLanguage;
         return this.synonymProvider.find(
-            (api) => api.name == this.plugin.settings.synonymApiName
+            (api) => api.name == this.plugin.settings.apiSettings[lang].synonymApiName
         );
     }
 

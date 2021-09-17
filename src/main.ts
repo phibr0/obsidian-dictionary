@@ -149,7 +149,6 @@ export default class DictionaryPlugin extends Plugin {
 
     onunload(): void {
         console.log('unloading dictionary');
-        this.app.workspace.off('editor-menu', this.handleContextMenuHelper)
     }
 
     handleContextMenuHelper = (menu: Menu, editor: Editor, _: MarkdownView): void => {

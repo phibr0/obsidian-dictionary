@@ -88,8 +88,7 @@
   });
 
   addEventListener("dictionary-focus-on-search", () => {
-    //@ts-ignore
-    const el = document.querySelector("#dictionary-search-input");
+    const el = document.querySelector("#dictionary-search-input") as HTMLInputElement;
     el.focus();
   })
 </script>

@@ -27,7 +27,7 @@ export default class SettingsTab extends PluginSettingTab {
                 for (const language in LANGUAGES) {
                     dropdown.addOption(language, LANGUAGES[language]);
                 }
-                dropdown.setValue(plugin.settings.defaultLanguage)
+                dropdown.setValue(plugin.settings.normalLang)
                     .onChange(async (value) => {
                         plugin.settings.defaultLanguage = value as keyof typeof LANGUAGES;
                         plugin.settings.normalLang = value as keyof typeof LANGUAGES;

@@ -29,6 +29,27 @@ The following Languages are currently supported:
 | Turkish              |                 |       🗸        | |
 | Chinese | | 🗸 (🗸) | 🗸 |
 
+### How to use this for multiple Languages
+
+To use a different language than your default language for the Dictionary and Synonym Popover you can add a `lang` or `language` key into your YAML Frontmatter. Use the following Values for the Language:
+
+| Language | Key |
+|---|:---:|
+English (US)|`en-US`
+हिन्दी (Hindi)|`hi`
+Español (Spanish)|`es`
+Français (French)|`fr`
+日本語 (Japanese)|`ja`
+Русский (Russian)|`ru`
+English (UK)|`en_GB`
+Deutsch (German)|`de`
+Italiano (Italian)|`it`
+한국어 (Korean)|`ko`
+Português do Brasil (Brazilian Portuguese)|`pt-BR`
+اَلْعَرَبِيَّةُ‎ (Arabic)|`ar`
+Türkçe (Turkish)|`tr`
+中文 (Chinese)|`zh`
+
 ## Offline Dictionary
 
 As of Release 2.13.0 this Plugin has experimental offline Support for English and Chinese. The offline Dictionary is pretty big (about 35 megabytes), which is why it's not bundled with this Plugin by default. It will download the neccessary files **when you are using it for the first time**. That means your first look-up still requires an internet connection.

@@ -19,7 +19,7 @@ export const LANGUAGES = {
     "pt_BR": "Português do Brasil (Brazilian Portuguese)",
     "ar": "اَلْعَرَبِيَّةُ‎ (Arabic)",
     "tr": "Türkçe (Turkish)",
-    "cn": "中国人 (Chinese)"
+    "cn": "中文 (Chinese)"
 }
 
 export const RFC = {

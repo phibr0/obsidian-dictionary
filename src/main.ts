@@ -1,7 +1,7 @@
-import { DEFAULT_CACHE, LANGUAGES } from './_constants';
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { DictionaryCache, DictionarySettings } from 'src/types';
+import type { APISettings } from './types';
 
 import { debounce, Editor, MarkdownView, Menu, normalizePath, Plugin, WorkspaceLeaf } from 'obsidian';
 import { matchCasing } from "match-casing";
@@ -9,6 +9,7 @@ import SettingsTab from 'src/ui/settings/settingsTab';
 import DictionaryView from 'src/ui/dictionary/dictionaryView';
 import { DEFAULT_SETTINGS, VIEW_TYPE } from 'src/_constants';
 import APIManager from 'src/apiManager';
+import { DEFAULT_CACHE,  RFC } from './_constants';
 import { Coords, SynonymPopover } from 'src/ui/synonyms/synonymPopover';
 import handleContextMenu from 'src/ui/customContextMenu';
 import { addIcons } from 'src/ui/icons';
@@ -136,8 +137,8 @@ export default class DictionaryPlugin extends Plugin {
                 if (!lang) {
                     lang = this.app.metadataCache.getFileCache(file).frontmatter?.language;
                 }
-                if (lang && Object.keys(LANGUAGES).contains(lang)) {
-                    this.settings.defaultLanguage = lang;
+                if (lang && Object.values(RFC).contains(lang)) {
+                    this.settings.defaultLanguage = Object.keys(RFC)[Object.values(RFC).indexOf(lang)] as keyof APISettings;
                     await this.saveSettings();
                 } else {
                     this.settings.defaultLanguage = this.settings.normalLang;

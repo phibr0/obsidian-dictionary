@@ -158,7 +158,7 @@
       </div>
     {:then data}
       <div class="results">
-        {#if data.phonetics.first().text}
+        {#if data.phonetics?.first()?.text}
           <div class="container">
             <h3>{t("Pronunciation")}</h3>
             {#each data.phonetics as { text, audio }}

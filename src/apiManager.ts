@@ -34,7 +34,7 @@ export default class APIManager {
     // Adds new API's to the Definition Providers
     definitionProvider: DefinitionProvider[] = [
         new FreeDictionaryDefinitionProvider(),
-        new OfflineDictionary(this)
+        new OfflineDictionary(this),
     ];
     // Adds new API's to the Synonym Providers
     synonymProvider: SynonymProvider[] = [

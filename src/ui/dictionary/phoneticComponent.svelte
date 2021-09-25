@@ -1,13 +1,13 @@
 <script lang="ts">
-import { slide } from "svelte/transition";
-
+  import { slide } from "svelte/transition";
 
   export let text: string;
   export let audio: string;
 
-  addEventListener("dictionary-collapse", (event: CustomEvent) => {
-    open = event.detail.open;
-  });
+  addEventListener(
+    "dictionary-collapse",
+    (event: CustomEvent) => (open = event.detail.open)
+  );
 
   let open = false;
 </script>
@@ -63,6 +63,9 @@ import { slide } from "svelte/transition";
     padding-bottom: 0.3rem;
     margin-bottom: 0.3rem;
     border-radius: 0.3rem;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   audio {

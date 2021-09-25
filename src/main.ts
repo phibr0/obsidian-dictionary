@@ -99,7 +99,7 @@ export default class DictionaryPlugin extends Plugin {
                             });
                     });
 
-                    if (selection.split(" ").length === 1) {
+                    if (selection.trim().split(" ").length === 1) {
                         fileMenu.addItem((item) => {
                             item.setTitle(t('Look up'))
                                 .setIcon('quote-glyph')

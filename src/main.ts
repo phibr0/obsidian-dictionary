@@ -113,7 +113,7 @@ export default class DictionaryPlugin extends Plugin {
                                     }
                                     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                                     //@ts-ignore
-                                    leaf.view.query(selection);
+                                    leaf.view.query(selection.trim());
                                     this.app.workspace.revealLeaf(leaf);
                                 });
                         });
@@ -133,9 +133,9 @@ export default class DictionaryPlugin extends Plugin {
 
         this.registerEvent(this.app.workspace.on('file-open', async (file) => {
             if (this.settings.getLangFromFile) {
-                let lang = this.app.metadataCache.getFileCache(file).frontmatter?.lang;
+                let lang = this.app.metadataCache.getFileCache(file).frontmatter?.lang ?? null;
                 if (!lang) {
-                    lang = this.app.metadataCache.getFileCache(file).frontmatter?.language;
+                    lang = this.app.metadataCache.getFileCache(file).frontmatter?.language ?? null;
                 }
                 if (lang && Object.values(RFC).contains(lang)) {
                     this.settings.defaultLanguage = Object.keys(RFC)[Object.values(RFC).indexOf(lang)] as keyof APISettings;

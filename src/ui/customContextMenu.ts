@@ -32,7 +32,7 @@ export default function handleContextMenu(menu: Menu, instance: Editor, plugin: 
                     }
                     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                     //@ts-ignore
-                    leaf.view.query(selection);
+                    leaf.view.query(selection.trim());
                     plugin.app.workspace.revealLeaf(leaf);
                 });
         });

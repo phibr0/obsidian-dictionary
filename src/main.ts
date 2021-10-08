@@ -132,7 +132,7 @@ export default class DictionaryPlugin extends Plugin {
         this.registerEvent(this.app.workspace.on('editor-menu', this.handleContextMenuHelper));
 
         this.registerEvent(this.app.workspace.on('file-open', async (file) => {
-            if (this.settings.getLangFromFile) {
+            if (file && this.settings.getLangFromFile) {
                 let lang = this.app.metadataCache.getFileCache(file).frontmatter?.lang ?? null;
                 if (!lang) {
                     lang = this.app.metadataCache.getFileCache(file).frontmatter?.language ?? null;

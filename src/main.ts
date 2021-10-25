@@ -16,7 +16,7 @@ import { addIcons } from 'src/ui/icons';
 import t from 'src/l10n/helpers';
 import LocalDictionaryBuilder from 'src/localDictionaryBuilder';
 import LanguageChooser from 'src/ui/modals/languageChooser';
-import { copy } from 'src/util';
+import { copy } from 'obsidian-community-lib';
 
 export default class DictionaryPlugin extends Plugin {
     settings: DictionarySettings;

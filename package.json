@@ -18,6 +18,8 @@
     "@types/node": "^14.14.37",
     "@typescript-eslint/eslint-plugin": "^4.25.0",
     "@typescript-eslint/parser": "^4.25.0",
+    "esbuild": "^0.12.26",
+    "esbuild-svelte": "^0.5.4",
     "eslint": "^7.27.0",
     "sass": "^1.39.0",
     "scss": "^0.2.4",
@@ -26,9 +28,7 @@
     "svelte-preprocess": "^4.7.0",
     "tslib": "^2.2.0",
     "typescript": "^4.3.2",
-    "typescript-eslint": "^0.0.1-alpha.0",
-    "esbuild": "^0.12.26",
-    "esbuild-svelte": "^0.5.4"
+    "typescript-eslint": "^0.0.1-alpha.0"
   },
   "moduleFileExtensions": [
     "js",
@@ -37,6 +37,7 @@
   ],
   "dependencies": {
     "match-casing": "^2.0.0",
-    "obsidian": "^0.12.5"
+    "obsidian": "^0.12.5",
+    "obsidian-community-lib": "^0.0.16"
   }
 }

@@ -1,9 +1,9 @@
 <script lang="ts">
   import t from "src/l10n/helpers";
   import type { Definition } from "src/integrations/types";
-  import { copy } from "src/util";
   import { Notice } from "obsidian";
   import { slide } from "svelte/transition";
+  import { copy } from "obsidian-community-lib";
 
   export let word: string;
   export let definitions: Definition[];
@@ -15,9 +15,13 @@
   });
 
   function wordCopy(word: string) {
-    copy(word);
-    new Notice(
-      t('Copied "{{word}}" to clipboard').replace(/{{word}}/g, word)
+    copy(
+      word,
+      () =>
+        new Notice(
+          t('Copied "{{word}}" to clipboard').replace(/{{word}}/g, word)
+        ),
+      (error) => new Notice(error)
     );
   }
 </script>

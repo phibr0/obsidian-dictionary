@@ -131,7 +131,7 @@ export default class DictionaryPlugin extends Plugin {
         // @ts-ignore
         this.registerEvent(this.app.workspace.on('editor-menu', this.handleContextMenuHelper));
 
-        this.registerEvent(this.app.workspace.on('file-open', async (file) => {
+        this.registerEvent(this.app.workspace.on('file-open', (file) => {
             if (file && this.settings.getLangFromFile) {
                 let lang = this.app.metadataCache.getFileCache(file).frontmatter?.lang ?? null;
                 if (!lang) {
@@ -139,11 +139,10 @@ export default class DictionaryPlugin extends Plugin {
                 }
                 if (lang && Object.values(RFC).contains(lang)) {
                     this.settings.defaultLanguage = Object.keys(RFC)[Object.values(RFC).indexOf(lang)] as keyof APISettings;
-                    await this.saveSettings();
                 } else {
                     this.settings.defaultLanguage = this.settings.normalLang;
-                    await this.saveSettings();
                 }
+                this.saveSettings();
             }
         }));
     }

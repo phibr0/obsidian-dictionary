@@ -4,8 +4,8 @@
   "description": "This is a sample plugin for Obsidian (https://obsidian.md)",
   "main": "main.js",
   "scripts": {
-    "dev": "node dev.config.mjs",
-    "build": "node release.config.mjs"
+    "dev": "node esbuild.config.mjs",
+    "build": "node esbuild.config.mjs production"
   },
   "keywords": [],
   "author": "",

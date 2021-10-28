@@ -92,6 +92,10 @@ export default class LocalDictionaryBuilder {
             contents = contents
                 .replace(/{{originHeader}}/ig, t('Origin'))
                 .replace(/{{origin}}/ig, content.origin);
+        } else {
+            contents = contents
+                .replace(/{{originHeader}}/ig, '')
+                .replace(/{{origin}}/ig, '');
         }
 
         try {

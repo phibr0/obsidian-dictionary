@@ -130,6 +130,10 @@ aliases: ["{{word}}"]
 ## {{meaningHeader}}
 
 {{meanings}}
+
+## {{originHeader}}
+
+{{origin}}
 `,
     languageSpecificSubFolders: false
 }

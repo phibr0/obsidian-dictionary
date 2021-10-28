@@ -88,6 +88,12 @@ export default class LocalDictionaryBuilder {
             .replace(/{{lang}}/ig, langString)
             .replace(/{{audioLinks}}/ig, audioLinks);
 
+        if (content.origin) {
+            contents
+                .replace(/{{originHeader}}/ig, t('Origin'))
+                .replace(/{{origin}}/ig, content.origin);
+        }
+
         try {
             if (!(await plugin.app.vault.adapter.exists(normalizePath(`${settings.folder ? settings.folder + '/' : ''}${settings.languageSpecificSubFolders ? langString + '/' : ''}`)))) {
                 await plugin.app.vault.createFolder(normalizePath(`${settings.folder ? settings.folder + '/' : ''}${settings.languageSpecificSubFolders ? langString + '/' : ''}`));

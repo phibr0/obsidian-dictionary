@@ -19,10 +19,10 @@ The following Languages are currently supported:
 | Hindi                |                 |       🗸        ||
 | Spanish              |        🗸        |       🗸        ||
 | French               |        🗸        |       🗸        ||
-| Japanese             |                 |       🗸        ||
+| Japanese             |                 |       🗸        |🗸|
 | Russian              |                 |       🗸        ||
 | German               |        🗸        |       🗸        |🗸|
-| Italian              |        🗸        |       🗸        ||
+| Italian              |        🗸        |       🗸        |🗸|
 | Korean               |                 |       🗸        ||
 | Brazilian Portuguese |                 |       🗸        ||
 | Arabic               |                 |       🗸        ||

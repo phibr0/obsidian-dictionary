@@ -183,7 +183,7 @@ export default class DictionaryPlugin extends Plugin {
                         coords = (editor as any).cursorCoords(true, 'window');
                     } else if ((editor as any).coordsAtPos) {
                         const offset = editor.posToOffset(cursor);
-                        coords = (editor as any).cm.coordsAtPos(offset);
+                        coords = (editor as any).cm.coordsAtPos?.(offset) ?? (editor as any).coordsAtPos(offset);
                     } else {
                         return;
                     }

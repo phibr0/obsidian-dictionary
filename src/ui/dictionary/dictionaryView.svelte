@@ -20,13 +20,13 @@
   let buttons: HTMLElement[] = [];
 
   onMount(() =>
-    setImmediate(() => {
+    setTimeout(() => {
       setIcon(buttons[0], "languages", 20);
       setIcon(buttons[1], "cloud", 20);
       setIcon(buttons[2], "bullet-list", 20);
       setIcon(buttons[3], "uppercase-lowercase-a", 20);
       setIcon(buttons[4], "documents", 20);
-    })
+    }, 0)
   );
 
   const debouncedSearch = debounce(search, 800, true);

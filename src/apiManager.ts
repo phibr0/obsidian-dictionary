@@ -61,10 +61,13 @@ export default class APIManager {
     public async requestDefinitions(query: string): Promise<DictionaryWord> {
         //Get the currently enabled API
         const api = this.getDefinitionAPI();
-        const { cache, settings } = this.plugin;
+        const { cache, settings, loadCache } = this.plugin;
 
         if (settings.useCaching && !api.name.toLowerCase().contains("offline")) {
             //Get any cached Definitions
+            if(!cache) {
+                await loadCache();
+            }
             const cachedDefinition = cache.cachedDefinitions.find((c) => { return c.content.word.toLowerCase() == query.toLowerCase() && c.lang == settings.defaultLanguage && c.api == api.name });
             //If cachedDefiniton exists return it as a Promise
             if (cachedDefinition) {
@@ -100,8 +103,11 @@ export default class APIManager {
         if (!api) {
             throw ("No Synonym API selected/available");
         }
-        const { cache, settings } = this.plugin;
+        const { cache, settings, loadCache } = this.plugin;
         if (settings.useCaching && !api.name.toLowerCase().contains("offline")) {
+            if(!cache) {
+                await loadCache();
+            }
             const cachedSynonymCollection = cache.cachedSynonyms.find((s) => { return s.word.toLowerCase() == query.toLowerCase() && s.lang == settings.defaultLanguage && s.api == api.name });
             if (cachedSynonymCollection) {
                 return new Promise((resolve) => resolve(cachedSynonymCollection.content));

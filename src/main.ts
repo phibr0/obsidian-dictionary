@@ -28,7 +28,7 @@ export default class DictionaryPlugin extends Plugin {
     async onload(): Promise<void> {
         console.log('loading dictionary');
 
-        await Promise.all([this.loadSettings(), this.loadCache()]);
+        await Promise.all([this.loadSettings()]);
 
         addIcons();
 
@@ -125,10 +125,7 @@ export default class DictionaryPlugin extends Plugin {
         });
 
         this.localDictionary = new LocalDictionaryBuilder(this);
-
-        // Remove this ignore when the obsidian package is updated on npm
-        // Editor mode
-        // @ts-ignore
+        
         this.registerEvent(this.app.workspace.on('editor-menu', this.handleContextMenuHelper));
 
         this.registerEvent(this.app.workspace.on('file-open', (file) => {

@@ -31,6 +31,11 @@ export class OpenThesaurusSynonymAPI implements SynonymProvider {
         }
 
         const response = await JSON.parse(result);
+
+        if(!response.synsets){
+            return Promise.reject("Word doesnt exist in this Dictionary");
+        }
+        
         if (response.synsets.length <= 0) {
             return Promise.reject("No Synonym found");
         }

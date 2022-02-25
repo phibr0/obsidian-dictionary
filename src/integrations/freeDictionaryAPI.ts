@@ -37,18 +37,18 @@ abstract class Base {
 export class FreeDictionaryDefinitionProvider extends Base implements DefinitionProvider {
     public supportedLanguages: string[] = [
         "en_US",
-        "hi",
-        "es",
-        "fr",
-        "ja",
-        "ru",
+        // "hi",
+        // "es",
+        // "fr",
+        // "ja",
+        // "ru",
         "en_GB",
-        "de",
-        "it",
-        "ko",
-        "pt_BR",
-        "ar",
-        "tr",
+        // "de",
+        // "it",
+        // "ko",
+        // "pt_BR",
+        // "ar",
+        // "tr",
     ];
 
     /**

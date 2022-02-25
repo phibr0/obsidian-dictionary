@@ -16,6 +16,7 @@ import { OpenThesaurusSynonymAPI as OpenThesaurusSynonymProvider } from "src/int
 // import { SynonymoSynonymAPI as SynonymoSynonymProvider } from "src/integrations/synonymoAPI";
 import { AltervistaSynonymProvider } from "src/integrations/altervistaAPI";
 import type DictionaryPlugin from "src/main";
+import { GoogleScraperDefinitionProvider, GoogleScraperSynonymProvider } from 'src/integrations/googleScraperAPI';
 
 /*
 HOW TO ADD A NEW API:
@@ -35,6 +36,7 @@ export default class APIManager {
     definitionProvider: DefinitionProvider[] = [
         new FreeDictionaryDefinitionProvider(),
         new OfflineDictionary(this),
+        new GoogleScraperDefinitionProvider(),
     ];
     // Adds new API's to the Synonym Providers
     synonymProvider: SynonymProvider[] = [
@@ -42,6 +44,7 @@ export default class APIManager {
         new OpenThesaurusSynonymProvider(),
         // new SynonymoSynonymProvider(), see #44
         new AltervistaSynonymProvider(),
+        new GoogleScraperSynonymProvider(),
     ];
     // Adds new API's to the Part Of Speech Providers
     partOfSpeechProvider: PartOfSpeechProvider[] = [
@@ -61,13 +64,9 @@ export default class APIManager {
     public async requestDefinitions(query: string): Promise<DictionaryWord> {
         //Get the currently enabled API
         const api = this.getDefinitionAPI();
-        const { cache, settings, loadCache } = this.plugin;
+        const { cache, settings } = this.plugin;
 
         if (settings.useCaching && !api.name.toLowerCase().contains("offline")) {
-            //Get any cached Definitions
-            if(!cache) {
-                await loadCache();
-            }
             const cachedDefinition = cache.cachedDefinitions.find((c) => { return c.content.word.toLowerCase() == query.toLowerCase() && c.lang == settings.defaultLanguage && c.api == api.name });
             //If cachedDefiniton exists return it as a Promise
             if (cachedDefinition) {
@@ -103,11 +102,8 @@ export default class APIManager {
         if (!api) {
             throw ("No Synonym API selected/available");
         }
-        const { cache, settings, loadCache } = this.plugin;
+        const { cache, settings } = this.plugin;
         if (settings.useCaching && !api.name.toLowerCase().contains("offline")) {
-            if(!cache) {
-                await loadCache();
-            }
             const cachedSynonymCollection = cache.cachedSynonyms.find((s) => { return s.word.toLowerCase() == query.toLowerCase() && s.lang == settings.defaultLanguage && s.api == api.name });
             if (cachedSynonymCollection) {
                 return new Promise((resolve) => resolve(cachedSynonymCollection.content));

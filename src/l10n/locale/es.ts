@@ -2,8 +2,8 @@
 
 export default {
     //main.ts
-    'Open Dictionary View': 'Abrir vista de diccionario',
-    'Open Language Switcher': 'Abrir selector de idioma',
+    'Open Dictionary View': 'Abrir vista de Diccionario',
+    'Open Language Switcher': 'Abrir Selector de Idioma',
 
     //_constants.ts
     'Dictionary': 'Diccionario',
@@ -12,14 +12,14 @@ export default {
     'Cut': 'Cortar',
     'Copy': 'Copiar',
     'Paste': 'Pegar',
-    'Show Synonyms': 'Mostrar sinónimos',
+    'Show Synonyms': 'Mostrar Sinónimos',
     'Look up': 'Buscar',
 
     //settingsTab.ts
     "Reset to default": "Resetear a configuración por defecto",
     'Dictionary Settings': 'Configuración del Diccionario',
     'Language': 'Idioma',
-    'The Language the Plugin will use to search for Definitions and Pronunciations.': 'The Language the Plugin will use to search for Definitions and Pronunciations.',
+    'The Language the Plugin will use to search for Definitions and Pronunciations.': 'El Idioma que el Plugin usará para buscar Definiciones y Pronunciaciones.',
     'Synonym Suggestions': 'Sugerencias de Sinónimos',
     'Show synonyms for highlighted words': 'Mostrar sinónimos para palabras resaltadas',
     'Enabling this will allow the Plugin to analyze full sentences to better suggest synonyms based on the context.': 'Activar esto habilitará al plugin para analizar frases enteras para sugerir mejores sinónimos basándose en el contexto.',

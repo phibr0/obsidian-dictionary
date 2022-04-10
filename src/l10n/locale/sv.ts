@@ -4,8 +4,8 @@
 
 export default {
     //main.ts
-    'Open Dictionary View': 'Öppna Lexikon Vy',
-    'Open Language Switcher': 'Öppna Språk Växlare',
+    'Open Dictionary View': 'Öppna Lexikonvy',
+    'Open Language Switcher': 'Öppna Språkväxlare',
 
     //_constants.ts
     'Dictionary': 'Lexikon',
@@ -19,9 +19,9 @@ export default {
 
     //settingsTab.ts
     "Reset to default": "Återställ till standard",
-    'Dictionary Settings': 'Lexikon Inställningar',
+    'Dictionary Settings': 'Lexikoninställningar',
     'Language': 'Språk',
-    'The Language the Plugin will use to search for Definitions and Pronunciations.': 'The Language the Plugin kommer att använda sökningar för Definitioner och Uttal.',
+    'The Language the Plugin will use to search for Definitions and Pronunciations.': 'Språket som pluginet kommer att använda för sökningar av Definitioner och Uttal.',
     'Synonym Suggestions': 'Synonymförslag',
     'Show synonyms for highlighted words': 'Visa synonymer för markerade ord',
     'Enabling this will allow the Plugin to analyze full sentences to better suggest synonyms based on the context.': 'När detta aktiveras kommer pluginet att analysera hela meningar för att ge bättre förslag på synonymer i dess kontext',
@@ -33,29 +33,29 @@ export default {
     'Enable custom Context Menu with options to search for synonyms (only if the auto suggestions are disabled) and to look up a full definition in the Sidebar. Warning: This will override Obsidian\'s default Context Menu.': 'Aktivera anpassad Kontextmeny med alternativ för att söka efter synonym (endast om automatiska förslag är inaktiverat)',
     'Click Here': 'Tryck Här',
     'Definition Provider': 'Definitionsleverantör',
-    'The API the Plugin will use to search for Definitions.': 'APIet the Plugin kommer att söka efter definitioner.',
+    'The API the Plugin will use to search for Definitions.': 'APIet som pluginet kommer använda för att söka efter definitioner.',
     'Synonym Provider': 'Synonymleverantör',
-    'The API the Plugin will use to search for Synonyms.': 'APIet the Plugin kommer att söka efter synonymer',
+    'The API the Plugin will use to search for Synonyms.': 'APIet som pluginet kommer använda för att söka efter synonymer',
     'More Information': 'Mer information',
-    'View Information about the API\'s and the Plugin itself.': 'Visa information om APIets och själva pluginet.',
+    'View Information about the API\'s and the Plugin itself.': 'Visa information om APIet och Pluginet.',
     'More Info': 'Mer Information',
     'Donate': 'Donera',
     'If you like this Plugin, consider donating to support continued development:': 'Om du gillar det här pluginet, överväg att donera för att stödja dess vidare utveckling',
-    'Local Dictionary Folder': 'Local Dictionary Folder',
-    'Specify a Folder, where all new Notes created by the Dictionary are placed. Please note that this Folder needs to already exist.': 'Specificera en mapp där alla nya anteckningar skapade av the Dictionary placeras. Notera att denna mapp redan måste existera.',
+    'Local Dictionary Folder': 'Lokal Lexikonmapp',
+    'Specify a Folder, where all new Notes created by the Dictionary are placed. Please note that this Folder needs to already exist.': 'Specificera en mapp där alla nya anteckningar skapade av lexikonet placeras. Notera att denna mapp redan måste existera.',
     'Capitalize File Name': 'Skriv första bokstaven i filnamnet med versal',
     'If you disable this, the names of newly created files will be all lowercase.': 'Om du inaktiverar detta kommer nyskapade filers namn endast vara med små bokstäver.',
-    'Filename Prefix and Suffix': 'Filnamn Prefix och Ändelse',
+    'Filename Prefix and Suffix': 'Filnamns Prefix och Ändelse',
     'Here you can add a Prefix and Suffix for your newly created Files.': 'Här kan du lägga till Prefix och Ändelse för nyskapade filer.',
     "Prefix": "Prefix",
     "Suffix": "Ändelse",
     'Here you can edit the Template for newly created Files.': 'Här kan du redigera mallen för nyskapade filer.',
     'Click for a List of Variables': 'Tryck för en Lista av Variabler',
     'Template': 'Mall',
-    "Local-Dictionary-Builder Settings": "Lokalt-Lexikon-Skapare Inställningar",
+    "Local-Dictionary-Builder Settings": "Lokalt Lexikonskapare Inställningar",
     "Miscellaneous": "Diverse",
     "Caching Settings": "Inställningar för Cachelagring",
-    "Use Caching": "Använd Cach",
+    "Use Caching": "Använd Cache",
     "Enable or disable caching. Caching provides a semi-offline experience by saving every result for later use.": "Aktivera eller inaktivera cachelagring. Cachelagring tillhandahåller en semi-offline lösning igenom att spara alla resultat för senare användning.",
     'Here you can delete all cached Data.': 'Här kan du radera all lagrad cachedata.',
     "You currently have ": "Du har för närvarande  ",
@@ -70,7 +70,7 @@ export default {
 
     //localDictionaryBuilder.ts
     'Autogenerated by Obsidian Dictionary Plugin': 'Autogenererad av Obsidian Dictionary Plugin',
-    "Yes, overwrite the old File.": "Ja, skriv över den gammla filen.",
+    "Yes, overwrite the old File.": "Ja, skriv över den gamla filen.",
     "A existing File with the same Name was found, do you want to overwrite it?": "Det existerar redan en fil med det namnet, vill du skriva över den?",
     "No, keep the old File.": "Nej, behåll den gamla filen.",
     "Meaning {{i}}": "Menade {{i}}",
@@ -78,18 +78,18 @@ export default {
 
     //infoModal.svelte
     'API Information': 'API Information',
-    'Definition API\'s': 'Definition APIer',
+    'Definition API\'s': 'DefinitionAPIer',
     'Website': 'Hemsida',
-    'Synonym API\'s': 'Synonym APIer',
-    'Part of Speech API\'s': 'Ordklass APIer',
+    'Synonym API\'s': 'SynonymAPIer',
+    'Part of Speech API\'s': 'OrdklassAPIer',
     'This Plugin is using <a href="https://feathericons.com/">Feather Icons</a>': 'Det här Pluginet använder <a href="https://feathericons.com/">Feather Icons</a>',
 
     //dictionaryView.svelte
-    'Enter a word': 'Träd in i en värld',
+    'Enter a word': 'Öppna en värld',
     "Clear": "Rensa",
     "Change Language": "Ändra språk",
     "Change Provider": "Ändra leverantör",
-    "Collapse Results": "Kollapsresultat",
+    "Collapse Results": "Vik ihop resultat",
     'Pronunciation': 'Uttal',
     'Meanings': 'Meningar',
     "Origin": "Ursprung",

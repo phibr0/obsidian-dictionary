@@ -72,7 +72,7 @@ export default {
   "Here you can delete all cached Data.":
     "Aqui pode apagar todos os dados armazenados em cache.",
   "You currently have ": "Actualmente tem ",
-  " cached Definitions and ": " cached Definitions e ",
+  " cached Definitions and ": " Definições em cache e ",
   " cached Synonyms.": " Sinónimos em cache.",
   "Delete Cache": "Eliminar Cache",
   Delete: "Eliminar",

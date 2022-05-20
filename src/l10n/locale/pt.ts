@@ -52,7 +52,7 @@ export default {
     "Especificar uma Pasta, onde todas as novas Notas criadas pelo Dicionário são colocadas. É favor notar que esta Pasta já deve existir.",
   "Capitalize File Name": "Capitalizar Nome do Ficheiro",
   "If you disable this, the names of newly created files will be all lowercase.":
-    "Se desactivar isto, os nomes dos ficheiros recentemente criados serão todos em minúsculas.",
+    "Se desactivar isto, os nomes dos novos ficheiros criados serão todos em minúsculas.",
   "Filename Prefix and Suffix": "Prefixo e Sufixo do Nome do Ficheiro",
   "Here you can add a Prefix and Suffix for your newly created Files.":
     "Aqui pode adicionar um Prefixo e Sufixo para os seus Ficheiros recentemente criados. Pode utilizar a variável {{lang}} aqui.",

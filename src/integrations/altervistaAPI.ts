@@ -11,6 +11,8 @@ export class AltervistaSynonymProvider implements SynonymProvider {
         "it",
         "fr",
         "de",
+        "pt",
+        "pt_BR"
     ];
 
     languageCodes = {
@@ -18,6 +20,8 @@ export class AltervistaSynonymProvider implements SynonymProvider {
         "it": "it_IT",
         "fr": "fr_FR",
         "de": "de_DE",
+        "pt": "pt_PT",
+        "pt_BR": "pt_BR"
     }
 
     //This is limited to 5000 queries/day

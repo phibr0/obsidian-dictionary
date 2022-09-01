@@ -9,21 +9,25 @@ class Base {
       "en_US",
       "de",
       "es",
-      "fr"
+      "fr",
+      "pt",
+      "pt-BR"
   ];
 
   static LANGUAGES = {
       'en_US': 'english',
       'de': 'deutsch',
       "es": "Español",
-      "fr": "Français"
+      "fr": "Français",
+      "pt": "Português",
+      "pt-BR": "Português Brasil"
   }
 }
 
 export class GoogleScraperDefinitionProvider extends Base implements DefinitionProvider {
     async requestDefinitions(query: string, lang: string): Promise<DictionaryWord> {
         const result = await requestUrl({
-            url: `https://www.google.com/search?q=define+${query.replace(/\s/g, '+')}+${GoogleScraperDefinitionProvider.LANGUAGES[lang]}`,
+            url: `https://www.google.com/search?q=define+${query.replace(/\s/g, '+')}&hl=${GoogleScraperDefinitionProvider.LANGUAGES[lang]}&lr=lang_${GoogleScraperDefinitionProvider.LANGUAGES[lang]}`,
             headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36' }
         });
         console.log(result);

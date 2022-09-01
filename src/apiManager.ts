@@ -1,3 +1,4 @@
+import { OfflineDictionary } from './integrations/offlineDic';
 import type {
     DefinitionProvider,
     DictionaryWord,
@@ -5,15 +6,17 @@ import type {
     PartOfSpeechProvider,
     Synonym,
     SynonymProvider,
-} from "src/api/types";
-import type DictionarySettings from "src/types";
+} from "src/integrations/types";
 
 import {
     FreeDictionaryDefinitionProvider,
     FreeDictionarySynonymProvider,
-} from "src/api/freeDictionaryAPI";
-import { OpenThesaurusSynonymAPI } from "src/api/openThesaurusAPI";
-import { SystranPOSProvider } from "src/api/systranAPI";
+} from "src/integrations/freeDictionaryAPI";
+import { OpenThesaurusSynonymAPI as OpenThesaurusSynonymProvider } from "src/integrations/openThesaurusAPI";
+// import { SynonymoSynonymAPI as SynonymoSynonymProvider } from "src/integrations/synonymoAPI";
+import { AltervistaSynonymProvider } from "src/integrations/altervistaAPI";
+import type DictionaryPlugin from "src/main";
+import { GoogleScraperDefinitionProvider, GoogleScraperSynonymProvider } from 'src/integrations/googleScraperAPI';
 
 /*
 HOW TO ADD A NEW API:
@@ -27,38 +30,64 @@ APIManager, as seen below
 */
 
 export default class APIManager {
-    private settings: DictionarySettings;
+    plugin: DictionaryPlugin;
 
     // Adds new API's to the Definition Providers
     definitionProvider: DefinitionProvider[] = [
         new FreeDictionaryDefinitionProvider(),
+        new OfflineDictionary(this),
+        new GoogleScraperDefinitionProvider(),
     ];
     // Adds new API's to the Synonym Providers
     synonymProvider: SynonymProvider[] = [
         new FreeDictionarySynonymProvider(),
-        new OpenThesaurusSynonymAPI(),
+        new OpenThesaurusSynonymProvider(),
+        // new SynonymoSynonymProvider(), see #44
+        new AltervistaSynonymProvider(),
+        new GoogleScraperSynonymProvider(),
     ];
     // Adds new API's to the Part Of Speech Providers
     partOfSpeechProvider: PartOfSpeechProvider[] = [
-        new SystranPOSProvider(),
+        //new SystranPOSProvider(), See Issue #46
     ];
 
-    constructor(settings: DictionarySettings) {
-        this.settings = settings;
+    constructor(plugin: DictionaryPlugin) {
+        this.plugin = plugin;
     }
 
     /**
      * Sends a request with the passed query to the chosen API and returns the Result
      *
      * @param query - The term you want to look up
-     * @param lang - The Language the Api will use
      * @returns The API Response of the chosen API as Promise<DictionaryWord>
      */
-    async requestDefinitions(query: string): Promise<DictionaryWord> {
-        return await this.getDefinitionAPI().requestDefinitions(
-            query,
-            this.settings.defaultLanguage
-        );
+    public async requestDefinitions(query: string): Promise<DictionaryWord> {
+        //Get the currently enabled API
+        const api = this.getDefinitionAPI();
+        const { cache, settings } = this.plugin;
+
+        if (settings.useCaching && !api.name.toLowerCase().contains("offline")) {
+            const cachedDefinition = cache.cachedDefinitions.find((c) => { return c.content.word.toLowerCase() == query.toLowerCase() && c.lang == settings.defaultLanguage && c.api == api.name });
+            //If cachedDefiniton exists return it as a Promise
+            if (cachedDefinition) {
+                return new Promise((resolve) => resolve(cachedDefinition.content));
+            } else {
+                //If it doesnt exist request a new Definition
+                const result = api.requestDefinitions(query, settings.defaultLanguage);
+
+                //If the word gets found by the API cache it for later use
+                const awaitedResult = await result;
+                if (awaitedResult) {
+                    cache.cachedDefinitions.push({ content: awaitedResult, api: api.name, lang: settings.defaultLanguage });
+                    await this.plugin.saveCache();
+                }
+
+                //finally return the Promise so it can be awaited by the UI
+                return result;
+            }
+        } else {
+            return api.requestDefinitions(query, this.plugin.settings.defaultLanguage);
+        }
     }
 
     /**
@@ -68,12 +97,28 @@ export default class APIManager {
      * @param pos - The part of speech of the target word
      * @returns The API Response of the chosen API as Promise<Synonym[]>
      */
-    async requestSynonyms(query: string, pos?: PartOfSpeech): Promise<Synonym[]> {
-        return await this.getSynonymAPI().requestSynonyms(
-            query,
-            this.settings.defaultLanguage,
-            pos
-        );
+    public async requestSynonyms(query: string, pos?: PartOfSpeech): Promise<Synonym[]> {
+        const api = this.getSynonymAPI();
+        if (!api) {
+            throw ("No Synonym API selected/available");
+        }
+        const { cache, settings } = this.plugin;
+        if (settings.useCaching && !api.name.toLowerCase().contains("offline")) {
+            const cachedSynonymCollection = cache.cachedSynonyms.find((s) => { return s.word.toLowerCase() == query.toLowerCase() && s.lang == settings.defaultLanguage && s.api == api.name });
+            if (cachedSynonymCollection) {
+                return new Promise((resolve) => resolve(cachedSynonymCollection.content));
+            } else {
+                const result = api.requestSynonyms(query, settings.defaultLanguage);
+                const awaitedResult = await result;
+                if (awaitedResult) {
+                    cache.cachedSynonyms.push({ content: awaitedResult, api: api.name, word: query, lang: settings.defaultLanguage });
+                    await this.plugin.saveCache();
+                }
+                return result;
+            }
+        } else {
+            return api.requestSynonyms(query, this.plugin.settings.defaultLanguage, pos);
+        }
     }
 
     /**
@@ -84,43 +129,45 @@ export default class APIManager {
      * @param rightContext - The sentence content after the word
      * @returns The API Response of the chosen API as Promise<PartOfSpeech>
      */
-    async requestPartOfSpeech(
+    public requestPartOfSpeech(
         word: string,
         leftContext: string,
         rightContext: string
     ): Promise<PartOfSpeech> {
-        return await this.getPartOfSpeechAPI()?.requestPartOfSpeech(
+        return this.getPartOfSpeechAPI()?.requestPartOfSpeech(
             word,
             leftContext,
             rightContext,
-            this.settings.defaultLanguage
+            this.plugin.settings.defaultLanguage
         );
     }
 
     /**
-     * @returns Returns the currently active Definition API
+     * @returns Returns the currently selected Definition API
      */
-    private getDefinitionAPI() {
+    private getDefinitionAPI(): DefinitionProvider {
+        const lang = this.plugin.settings.defaultLanguage;
         return this.definitionProvider.find(
-            (api) => api.name == this.settings.definitionApiName
+            (api) => api.name == this.plugin.settings.apiSettings[lang].definitionApiName
         );
     }
 
     /**
-     * @returns Returns the currently active Synonym API
+     * @returns Returns the currently selected Synonym API
      */
-    private getSynonymAPI() {
+    private getSynonymAPI(): SynonymProvider {
+        const lang = this.plugin.settings.defaultLanguage;
         return this.synonymProvider.find(
-            (api) => api.name == this.settings.synonymApiName
+            (api) => api.name == this.plugin.settings.apiSettings[lang].synonymApiName
         );
     }
 
     /**
-     * @returns Returns the currently active part of speech API
+     * @returns Returns the currently selected part of speech API
      */
-    private getPartOfSpeechAPI() {
-        return this.partOfSpeechProvider.find(
-            this.settings.advancedSynonymAnalysis ? (api) => api.name == this.settings.partOfSpeechApiName : null
-        );
+    private getPartOfSpeechAPI(): PartOfSpeechProvider | null {
+        return this.plugin.settings.advancedSynonymAnalysis
+            ? this.partOfSpeechProvider.find((api) => api.name == this.plugin.settings.partOfSpeechApiName)
+            : null;
     }
 }

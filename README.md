@@ -1,4 +1,6 @@
-# Obsidian Dictionary Plugin [![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/phibr0/obsidian-dictionary)](https://github.com/phibr0/obsidian-dictionary/releases) ![GitHub all releases](https://img.shields.io/github/downloads/phibr0/obsidian-dictionary/total) [![](https://img.shields.io/badge/Support%3F-Buy%20me%20a%20Coffee-yellow)](https://www.buymeacoffee.com/phibr0)
+<img align="right" style="width: 27vw" src="https://media.discordapp.net/attachments/796853434397360128/847198380878069771/Screen_Shot_2021-05-26_at_12.43.43_PM.png?width=736&height=676">
+
+# Obsidian Dictionary Plugin [![GitHub tag (Latest by date)](https://img.shields.io/github/v/tag/phibr0/obsidian-dictionary)](https://github.com/phibr0/obsidian-dictionary/releases) ![GitHub all releases](https://img.shields.io/github/downloads/phibr0/obsidian-dictionary/total)
 
 This Plugin adds a Dictionary to the [Obsidian](https://obsidian.md) Note-Taking tool.
 
@@ -6,33 +8,51 @@ This Plugin adds a Dictionary to the [Obsidian](https://obsidian.md) Note-Taking
 
 Open the *Command Palette* (default: `ctrl` + `p`), search for *Open Dictionary View* and run the command. You will see that a new View appears in the right Sidebar of Obsidian. You can set your default Language in Obsidian's Settings under *Plugin Options* > *Obsidian Dictionary* > *Default Language*.
 
-<img align="right" width="550" src="https://media.discordapp.net/attachments/796853434397360128/847198380878069771/Screen_Shot_2021-05-26_at_12.43.43_PM.png?width=736&height=676">
-
 ## Supported Languages
-
 
 The following Languages are currently supported:
 
-- English (US)
-- English (UK)
-- Hindi
-- Spanish
-- French
-- Japanese
-- Russian
-- German
-- Italian
-- Korean
-- Brazilian Portuguese
-- Arabic
-- Turkish
+| Language             | Synonym Popover | Sidebar Lookup (Offline Support) | UI Translated? |
+|:-------------------- |:---------------:|:--------------:|:-----------:|
+| English (US)         |        🗸        |       🗸  (🗸)       |🗸|
+| English (UK)         |                 |       🗸 (🗸)       ||
+| Hindi                |                 |       🗸        ||
+| Spanish              |        🗸        |       🗸        ||
+| French               |        🗸        |       🗸        ||
+| Japanese             |                 |       🗸        |🗸|
+| Russian              |                 |       🗸        ||
+| German               |        🗸        |       🗸        |🗸|
+| Italian              |        🗸        |       🗸        |🗸|
+| Korean               |                 |       🗸        ||
+| Brazilian Portuguese |                 |       🗸        ||
+| Arabic               |                 |       🗸        ||
+| Turkish              |                 |       🗸        | |
+| Chinese | | 🗸 (🗸) | 🗸 |
 
-## How to install
+### How to use this for multiple Languages
 
-1. Go to **Community Plugins** in your [Obsidian](https://www.obsidian.md) Settings and **disable** Safe Mode
-2. Click on **Browse** and search for “Obsidian Dictionary”
-3. Click install
-4. Toggle the Plugin on in the **Community Plugins** Tab
+To use a different language than your default language for the Dictionary and Synonym Popover you can add a `lang` or `language` key into your YAML Frontmatter. Use the following Values for the Language:
+
+| Language | Key |
+|---|:---:|
+English (US)|`en-US`
+हिन्दी (Hindi)|`hi`
+Español (Spanish)|`es`
+Français (French)|`fr`
+日本語 (Japanese)|`ja`
+Русский (Russian)|`ru`
+English (UK)|`en_GB`
+Deutsch (German)|`de`
+Italiano (Italian)|`it`
+한국어 (Korean)|`ko`
+Português do Brasil (Brazilian Portuguese)|`pt-BR`
+اَلْعَرَبِيَّةُ‎ (Arabic)|`ar`
+Türkçe (Turkish)|`tr`
+中文 (Chinese)|`zh`
+
+## Offline Dictionary
+
+As of Release 2.13.0 this Plugin has experimental offline Support for English and Chinese. The offline Dictionary is pretty big (about 35 megabytes), which is why it's not bundled with this Plugin by default. It will download the neccessary files **when you are using it for the first time**. That means your first look-up still requires an internet connection.
 
 ## Privacy
 
@@ -43,6 +63,12 @@ If you explicitly activate the **Advanced Synonym Search**, there will be one ad
 Even though this Plugin is fully Open-Source and thus can be looked over by anyone, the third-party API’s might not be.
 
 ## How to make this Plugin better
+
+### Translations
+
+If you want to help and translate this Plugin to new languages, see [locales](https://github.com/phibr0/obsidian-dictionary/tree/master/src/l10n/locale).
+
+### New API's
 
 This Plugin is meant to be easily extensible! If you want to add a new API for a new (or already supported) Language see: [API Manager](src/apiManager.ts).
 
@@ -55,9 +81,27 @@ This will automatically make it selectable in the Settings.
 
 > Special Thanks to [@mgmeyers](https://github.com/mgmeyers) for already making this Plugin a lot better!
 
-## Roadmap
+## Variables
 
-- [ ] Mobile Support
+You can edit the Note Template for your local Dictionary in the Settings. Here is a List of Variables you can use:
+
+- `{{notice}}` → "Autogenerated by Obsidian Dictionary" (Localized)
+- `{{word}}` → The Word the File is created for
+- `{{pronunciationHeader}}` → "Pronunciations" (Localized)
+- `{{meaningHeader}}` → Same as above, but for "Meanings" (Localized)
+- `{{originHeader}}` → Same as above, but for "Origin" (Localized)
+- `{{phoneticList}}` → A List of all phonetics the Plugin found.
+- `{{meanings}}` → Same as above, but for meanings the Plugin found.
+- `{{origin}}` → Same as above, but for the word origin the Plugin found.
+
+Localized means, that the Text changes based on Obsidians internal Language.
+
+## How to install
+
+1. Go to **Community Plugins** in your [Obsidian](https://www.obsidian.md) Settings and **disable** Safe Mode
+2. Click on **Browse** and search for “Obsidian Dictionary”
+3. Click install
+4. Toggle the Plugin on in the **Community Plugins** Tab
 
 ## Support me
 

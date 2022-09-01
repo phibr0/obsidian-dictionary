@@ -1,5 +1,5 @@
 import type APIManager from "src/apiManager";
-import type { PartOfSpeech, Synonym } from 'src/api/types';
+import type { PartOfSpeech, Synonym } from 'src/integrations/types';
 import type { EditorPosition } from "obsidian";
 import SynonymPopoverComponent from './synonymPopover.svelte'
 
@@ -51,8 +51,8 @@ export class SynonymPopover {
         for (const sentence of sentences) {
             if (seen <= cursor.ch && cursor.ch <= seen + sentence.length) {
                 // Split the sentence to get the left and right contexts
-                const before = sentence.substr(0, cursor.ch - seen)
-                const after = sentence.substr(cursor.ch - seen + selection.length)
+                const before = sentence.substring(0, cursor.ch - seen)
+                const after = sentence.substring(cursor.ch - seen + selection.length)
 
                 let pos: PartOfSpeech;
 

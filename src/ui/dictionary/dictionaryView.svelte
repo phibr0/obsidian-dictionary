@@ -1,109 +1,208 @@
 <script lang="ts">
   import type APIManager from "src/apiManager";
-  import type { DictionaryWord } from "src/api/types";
+  import type { DictionaryWord } from "src/integrations/types";
   import type LocalDictionaryBuilder from "src/localDictionaryBuilder";
 
   import PhoneticComponent from "./phoneticComponent.svelte";
   import MeaningComponent from "./meaningComponent.svelte";
   import ErrorComponent from "./errorComponent.svelte";
+  import OriginComponent from "./originComponent.svelte";
+  import t from "src/l10n/helpers";
+  import { debounce, setIcon } from "obsidian";
+  import { onMount } from "svelte";
 
   export let manager: APIManager;
   export let localDictionary: LocalDictionaryBuilder;
 
   export let query: string = "";
+  let lastQuery: string = null;
   let promise: Promise<DictionaryWord>;
+  let buttons: HTMLElement[] = [];
 
+  onMount(() =>
+    setTimeout(() => {
+      setIcon(buttons[0], "languages", 20);
+      setIcon(buttons[1], "cloud", 20);
+      setIcon(buttons[2], "bullet-list", 20);
+      setIcon(buttons[3], "uppercase-lowercase-a", 20);
+      setIcon(buttons[4], "documents", 20);
+    }, 0)
+  );
+
+  const debouncedSearch = debounce(search, 800, true);
+
+  let matchCase = true;
   function search() {
-    if (query.trim() !== "") {
-      promise = manager.requestDefinitions(query);
+    if (query.trim()) {
+      lastQuery = query;
+      promise = manager.requestDefinitions(
+        matchCase ? query : query.toLowerCase()
+      );
     }
   }
 
-  addEventListener("obsidian-dictionary-plugin-search", () => {
-    search();
-  });
+  function languageModal() {
+    dispatchEvent(new Event("dictionary-open-language-switcher"));
+  }
+
+  function apiModal() {
+    dispatchEvent(new Event("dictionary-open-api-switcher"));
+  }
+
+  let detailsOpen = false;
+  function toggleContainer() {
+    dispatchEvent(
+      new CustomEvent("dictionary-collapse", {
+        detail: { open: !detailsOpen },
+      })
+    );
+    detailsOpen = !detailsOpen;
+  }
 
   function handleKeyDown(e: KeyboardEvent) {
     if (e.key === "Enter") {
       search();
     }
   }
+
+  function clear() {
+    query = "";
+    lastQuery = null;
+    promise = null;
+    //@ts-ignore
+    document.querySelector("#dictionary-search-input").focus();
+  }
+
+  async function generateNote(event: MouseEvent) {
+    if (query.trim() && promise) {
+      await localDictionary.newNote(
+        await promise,
+        event.ctrlKey ? false : true
+      );
+    }
+  }
+
+  addEventListener("obsidian-dictionary-plugin-search", (event: CustomEvent) => {
+    query = event.detail.query;
+    search();
+  });
+
+  addEventListener("dictionary-focus-on-search", () => {
+    const el = document.querySelector("#dictionary-search-input") as HTMLInputElement;
+    el.focus();
+  })
 </script>
 
-<div class="main">
-  <div class="searchbox">
-    <input
-      type="text"
-      spellcheck="true"
-      placeholder="Enter a word"
-      bind:value={query}
-      on:keydown={handleKeyDown}
+<div class="nav-buttons-container">
+  <div
+    id="languageModal"
+    class="nav-action-button"
+    aria-label={t("Change Language")}
+    bind:this={buttons[0]}
+    on:click={languageModal}
+  />
+  <div
+    id="apiModal"
+    class="nav-action-button"
+    aria-label={t("Change Provider")}
+    bind:this={buttons[1]}
+    on:click={apiModal}
+  />
+  <div
+    id="openAndCloseAll"
+    class="nav-action-button"
+    class:is-active={detailsOpen}
+    aria-label={t("Collapse Results")}
+    bind:this={buttons[2]}
+    on:click={toggleContainer}
+  />
+  <div
+    id="matchCaseBtn"
+    class="nav-action-button"
+    class:is-active={matchCase}
+    aria-label={t("Match Case")}
+    bind:this={buttons[3]}
+    on:click={() => (matchCase = !matchCase)}
+  />
+  <div
+    id="localDictionaryBuilder"
+    class="nav-action-button"
+    aria-label={t("New Note")}
+    bind:this={buttons[4]}
+    on:click={generateNote}
+  />
+</div>
+<div class="search-input-container">
+  <input
+    id="dictionary-search-input"
+    type="text"
+    spellcheck="true"
+    placeholder={t("Enter a word")}
+    bind:value={query}
+    on:keydown={handleKeyDown}
+    on:keydown={debouncedSearch}
+  />
+  {#if query}
+    <div
+      class="search-input-clear-button"
+      on:click={clear}
+      aria-label={t("Clear")}
     />
-    <button on:click={search}><i class="gg-search" /></button>
-  </div>
-  <div class="results">
-    {#if query.trim() != "" && promise}
-      {#await promise}
-        <div class="center">
-          <div class="spinner" />
-        </div>
-      {:then data}
-        {#if data.phonetics.first().text}
+  {/if}
+</div>
+<div class="contents">
+  {#if promise && query === lastQuery}
+    {#await promise}
+      <div class="center">
+        <div class="spinner" />
+      </div>
+    {:then data}
+      <div class="results">
+        {#if data.phonetics?.first()?.text}
           <div class="container">
-            <h3>Pronunciation</h3>
+            <h3>{t("Pronunciation")}</h3>
             {#each data.phonetics as { text, audio }}
               <PhoneticComponent {audio} {text} />
             {/each}
           </div>
         {/if}
         <div class="container">
-          <h3>Meanings</h3>
+          <h3>{t("Meanings")}</h3>
           {#each data.meanings as { definitions, partOfSpeech }}
             <MeaningComponent word={data.word} {partOfSpeech} {definitions} />
           {/each}
         </div>
-        <span
-          class="nn"
-          on:click={async () => await localDictionary.newNote(data)}
-          >New Note</span
-        >
-      {:catch error}
-        <ErrorComponent {error} />
-      {/await}
-    {/if}
-  </div>
+        {#if data.origin}
+          <div class="container">
+            <h3>{t("Origin")}</h3>
+            <OriginComponent {data} />
+          </div>
+        {/if}
+      </div>
+    {:catch error}
+      <ErrorComponent {error} />
+    {/await}
+  {:else if query.trim()}
+    <div class="center">
+      <div class="spinner" />
+    </div>
+  {/if}
 </div>
 
 <style lang="scss">
-  .nn {
-    color: var(--text-faint);
-    transition: 0.2s;
-    width: 100%;
-    text-align: center;
-    margin-top: 0.8rem;
-    font-size: 1.1em;
-    &:hover{
-      color: var(--text);
-    }
+  .contents {
+    height: calc(100% - 5rem);
+    overflow-y: auto;
   }
-
-  .searchbox {
-    margin-top: 0.1rem;
-    display: flex;
-
-    > input {
-      width: 100%;
-      margin-right: 1rem;
-      margin-left: 12px; //So its the same as the Button
-    }
-  }
-
   .results {
     display: flex;
     flex-wrap: wrap;
   }
+
   .container {
+    max-width: 30vw;
     width: 100%;
+    margin: auto;
     background-color: var(--background-primary-alt);
     padding-left: 0.5rem;
     padding-right: 0.5rem;
@@ -115,33 +214,6 @@
       margin-top: 0.3rem;
       margin-bottom: 0.3rem;
       font-weight: normal;
-    }
-  }
-
-  .gg-search {
-    box-sizing: border-box;
-    position: relative;
-    display: block;
-    transform: scale(var(--ggs, 0.8));
-    width: 16px;
-    height: 16px;
-    border: 2px solid;
-    border-radius: 100%;
-    margin-left: -4px;
-    margin-top: -4px;
-
-    &:after {
-      content: "";
-      display: block;
-      box-sizing: border-box;
-      position: absolute;
-      border-radius: 3px;
-      width: 2px;
-      height: 8px;
-      background: currentColor;
-      transform: rotate(-45deg);
-      top: 10px;
-      left: 12px;
     }
   }
 
@@ -159,6 +231,7 @@
       transform: translate3d(-50%, -50%, 0) rotate(360deg);
     }
   }
+
   .spinner {
     // The height here is just for demo purposes
     height: 3rem;

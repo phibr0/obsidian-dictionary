@@ -17,6 +17,7 @@ import { OpenThesaurusSynonymAPI as OpenThesaurusSynonymProvider } from "src/int
 import { AltervistaSynonymProvider } from "src/integrations/altervistaAPI";
 import type DictionaryPlugin from "src/main";
 import { GoogleScraperDefinitionProvider, GoogleScraperSynonymProvider } from 'src/integrations/googleScraperAPI';
+import { JishoDefinitionProvider } from "src/integrations/jishoAPI";
 
 /*
 HOW TO ADD A NEW API:
@@ -37,6 +38,7 @@ export default class APIManager {
         new FreeDictionaryDefinitionProvider(),
         new OfflineDictionary(this),
         new GoogleScraperDefinitionProvider(),
+        new JishoDefinitionProvider(),
     ];
     // Adds new API's to the Synonym Providers
     synonymProvider: SynonymProvider[] = [

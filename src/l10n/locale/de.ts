@@ -49,6 +49,8 @@ export default {
     "Suffix": "Suffix",
     'Here you can edit the Template for newly created Files.': 'Hier kann die Vorlage für neu erstellte Dateien angepasst werden.',
     'Click for a List of Variables': 'Klicke hier für eine Liste aller Variablen.',
+    'Meaning splitter': 'Bedeutung Splitter',
+    'Here you can decide splitter for every single meaning.': 'Hier können Sie Splitter für jede einzelne Bedeutung entscheiden. Standard ist "---"',
     'Template': 'Vorlage',
     "Local-Dictionary-Builder Settings": "Einstellungen für den lokalen Wörterbuch-Builder",
     "Miscellaneous": "Sonstiges",

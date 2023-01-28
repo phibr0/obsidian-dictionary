@@ -49,6 +49,8 @@ export default {
     "Suffix": "Суффикс",
     'Here you can edit the Template for newly created Files.': 'Здесь можно редактировать шаблон для создаваемых файлов.',
     'Click for a List of Variables': 'Нажмите сюда, чтобы перейти к списку переменных',
+    'Meaning splitter': 'Значение сплиттера',
+    'Here you can decide splitter for every single meaning.': 'Здесь вы можете выбрать разделитель для каждого отдельного значения. По умолчанию "---"',
     'Template': 'Шаблон',
     "Local-Dictionary-Builder Settings": "Настройки Создания Локального Словаря",
     "Miscellaneous": "Разное",

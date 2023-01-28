@@ -49,6 +49,8 @@ export default {
     "Suffix": "字尾",
     'Here you can edit the Template for newly created Files.': '你可以在這裡編輯新建檔案的模板',
     'Click for a List of Variables': '點擊以查看變數列表',
+    'Meaning splitter': '字義分隔符',
+    'Here you can decide splitter for every single meaning.': '在這裡，您可以為每個字義決定分隔符。 默認為“---”',
     'Template': '模板',
     "Local-Dictionary-Builder Settings": "本地自建字典設定",
     "Miscellaneous": "其他",

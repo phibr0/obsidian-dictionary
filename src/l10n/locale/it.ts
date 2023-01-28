@@ -49,6 +49,8 @@ export default {
     "Suffix": "Suffisso",
     'Here you can edit the Template for newly created Files.': 'Qui puoi modificare il template dei nuovi file creati.',
     'Click for a List of Variables': 'Clicca per vedere la lista delle variabili',
+    'Meaning splitter': 'Significato separatore',
+    'Here you can decide splitter for every single meaning.': 'Qui puoi decidere lo splitter per ogni singolo significato. L\'impostazione predefinita è "---"',
     'Template': 'Template',
     "Local-Dictionary-Builder Settings": "Impostazioni del dizionario locale",
     "Miscellaneous": "Altre",

@@ -49,6 +49,8 @@ export default {
     "Suffix": "サフィックス",
     'Here you can edit the Template for newly created Files.': 'このオプションでは新規作成されるファイルについてのテンプレートを編集できます。',
     'Click for a List of Variables': '変数のリストを閲覧する',
+    'Meaning splitter': 'スプリッターの意味',
+    'Here you can decide splitter for every single meaning.': 'ここでは、意味ごとにスプリッターを決定できます。 デフォルトは「---」',
     'Template': 'テンプレート',
     "Local-Dictionary-Builder Settings": "ローカル辞書ビルダーの設定",
     "Miscellaneous": "その他のオプション",

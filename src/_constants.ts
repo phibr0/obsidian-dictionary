@@ -119,6 +119,7 @@ export const DEFAULT_SETTINGS: DictionarySettings = {
     template: `---
 # {{notice}}
 aliases: ["{{word}}"]
+{{year}}/{{month}}/{{day}}
 ---
 
 # {{word}}
@@ -135,6 +136,7 @@ aliases: ["{{word}}"]
 
 {{origin}}
 `,
+    meaningSplitter: "---",
     languageSpecificSubFolders: false
 }
 

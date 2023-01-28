@@ -49,6 +49,8 @@ export default {
     "Suffix": "접미어",
     'Here you can edit the Template for newly created Files.': '새로 만들어진 파일의 템플릿을 수정할 수 있습니다.',
     'Click for a List of Variables': '변수 목록 보러가기',
+    'Meaning splitter': '의미 스플리터',
+    'Here you can decide splitter for every single meaning.': '여기에서 모든 단일 의미에 대한 스플리터를 결정할 수 있습니다. 기본값은 "---"입니다.',
     'Template': '템플릿',
     "Local-Dictionary-Builder Settings": "Local-Dictionary-Builder 설정",
     "Miscellaneous": "기타",

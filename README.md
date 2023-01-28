@@ -93,6 +93,9 @@ You can edit the Note Template for your local Dictionary in the Settings. Here i
 - `{{phoneticList}}` → A List of all phonetics the Plugin found.
 - `{{meanings}}` → Same as above, but for meanings the Plugin found.
 - `{{origin}}` → Same as above, but for the word origin the Plugin found.
+- `{{year}}` → year for today
+- `{{month}}` → month for today
+- `{{day}}` → day for today
 
 Localized means, that the Text changes based on Obsidians internal Language.
 

@@ -61,6 +61,8 @@ export default {
   "Here you can edit the Template for newly created Files.":
     "Aqui pode editar o Template para Ficheiros recém-criados.",
   "Click for a List of Variables": "Clique para uma Lista de Variáveis",
+  'Meaning splitter': 'Divisor de significado',
+  'Here you can decide splitter for every single meaning.': 'Aqui você pode decidir o divisor para cada significado. O padrão é "---"',
   Template: "Template",
   "Local-Dictionary-Builder Settings":
     "Configurações do Local-Dictionary-Builder",

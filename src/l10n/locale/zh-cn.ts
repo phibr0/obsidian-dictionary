@@ -49,6 +49,8 @@ export default {
     "Suffix": "后缀",
     'Here you can edit the Template for newly created Files.': '在这里你可以编辑新建文档的模板。',
     'Click for a List of Variables': '点击查看变量列表',
+    'Meaning splitter': '释义分隔符',
+    'Here you can decide splitter for every single meaning.': '在这里，您可以为每个释义决定分隔符。 默认为“---”',
     'Template': '模板',
     "Local-Dictionary-Builder Settings": "本地自建词典设置",
     "Miscellaneous": "其他",

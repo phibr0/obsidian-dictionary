@@ -49,6 +49,8 @@ export default {
     "Suffix": "Suffix",
     'Here you can edit the Template for newly created Files.': 'Here you can edit the Template for newly created Files.',
     'Click for a List of Variables': 'Click for a List of Variables',
+    'Meaning splitter': 'Meaning splitter',
+    'Here you can decide splitter for every single meaning.': 'Here you can decide splitter for every single meaning. Default is "---"',
     'Template': 'Template',
     "Local-Dictionary-Builder Settings": "Local-Dictionary-Builder Settings",
     "Miscellaneous": "Miscellaneous",

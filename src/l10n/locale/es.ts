@@ -49,6 +49,8 @@ export default {
     "Suffix": "Sufijo",
     'Here you can edit the Template for newly created Files.': 'Aquí puedes editar la Plantilla nuevos Ficheros',
     'Click for a List of Variables': 'Clica para una Lista de Variables',
+    'Meaning splitter': 'Divisor de significado',
+    'Here you can decide splitter for every single meaning.': 'Aquí puede decidir el divisor para cada significado. El valor predeterminado es "---"',
     'Template': 'Plantilla',
     "Local-Dictionary-Builder Settings": "Configuración del Builder del Diccionario Local",
     "Miscellaneous": "Misceláneo",

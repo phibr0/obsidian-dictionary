@@ -184,6 +184,16 @@ export default class SettingsTab extends PluginSettingTab {
                     plugin.settings.suffix = value;
                     await this.save();
                 }));
+        new Setting(containerEl)
+            .setName(t('Meaning splitter'))
+            .setDesc(t('Here you can decide splitter for every single meaning.'))
+            .addText(text => text
+                .setPlaceholder(t('Meaning splitter'))
+                .setValue(plugin.settings.meaningSplitter)
+                .onChange(async (value) => {
+                    plugin.settings.meaningSplitter = value;
+                    await this.save();
+                }));
         const templateDescription = document.createDocumentFragment();
         templateDescription.append(
             t('Here you can edit the Template for newly created Files.'),

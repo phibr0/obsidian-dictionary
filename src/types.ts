@@ -16,6 +16,7 @@ export interface DictionarySettings {
 	suffix: string;
 	prefix: string;
 	template: string;
+	meaningSplitter: string;
 }
 
 export interface APISettings {

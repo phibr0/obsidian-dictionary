@@ -19,7 +19,8 @@ export const LANGUAGES = {
     "pt_BR": "Português do Brasil (Brazilian Portuguese)",
     "ar": "اَلْعَرَبِيَّةُ‎ (Arabic)",
     "tr": "Türkçe (Turkish)",
-    "cn": "中文 (Chinese)"
+    "cn": "中文 (Chinese)",
+    "fi": "Suomi (Finnish)"
 }
 
 export const RFC = {
@@ -36,7 +37,8 @@ export const RFC = {
     "pt_BR": "pt-BR",
     "ar": "ar",
     "tr": "tr",
-    "cn": "zh"
+    "cn": "zh",
+    "fi": "fi"
 }
 
 
@@ -105,6 +107,10 @@ export const DEFAULT_SETTINGS: DictionarySettings = {
             synonymApiName: null,
         },
         cn: {
+            definitionApiName: 'Offline Dictionary',
+            synonymApiName: null,
+        },
+        fi: {
             definitionApiName: 'Offline Dictionary',
             synonymApiName: null,
         },

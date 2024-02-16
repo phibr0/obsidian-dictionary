@@ -39,7 +39,7 @@ export default {
     'More Info': 'Більше інформації',
     'Donate': 'Підтримати донатом',
     'If you like this Plugin, consider donating to support continued development:': 'Якщо вам подобається цей плагін, ви можете задонатити на підтримку подальшої розробки:',
-    'Local Dictionary Folder': 'Директорія для локального словника',
+    'Local Dictionary Folder': 'Локальна директорія для словника',
     'Specify a Folder, where all new Notes created by the Dictionary are placed. Please note that this Folder needs to already exist.': 'Укажіть директорію, у якій зберігатимуться усі нові нотатки, створені словником. Зауважте, що ця директорія вже має існувати.',
     'Capitalize File Name': 'Починати назви файлів з великої літери',
     'If you disable this, the names of newly created files will be all lowercase.': 'Коли ця опція деактивована, усі назви новостворених файлів починатимуться з маленької літери.',
